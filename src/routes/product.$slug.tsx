@@ -1,6 +1,13 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { absoluteUrl } from "@/lib/seo";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { SubPageHero, FeatureList, ContentSections, FaqList, CtaFooter } from "@/components/layout/SubPage";
+import {
+  SubPageHero,
+  FeatureList,
+  ContentSections,
+  FaqList,
+  CtaFooter,
+} from "@/components/layout/SubPage";
 import { products, type ProductSlug } from "@/content/products";
 import { useI18n } from "@/lib/i18n/context";
 import kdsHero from "@/assets/kds-hero.jpg";
@@ -18,15 +25,31 @@ import qrMenu from "@/assets/qr-menu.jpg";
 import qrAdmin from "@/assets/qr-admin.jpg";
 
 const PRODUCT_IMAGES: Partial<Record<ProductSlug, { src: string; alt: string }>> = {
-  "kitchen-display": { src: kdsHero, alt: "AI-powered Kitchen Display System in a professional kitchen" },
-  pos: { src: posHero, alt: "GastroPos cloud POS tablet with receipt printer and cash drawer on a bar counter" },
-  "cash-book": { src: cashbookHero, alt: "GastroPos digital cash book on a tablet next to an open cash drawer with euro notes and coins" },
-  "waiter-ordering": { src: waiterHero, alt: "Waiter taking an order on a smartphone at a restaurant table" },
-  "qr-ordering": { src: qrHero, alt: "Restaurant guest scanning a QR code on the table with a smartphone" },
+  "kitchen-display": {
+    src: kdsHero,
+    alt: "AI-powered Kitchen Display System in a professional kitchen",
+  },
+  pos: {
+    src: posHero,
+    alt: "GastroPos cloud POS tablet with receipt printer and cash drawer on a bar counter",
+  },
+  "cash-book": {
+    src: cashbookHero,
+    alt: "GastroPos digital cash book on a tablet next to an open cash drawer with euro notes and coins",
+  },
+  "waiter-ordering": {
+    src: waiterHero,
+    alt: "Waiter taking an order on a smartphone at a restaurant table",
+  },
+  "qr-ordering": {
+    src: qrHero,
+    alt: "Restaurant guest scanning a QR code on the table with a smartphone",
+  },
 };
 
-
-const PRODUCT_GALLERY: Partial<Record<ProductSlug, { src: string; alt: string; caption: { en: string; de: string } }[]>> = {
+const PRODUCT_GALLERY: Partial<
+  Record<ProductSlug, { src: string; alt: string; caption: { en: string; de: string } }[]>
+> = {
   pos: [
     {
       src: posTableside,
@@ -116,10 +139,10 @@ export const Route = createFileRoute("/product/$slug")({
         { name: "description", content: p.metaDescription.en },
         { property: "og:title", content: p.metaTitle.en },
         { property: "og:description", content: p.metaDescription.en },
-        { property: "og:url", content: `/product/${params.slug}` },
+        { property: "og:url", content: absoluteUrl(`/product/${params.slug}`) },
         { property: "og:type", content: "product" },
       ],
-      links: [{ rel: "canonical", href: `/product/${params.slug}` }],
+      links: [{ rel: "canonical", href: absoluteUrl(`/product/${params.slug}`) }],
       scripts: [
         {
           type: "application/ld+json",
@@ -132,18 +155,20 @@ export const Route = createFileRoute("/product/$slug")({
           }),
         },
         ...(p.faq.length
-          ? [{
-              type: "application/ld+json",
-              children: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                mainEntity: p.faq.map((f) => ({
-                  "@type": "Question",
-                  name: f.q.en,
-                  acceptedAnswer: { "@type": "Answer", text: f.a.en },
-                })),
-              }),
-            }]
+          ? [
+              {
+                type: "application/ld+json",
+                children: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: p.faq.map((f) => ({
+                    "@type": "Question",
+                    name: f.q.en,
+                    acceptedAnswer: { "@type": "Answer", text: f.a.en },
+                  })),
+                }),
+              },
+            ]
           : []),
       ],
     };
@@ -156,12 +181,17 @@ function ProductPage() {
   const { product } = Route.useLoaderData();
   const params = Route.useParams();
   const { lang } = useI18n();
-  const pick = (o: { en: any; de: any }): any => (lang === "de" ? o.de : o.en);
+  type Bilingual<T> = { en: T; de: T };
+  const pick = <T,>(o: Bilingual<T>): T => (lang === "de" ? o.de : o.en);
   const image = PRODUCT_IMAGES[params.slug as ProductSlug];
   const gallery = PRODUCT_GALLERY[params.slug as ProductSlug];
   return (
     <SiteShell>
-      <SubPageHero eyebrow={pick(product.eyebrow)} title={pick(product.title)} lede={pick(product.lede)} />
+      <SubPageHero
+        eyebrow={pick(product.eyebrow)}
+        title={pick(product.title)}
+        lede={pick(product.lede)}
+      />
       {image && (
         <section className="border-b border-border bg-surface/40 pb-20">
           <div className="mx-auto max-w-5xl px-6 -mt-8">
@@ -171,6 +201,7 @@ function ProductPage() {
                 alt={image.alt}
                 width={1920}
                 height={1080}
+                fetchPriority="high"
                 className="h-auto w-full object-cover"
               />
             </div>
@@ -193,14 +224,21 @@ function ProductPage() {
                     className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 </div>
-                <figcaption className="mt-4 text-sm leading-relaxed text-muted-foreground">{pick(g.caption)}</figcaption>
+                <figcaption className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  {pick(g.caption)}
+                </figcaption>
               </figure>
             ))}
           </div>
         </section>
       )}
-      <ContentSections sections={product.sections.map((s: any) => ({ heading: pick(s.heading), body: pick(s.body) }))} />
-      <FaqList items={product.faq.map((f: any) => ({ q: pick(f.q), a: pick(f.a) }))} />
+      <ContentSections
+        sections={product.sections.map((s) => ({
+          heading: pick(s.heading),
+          body: pick(s.body),
+        }))}
+      />
+      <FaqList items={product.faq.map((f) => ({ q: pick(f.q), a: pick(f.a) }))} />
       <CtaFooter />
     </SiteShell>
   );

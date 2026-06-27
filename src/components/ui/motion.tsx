@@ -1,7 +1,15 @@
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-export function Counter({ to, suffix = "", duration = 2 }: { to: number; suffix?: string; duration?: number }) {
+export function Counter({
+  to,
+  suffix = "",
+  duration = 2,
+}: {
+  to: number;
+  suffix?: string;
+  duration?: number;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
   const [val, setVal] = useState(0);
@@ -17,10 +25,23 @@ export function Counter({ to, suffix = "", duration = 2 }: { to: number; suffix?
     };
     requestAnimationFrame(step);
   }, [inView, to, duration]);
-  return <span ref={ref}>{val.toLocaleString()}{suffix}</span>;
+  return (
+    <span ref={ref}>
+      {val.toLocaleString()}
+      {suffix}
+    </span>
+  );
 }
 
-export function Reveal({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
+export function Reveal({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   return (
     <motion.div
       className={className}
@@ -28,7 +49,9 @@ export function Reveal({ children, delay = 0, className }: { children: React.Rea
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
-    >{children}</motion.div>
+    >
+      {children}
+    </motion.div>
   );
 }
 

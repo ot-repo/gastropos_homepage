@@ -15,7 +15,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const stored = typeof window !== "undefined" ? window.localStorage.getItem("ot-lang") : null;
     if (stored === "en" || stored === "de") setLangState(stored);
-    else if (typeof navigator !== "undefined" && navigator.language?.startsWith("de")) setLangState("de");
+    else if (typeof navigator !== "undefined" && navigator.language?.startsWith("de"))
+      setLangState("de");
   }, []);
 
   const setLang = (l: Lang) => {

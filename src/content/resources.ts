@@ -16,102 +16,462 @@ export const resources: Record<ResourceSlug, ResourceContent> = {
     slug: "blog",
     eyebrow: { en: "Blog", de: "Blog" },
     title: { en: "Insights for modern operators.", de: "Wissen für moderne Betreiber." },
-    lede: { en: "Hands-on guides on POS, TSE, food cost, staff productivity and growing your hospitality or retail business — written by people who have actually run service.", de: "Praxisleitfäden zu Kasse, TSE, Wareneinsatz, Personalproduktivität und Wachstum in Gastronomie und Handel — geschrieben von Menschen, die selbst Service gemacht haben." },
-    metaTitle: { en: "GastroPos Blog — POS, TSE & restaurant operations", de: "GastroPos Blog — Kasse, TSE & Gastronomie-Betrieb" },
-    metaDescription: { en: "Operator-focused articles on cloud POS, TSE compliance, DATEV, food cost, staff productivity, and growing restaurants and retail.", de: "Praxisorientierte Artikel zu Cloud-Kasse, TSE-Konformität, DATEV, Wareneinsatz, Personalproduktivität und Wachstum." },
+    lede: {
+      en: "Hands-on guides on POS, TSE, food cost, staff productivity and growing your hospitality or retail business — written by people who have actually run service.",
+      de: "Praxisleitfäden zu Kasse, TSE, Wareneinsatz, Personalproduktivität und Wachstum in Gastronomie und Handel — geschrieben von Menschen, die selbst Service gemacht haben.",
+    },
+    metaTitle: {
+      en: "GastroPos Blog — POS, TSE & restaurant operations",
+      de: "GastroPos Blog — Kasse, TSE & Gastronomie-Betrieb",
+    },
+    metaDescription: {
+      en: "Operator-focused articles on cloud POS, TSE compliance, DATEV, food cost, staff productivity, and growing restaurants and retail.",
+      de: "Praxisorientierte Artikel zu Cloud-Kasse, TSE-Konformität, DATEV, Wareneinsatz, Personalproduktivität und Wachstum.",
+    },
     sections: [
-      { heading: { en: "How to choose a POS system in 2026", de: "Wie wählt man 2026 ein Kassensystem" }, body: { en: "Five non-negotiable criteria — TSE compliance, offline reliability, integrations, total cost of ownership and support response time — and a simple scorecard for grading every vendor against them so you buy on evidence, not on the demo.", de: "Fünf nicht verhandelbare Kriterien — TSE-Konformität, Offline-Zuverlässigkeit, Integrationen, Gesamtbetriebskosten und Support-Reaktionszeit — und eine einfache Scorecard, um jeden Anbieter danach zu bewerten, sodass Sie nach Fakten kaufen, nicht nach der Demo." } },
-      { heading: { en: "Cutting food cost from 32% to 26%", de: "Wareneinsatz von 32 % auf 26 % senken" }, body: { en: "A field-tested playbook covering recipe engineering, supplier negotiation, portion control and real-time inventory deduction — with the exact order to tackle them so the savings compound instead of cancelling out.", de: "Ein praxiserprobtes Playbook zu Rezeptkalkulation, Lieferantenverhandlung, Portionskontrolle und Echtzeit-Bestandsabbuchung — mit der genauen Reihenfolge, in der man sie angeht, damit sich die Einsparungen summieren statt sich aufzuheben." } },
-      { heading: { en: "TSE 2026: what's changing", de: "TSE 2026: Was sich ändert" }, body: { en: "What the latest BMF guidance means for your cash register, how cloud TSE works in practice, the registration duty with your Finanzamt, and the deadlines you genuinely cannot miss without risking a fine.", de: "Was die aktuelle BMF-Verwaltungsauffassung für Ihre Kasse bedeutet, wie die Cloud-TSE in der Praxis funktioniert, die Meldepflicht beim Finanzamt und die Fristen, die Sie wirklich nicht ohne Bußgeldrisiko verpassen dürfen." } },
-      { heading: { en: "Why marketplaces are quietly eating your margin", de: "Warum Marktplätze still Ihre Marge auffressen" }, body: { en: "A breakdown of what a 30% delivery commission really costs over a year, why owning your ordering channel changes the unit economics, and how to migrate regulars off the apps without losing the orders.", de: "Eine Aufschlüsselung, was eine 30-%-Lieferprovision übers Jahr wirklich kostet, warum der eigene Bestellkanal die Stückkosten verändert und wie Sie Stammgäste von den Apps holen, ohne Bestellungen zu verlieren." } },
-      { heading: { en: "Rostering to demand, not to habit", de: "Dienstplan nach Nachfrage, nicht nach Gewohnheit" }, body: { en: "How to read an hourly sales heatmap, lay your rota over the real demand curve and use short-horizon forecasting to stop paying for over-staffed lulls and under-serving your busiest hours.", de: "Wie Sie eine stündliche Umsatz-Heatmap lesen, Ihren Dienstplan über die echte Nachfragekurve legen und mit Kurzfristprognosen aufhören, überbesetzte Flauten zu bezahlen und Ihre stärksten Stunden zu unterbesetzen." } },
+      {
+        heading: {
+          en: "How to choose a POS system in 2026",
+          de: "Wie wählt man 2026 ein Kassensystem",
+        },
+        body: {
+          en: "Five non-negotiable criteria — TSE compliance, offline reliability, integrations, total cost of ownership and support response time — and a simple scorecard for grading every vendor against them so you buy on evidence, not on the demo.",
+          de: "Fünf nicht verhandelbare Kriterien — TSE-Konformität, Offline-Zuverlässigkeit, Integrationen, Gesamtbetriebskosten und Support-Reaktionszeit — und eine einfache Scorecard, um jeden Anbieter danach zu bewerten, sodass Sie nach Fakten kaufen, nicht nach der Demo.",
+        },
+      },
+      {
+        heading: {
+          en: "Cutting food cost from 32% to 26%",
+          de: "Wareneinsatz von 32 % auf 26 % senken",
+        },
+        body: {
+          en: "A field-tested playbook covering recipe engineering, supplier negotiation, portion control and real-time inventory deduction — with the exact order to tackle them so the savings compound instead of cancelling out.",
+          de: "Ein praxiserprobtes Playbook zu Rezeptkalkulation, Lieferantenverhandlung, Portionskontrolle und Echtzeit-Bestandsabbuchung — mit der genauen Reihenfolge, in der man sie angeht, damit sich die Einsparungen summieren statt sich aufzuheben.",
+        },
+      },
+      {
+        heading: { en: "TSE 2026: what's changing", de: "TSE 2026: Was sich ändert" },
+        body: {
+          en: "What the latest BMF guidance means for your cash register, how cloud TSE works in practice, the registration duty with your Finanzamt, and the deadlines you genuinely cannot miss without risking a fine.",
+          de: "Was die aktuelle BMF-Verwaltungsauffassung für Ihre Kasse bedeutet, wie die Cloud-TSE in der Praxis funktioniert, die Meldepflicht beim Finanzamt und die Fristen, die Sie wirklich nicht ohne Bußgeldrisiko verpassen dürfen.",
+        },
+      },
+      {
+        heading: {
+          en: "Why marketplaces are quietly eating your margin",
+          de: "Warum Marktplätze still Ihre Marge auffressen",
+        },
+        body: {
+          en: "A breakdown of what a 30% delivery commission really costs over a year, why owning your ordering channel changes the unit economics, and how to migrate regulars off the apps without losing the orders.",
+          de: "Eine Aufschlüsselung, was eine 30-%-Lieferprovision übers Jahr wirklich kostet, warum der eigene Bestellkanal die Stückkosten verändert und wie Sie Stammgäste von den Apps holen, ohne Bestellungen zu verlieren.",
+        },
+      },
+      {
+        heading: {
+          en: "Rostering to demand, not to habit",
+          de: "Dienstplan nach Nachfrage, nicht nach Gewohnheit",
+        },
+        body: {
+          en: "How to read an hourly sales heatmap, lay your rota over the real demand curve and use short-horizon forecasting to stop paying for over-staffed lulls and under-serving your busiest hours.",
+          de: "Wie Sie eine stündliche Umsatz-Heatmap lesen, Ihren Dienstplan über die echte Nachfragekurve legen und mit Kurzfristprognosen aufhören, überbesetzte Flauten zu bezahlen und Ihre stärksten Stunden zu unterbesetzen.",
+        },
+      },
     ],
     faq: [
-      { q: { en: "How often do you publish?", de: "Wie oft veröffentlichen Sie?" }, a: { en: "We publish operator-focused guides regularly. Subscribe with your email on any article and we'll send new pieces straight to your inbox — no spam, unsubscribe anytime.", de: "Wir veröffentlichen regelmäßig praxisorientierte Leitfäden. Abonnieren Sie mit Ihrer E-Mail bei jedem Artikel, und wir senden neue Beiträge direkt in Ihr Postfach — kein Spam, jederzeit abbestellbar." } },
-      { q: { en: "Can I suggest a topic?", de: "Kann ich ein Thema vorschlagen?" }, a: { en: "Yes — email blog@gastropos.com with the operational problem you're wrestling with and we'll consider it for a future guide.", de: "Ja — schreiben Sie an blog@gastropos.com mit dem operativen Problem, das Sie beschäftigt, und wir ziehen es für einen künftigen Leitfaden in Betracht." } },
+      {
+        q: { en: "How often do you publish?", de: "Wie oft veröffentlichen Sie?" },
+        a: {
+          en: "We publish operator-focused guides regularly. Subscribe with your email on any article and we'll send new pieces straight to your inbox — no spam, unsubscribe anytime.",
+          de: "Wir veröffentlichen regelmäßig praxisorientierte Leitfäden. Abonnieren Sie mit Ihrer E-Mail bei jedem Artikel, und wir senden neue Beiträge direkt in Ihr Postfach — kein Spam, jederzeit abbestellbar.",
+        },
+      },
+      {
+        q: { en: "Can I suggest a topic?", de: "Kann ich ein Thema vorschlagen?" },
+        a: {
+          en: "Yes — email blog@gastropos.com with the operational problem you're wrestling with and we'll consider it for a future guide.",
+          de: "Ja — schreiben Sie an blog@gastropos.com mit dem operativen Problem, das Sie beschäftigt, und wir ziehen es für einen künftigen Leitfaden in Betracht.",
+        },
+      },
     ],
   },
   help: {
     slug: "help",
     eyebrow: { en: "Help Center", de: "Hilfe-Center" },
     title: { en: "Help Center.", de: "Hilfe-Center." },
-    lede: { en: "Step-by-step guides, video walkthroughs and answers to the most common operator questions. Can't find it? Email support@gastropos.com and a human replies within two hours on business days.", de: "Schritt-für-Schritt-Anleitungen, Video-Tutorials und Antworten auf die häufigsten Fragen. Nicht gefunden? Schreiben Sie an support@gastropos.com — ein Mensch antwortet werktags innerhalb von zwei Stunden." },
-    metaTitle: { en: "Help Center — GastroPos POS Support", de: "Hilfe-Center — GastroPos Kassen-Support" },
-    metaDescription: { en: "Get help with GastroPos: setup guides, hardware compatibility, TSE activation, DATEV exports and troubleshooting.", de: "Hilfe für GastroPos: Einrichtung, Hardware-Kompatibilität, TSE-Aktivierung, DATEV-Exporte und Fehlerbehebung." },
+    lede: {
+      en: "Step-by-step guides, video walkthroughs and answers to the most common operator questions. Can't find it? Email support@gastropos.com and a human replies within two hours on business days.",
+      de: "Schritt-für-Schritt-Anleitungen, Video-Tutorials und Antworten auf die häufigsten Fragen. Nicht gefunden? Schreiben Sie an support@gastropos.com — ein Mensch antwortet werktags innerhalb von zwei Stunden.",
+    },
+    metaTitle: {
+      en: "Help Center — GastroPos POS Support",
+      de: "Hilfe-Center — GastroPos Kassen-Support",
+    },
+    metaDescription: {
+      en: "Get help with GastroPos: setup guides, hardware compatibility, TSE activation, DATEV exports and troubleshooting.",
+      de: "Hilfe für GastroPos: Einrichtung, Hardware-Kompatibilität, TSE-Aktivierung, DATEV-Exporte und Fehlerbehebung.",
+    },
     sections: [
-      { heading: { en: "Getting started", de: "Erste Schritte" }, body: { en: "Create your account, import or build your menu, configure your printer and take your first order — most venues complete the whole setup in under 30 minutes, and we'll walk you through it live if you'd like.", de: "Konto erstellen, Karte importieren oder anlegen, Drucker konfigurieren und erste Bestellung aufnehmen — die meisten Betriebe schließen das Setup in unter 30 Minuten ab, und auf Wunsch begleiten wir Sie live." } },
-      { heading: { en: "Hardware compatibility", de: "Hardware-Kompatibilität" }, body: { en: "Tested and supported receipt printers (Epson, Star), cash drawers, barcode scanners, scales, customer displays and payment terminals — plus how to pair each one and what to do if a device won't connect.", de: "Getestete und unterstützte Bondrucker (Epson, Star), Kassenschubladen, Barcode-Scanner, Waagen, Kundendisplays und Zahlungsterminals — plus wie Sie jedes Gerät koppeln und was zu tun ist, wenn ein Gerät nicht verbindet." } },
-      { heading: { en: "TSE activation", de: "TSE-Aktivierung" }, body: { en: "How to activate your Fiskaly cloud TSE in one click, register your till with the Finanzamt, and what to check first if a signature ever fails during service.", de: "Wie Sie Ihre Fiskaly-Cloud-TSE mit einem Klick aktivieren, Ihre Kasse beim Finanzamt anmelden und was Sie zuerst prüfen, falls eine Signatur während des Service einmal fehlschlägt." } },
-      { heading: { en: "Menu, modifiers and pricing", de: "Karte, Modifier und Preise" }, body: { en: "Build categories, add modifiers and variants, set eat-in vs takeaway pricing and schedule happy-hour or daypart prices that switch automatically — once, and it flows to every channel.", de: "Kategorien anlegen, Modifier und Varianten hinzufügen, Preise für im Haus vs außer Haus festlegen und Happy-Hour- oder Tagesabschnittspreise planen, die automatisch umschalten — einmal, und es fließt in jeden Kanal." } },
-      { heading: { en: "Payments and end-of-day", de: "Zahlungen und Tagesabschluss" }, body: { en: "Connect your payment provider, take split and partial payments, run the guided Kassensturz and close the day with a Z-report — including what to do when counted cash doesn't match the system.", de: "Zahlungsanbieter verbinden, geteilte und Teilzahlungen annehmen, den geführten Kassensturz ausführen und den Tag mit einem Z-Bericht abschließen — inklusive, was zu tun ist, wenn der gezählte Bestand nicht mit dem System übereinstimmt." } },
+      {
+        heading: { en: "Getting started", de: "Erste Schritte" },
+        body: {
+          en: "Create your account, import or build your menu, configure your printer and take your first order — most venues complete the whole setup in under 30 minutes, and we'll walk you through it live if you'd like.",
+          de: "Konto erstellen, Karte importieren oder anlegen, Drucker konfigurieren und erste Bestellung aufnehmen — die meisten Betriebe schließen das Setup in unter 30 Minuten ab, und auf Wunsch begleiten wir Sie live.",
+        },
+      },
+      {
+        heading: { en: "Hardware compatibility", de: "Hardware-Kompatibilität" },
+        body: {
+          en: "Tested and supported receipt printers (Epson, Star), cash drawers, barcode scanners, scales, customer displays and payment terminals — plus how to pair each one and what to do if a device won't connect.",
+          de: "Getestete und unterstützte Bondrucker (Epson, Star), Kassenschubladen, Barcode-Scanner, Waagen, Kundendisplays und Zahlungsterminals — plus wie Sie jedes Gerät koppeln und was zu tun ist, wenn ein Gerät nicht verbindet.",
+        },
+      },
+      {
+        heading: { en: "TSE activation", de: "TSE-Aktivierung" },
+        body: {
+          en: "How to activate your Fiskaly cloud TSE in one click, register your till with the Finanzamt, and what to check first if a signature ever fails during service.",
+          de: "Wie Sie Ihre Fiskaly-Cloud-TSE mit einem Klick aktivieren, Ihre Kasse beim Finanzamt anmelden und was Sie zuerst prüfen, falls eine Signatur während des Service einmal fehlschlägt.",
+        },
+      },
+      {
+        heading: { en: "Menu, modifiers and pricing", de: "Karte, Modifier und Preise" },
+        body: {
+          en: "Build categories, add modifiers and variants, set eat-in vs takeaway pricing and schedule happy-hour or daypart prices that switch automatically — once, and it flows to every channel.",
+          de: "Kategorien anlegen, Modifier und Varianten hinzufügen, Preise für im Haus vs außer Haus festlegen und Happy-Hour- oder Tagesabschnittspreise planen, die automatisch umschalten — einmal, und es fließt in jeden Kanal.",
+        },
+      },
+      {
+        heading: { en: "Payments and end-of-day", de: "Zahlungen und Tagesabschluss" },
+        body: {
+          en: "Connect your payment provider, take split and partial payments, run the guided Kassensturz and close the day with a Z-report — including what to do when counted cash doesn't match the system.",
+          de: "Zahlungsanbieter verbinden, geteilte und Teilzahlungen annehmen, den geführten Kassensturz ausführen und den Tag mit einem Z-Bericht abschließen — inklusive, was zu tun ist, wenn der gezählte Bestand nicht mit dem System übereinstimmt.",
+        },
+      },
     ],
     faq: [
-      { q: { en: "How fast does support respond?", de: "Wie schnell antwortet der Support?" }, a: { en: "Within two hours on business days by email, and faster via in-app chat during service hours. Critical, service-down issues are prioritised.", de: "Per E-Mail innerhalb von zwei Stunden an Werktagen und schneller über den In-App-Chat während der Servicezeiten. Kritische Ausfälle im laufenden Betrieb werden bevorzugt behandelt." } },
-      { q: { en: "Is onboarding included?", de: "Ist das Onboarding enthalten?" }, a: { en: "Yes. Menu import, hardware pairing, TSE activation and a team walkthrough are part of getting started — at no extra charge.", de: "Ja. Karten-Import, Hardware-Kopplung, TSE-Aktivierung und eine Team-Einweisung gehören zum Start dazu — ohne Aufpreis." } },
-      { q: { en: "What if a device stops working mid-service?", de: "Was, wenn ein Gerät mitten im Service ausfällt?" }, a: { en: "The app keeps running offline so you can keep selling, and our hardware troubleshooting guides plus live chat get you back to full setup quickly.", de: "Die App läuft offline weiter, sodass Sie weiter verkaufen können, und unsere Hardware-Anleitungen plus Live-Chat bringen Sie schnell zurück zum vollen Setup." } },
+      {
+        q: { en: "How fast does support respond?", de: "Wie schnell antwortet der Support?" },
+        a: {
+          en: "Within two hours on business days by email, and faster via in-app chat during service hours. Critical, service-down issues are prioritised.",
+          de: "Per E-Mail innerhalb von zwei Stunden an Werktagen und schneller über den In-App-Chat während der Servicezeiten. Kritische Ausfälle im laufenden Betrieb werden bevorzugt behandelt.",
+        },
+      },
+      {
+        q: { en: "Is onboarding included?", de: "Ist das Onboarding enthalten?" },
+        a: {
+          en: "Yes. Menu import, hardware pairing, TSE activation and a team walkthrough are part of getting started — at no extra charge.",
+          de: "Ja. Karten-Import, Hardware-Kopplung, TSE-Aktivierung und eine Team-Einweisung gehören zum Start dazu — ohne Aufpreis.",
+        },
+      },
+      {
+        q: {
+          en: "What if a device stops working mid-service?",
+          de: "Was, wenn ein Gerät mitten im Service ausfällt?",
+        },
+        a: {
+          en: "The app keeps running offline so you can keep selling, and our hardware troubleshooting guides plus live chat get you back to full setup quickly.",
+          de: "Die App läuft offline weiter, sodass Sie weiter verkaufen können, und unsere Hardware-Anleitungen plus Live-Chat bringen Sie schnell zurück zum vollen Setup.",
+        },
+      },
     ],
   },
   "pos-guide": {
     slug: "pos-guide",
     eyebrow: { en: "Guide", de: "Leitfaden" },
-    title: { en: "The complete guide to choosing a POS system.", de: "Der vollständige Leitfaden zur Wahl eines Kassensystems." },
-    lede: { en: "Everything you need to know before buying a point-of-sale system in 2026 — features, compliance, total cost, support and switching cost — in one honest, vendor-agnostic guide.", de: "Alles, was Sie 2026 vor dem Kauf eines Kassensystems wissen müssen — Funktionen, Konformität, Gesamtkosten, Support und Wechselkosten — in einem ehrlichen, herstellerunabhängigen Leitfaden." },
-    metaTitle: { en: "POS System Guide 2026 — How to choose | GastroPos", de: "Kassensystem-Leitfaden 2026 — Auswahl | GastroPos" },
-    metaDescription: { en: "Complete buyer's guide for cloud POS systems in 2026: features, TSE compliance, hardware, total cost of ownership and switching tips.", de: "Vollständiger Käuferleitfaden für Cloud-Kassensysteme 2026: Funktionen, TSE-Konformität, Hardware, Gesamtkosten und Wechseltipps." },
+    title: {
+      en: "The complete guide to choosing a POS system.",
+      de: "Der vollständige Leitfaden zur Wahl eines Kassensystems.",
+    },
+    lede: {
+      en: "Everything you need to know before buying a point-of-sale system in 2026 — features, compliance, total cost, support and switching cost — in one honest, vendor-agnostic guide.",
+      de: "Alles, was Sie 2026 vor dem Kauf eines Kassensystems wissen müssen — Funktionen, Konformität, Gesamtkosten, Support und Wechselkosten — in einem ehrlichen, herstellerunabhängigen Leitfaden.",
+    },
+    metaTitle: {
+      en: "POS System Guide 2026 — How to choose | GastroPos",
+      de: "Kassensystem-Leitfaden 2026 — Auswahl | GastroPos",
+    },
+    metaDescription: {
+      en: "Complete buyer's guide for cloud POS systems in 2026: features, TSE compliance, hardware, total cost of ownership and switching tips.",
+      de: "Vollständiger Käuferleitfaden für Cloud-Kassensysteme 2026: Funktionen, TSE-Konformität, Hardware, Gesamtkosten und Wechseltipps.",
+    },
     sections: [
-      { heading: { en: "What a modern POS actually is", de: "Was eine moderne Kasse wirklich ist" }, body: { en: "A modern POS is no longer just a register — it's the operational nervous system of your venue: orders, payments, inventory, staff, customers and reporting in one place, on one source of truth, on whatever device you already own. If a system only takes money, it's a till, not a platform, and in 2026 that gap decides how hard your business is to run.", de: "Eine moderne Kasse ist keine Registrierkasse mehr — sie ist das operative Nervensystem Ihres Betriebs: Bestellungen, Zahlungen, Bestände, Personal, Kunden und Reporting an einem Ort, auf einer einzigen Datenbasis, auf dem Gerät, das Sie ohnehin besitzen. Nimmt ein System nur Geld entgegen, ist es eine Kasse, keine Plattform — und 2026 entscheidet dieser Unterschied, wie schwer sich Ihr Betrieb führen lässt." } },
-      { heading: { en: "Cloud vs on-premise", de: "Cloud vs On-Premise" }, body: { en: "Cloud POS wins on automatic updates, multi-store management, remote access and cost. On-premise wins on data sovereignty in a handful of specific regulated cases. For roughly 95% of hospitality and retail operators, cloud is the right answer — provided it's genuinely offline-first so a dropped connection never stops a sale.", de: "Cloud-Kassen gewinnen bei automatischen Updates, Multi-Store-Verwaltung, Fernzugriff und Kosten. On-Premise gewinnt bei Datensouveränität in einigen wenigen regulierten Fällen. Für rund 95 % der Gastronomie- und Handelsbetreiber ist die Cloud die richtige Wahl — vorausgesetzt, sie ist wirklich offline-first, sodass eine abgebrochene Verbindung nie einen Verkauf stoppt." } },
-      { heading: { en: "Total cost of ownership", de: "Gesamtbetriebskosten" }, body: { en: "Don't buy on the monthly fee. Add hardware, the payment-processing margin, training time, downtime risk and switching cost over three years. A low sticker price with a high card-processing markup and paid add-ons for KDS, inventory and support often costs the most by the end of year one. Model the all-in number before you sign.", de: "Kaufen Sie nicht nach der Monatsgebühr. Addieren Sie Hardware, die Zahlungsabwicklungs-Marge, Schulungszeit, Ausfallrisiko und Wechselkosten über drei Jahre. Ein niedriger Listenpreis mit hohem Kartenaufschlag und kostenpflichtigen Add-ons für KDS, Warenwirtschaft und Support kostet oft am Ende des ersten Jahres am meisten. Rechnen Sie die Gesamtsumme durch, bevor Sie unterschreiben." } },
-      { heading: { en: "The 12 questions to ask every vendor", de: "Die 12 Fragen an jeden Anbieter" }, body: { en: "From offline behaviour and TSE certification to API access, data export, contract length and the support SLA in writing — the exact checklist we recommend taking into every demo. If a salesperson dodges any of the twelve, that's your answer.", de: "Vom Offline-Verhalten und der TSE-Zertifizierung über API-Zugang, Datenexport, Vertragslaufzeit bis zum schriftlichen Support-SLA — die exakte Checkliste, die wir in jede Demo mitzunehmen empfehlen. Weicht ein Verkäufer einer der zwölf Fragen aus, ist das Ihre Antwort." } },
-      { heading: { en: "Switching without the horror story", de: "Wechseln ohne Horrorgeschichte" }, body: { en: "Migration fear keeps operators on systems they've outgrown. Done right, switching means importing your menu, customers and historical sales, running a parallel day, and keeping a clean audit trail across the cutover. Insist on a migration plan in writing — a good vendor does the heavy lifting for you, for free.", de: "Die Angst vor der Migration hält Betreiber bei Systemen, denen sie entwachsen sind. Richtig gemacht, bedeutet Wechseln: Karte, Kunden und historische Umsätze importieren, einen Paralleltag fahren und einen sauberen Prüfpfad über den Wechsel hinweg behalten. Bestehen Sie auf einem schriftlichen Migrationsplan — ein guter Anbieter übernimmt die schwere Arbeit für Sie, kostenlos." } },
+      {
+        heading: { en: "What a modern POS actually is", de: "Was eine moderne Kasse wirklich ist" },
+        body: {
+          en: "A modern POS is no longer just a register — it's the operational nervous system of your venue: orders, payments, inventory, staff, customers and reporting in one place, on one source of truth, on whatever device you already own. If a system only takes money, it's a till, not a platform, and in 2026 that gap decides how hard your business is to run.",
+          de: "Eine moderne Kasse ist keine Registrierkasse mehr — sie ist das operative Nervensystem Ihres Betriebs: Bestellungen, Zahlungen, Bestände, Personal, Kunden und Reporting an einem Ort, auf einer einzigen Datenbasis, auf dem Gerät, das Sie ohnehin besitzen. Nimmt ein System nur Geld entgegen, ist es eine Kasse, keine Plattform — und 2026 entscheidet dieser Unterschied, wie schwer sich Ihr Betrieb führen lässt.",
+        },
+      },
+      {
+        heading: { en: "Cloud vs on-premise", de: "Cloud vs On-Premise" },
+        body: {
+          en: "Cloud POS wins on automatic updates, multi-store management, remote access and cost. On-premise wins on data sovereignty in a handful of specific regulated cases. For roughly 95% of hospitality and retail operators, cloud is the right answer — provided it's genuinely offline-first so a dropped connection never stops a sale.",
+          de: "Cloud-Kassen gewinnen bei automatischen Updates, Multi-Store-Verwaltung, Fernzugriff und Kosten. On-Premise gewinnt bei Datensouveränität in einigen wenigen regulierten Fällen. Für rund 95 % der Gastronomie- und Handelsbetreiber ist die Cloud die richtige Wahl — vorausgesetzt, sie ist wirklich offline-first, sodass eine abgebrochene Verbindung nie einen Verkauf stoppt.",
+        },
+      },
+      {
+        heading: { en: "Total cost of ownership", de: "Gesamtbetriebskosten" },
+        body: {
+          en: "Don't buy on the monthly fee. Add hardware, the payment-processing margin, training time, downtime risk and switching cost over three years. A low sticker price with a high card-processing markup and paid add-ons for KDS, inventory and support often costs the most by the end of year one. Model the all-in number before you sign.",
+          de: "Kaufen Sie nicht nach der Monatsgebühr. Addieren Sie Hardware, die Zahlungsabwicklungs-Marge, Schulungszeit, Ausfallrisiko und Wechselkosten über drei Jahre. Ein niedriger Listenpreis mit hohem Kartenaufschlag und kostenpflichtigen Add-ons für KDS, Warenwirtschaft und Support kostet oft am Ende des ersten Jahres am meisten. Rechnen Sie die Gesamtsumme durch, bevor Sie unterschreiben.",
+        },
+      },
+      {
+        heading: {
+          en: "The 12 questions to ask every vendor",
+          de: "Die 12 Fragen an jeden Anbieter",
+        },
+        body: {
+          en: "From offline behaviour and TSE certification to API access, data export, contract length and the support SLA in writing — the exact checklist we recommend taking into every demo. If a salesperson dodges any of the twelve, that's your answer.",
+          de: "Vom Offline-Verhalten und der TSE-Zertifizierung über API-Zugang, Datenexport, Vertragslaufzeit bis zum schriftlichen Support-SLA — die exakte Checkliste, die wir in jede Demo mitzunehmen empfehlen. Weicht ein Verkäufer einer der zwölf Fragen aus, ist das Ihre Antwort.",
+        },
+      },
+      {
+        heading: { en: "Switching without the horror story", de: "Wechseln ohne Horrorgeschichte" },
+        body: {
+          en: "Migration fear keeps operators on systems they've outgrown. Done right, switching means importing your menu, customers and historical sales, running a parallel day, and keeping a clean audit trail across the cutover. Insist on a migration plan in writing — a good vendor does the heavy lifting for you, for free.",
+          de: "Die Angst vor der Migration hält Betreiber bei Systemen, denen sie entwachsen sind. Richtig gemacht, bedeutet Wechseln: Karte, Kunden und historische Umsätze importieren, einen Paralleltag fahren und einen sauberen Prüfpfad über den Wechsel hinweg behalten. Bestehen Sie auf einem schriftlichen Migrationsplan — ein guter Anbieter übernimmt die schwere Arbeit für Sie, kostenlos.",
+        },
+      },
     ],
     faq: [
-      { q: { en: "Cloud or on-premise — which should I pick?", de: "Cloud oder On-Premise — was soll ich wählen?" }, a: { en: "For almost all hospitality and retail businesses, an offline-first cloud POS is the better choice: cheaper, always up to date, multi-store ready and accessible from anywhere, while still selling through a connection drop.", de: "Für fast alle Gastronomie- und Handelsbetriebe ist eine offline-first Cloud-Kasse die bessere Wahl: günstiger, immer aktuell, multi-store-fähig und von überall erreichbar — und verkauft auch bei einem Verbindungsabbruch weiter." } },
-      { q: { en: "What's the single most overlooked cost?", de: "Was ist der am häufigsten übersehene Kostenfaktor?" }, a: { en: "Payment-processing margin. A small percentage on every transaction dwarfs the monthly software fee over a year, so compare the all-in rate, not just the subscription.", de: "Die Zahlungsabwicklungs-Marge. Ein kleiner Prozentsatz auf jede Transaktion übersteigt die monatliche Softwaregebühr übers Jahr bei Weitem — vergleichen Sie also den Gesamtsatz, nicht nur das Abo." } },
-      { q: { en: "How long should a POS contract be?", de: "Wie lang sollte ein Kassenvertrag sein?" }, a: { en: "Prefer monthly or short terms. A vendor confident in their product doesn't need to lock you into multi-year hardware leases — GastroPos, for example, is cancellable monthly.", de: "Bevorzugen Sie monatliche oder kurze Laufzeiten. Ein Anbieter, der von seinem Produkt überzeugt ist, muss Sie nicht in mehrjährige Hardware-Leasings binden — GastroPos etwa ist monatlich kündbar." } },
-      { q: { en: "Will I lose data when I switch?", de: "Verliere ich Daten beim Wechsel?" }, a: { en: "Not with a proper migration. Your menu, customer database and historical sales import from most major systems, with a clean audit trail kept across the cutover.", de: "Nicht bei einer ordentlichen Migration. Karte, Kundendatenbank und historische Umsätze werden aus den meisten gängigen Systemen importiert, mit sauberem Prüfpfad über den Wechsel hinweg." } },
+      {
+        q: {
+          en: "Cloud or on-premise — which should I pick?",
+          de: "Cloud oder On-Premise — was soll ich wählen?",
+        },
+        a: {
+          en: "For almost all hospitality and retail businesses, an offline-first cloud POS is the better choice: cheaper, always up to date, multi-store ready and accessible from anywhere, while still selling through a connection drop.",
+          de: "Für fast alle Gastronomie- und Handelsbetriebe ist eine offline-first Cloud-Kasse die bessere Wahl: günstiger, immer aktuell, multi-store-fähig und von überall erreichbar — und verkauft auch bei einem Verbindungsabbruch weiter.",
+        },
+      },
+      {
+        q: {
+          en: "What's the single most overlooked cost?",
+          de: "Was ist der am häufigsten übersehene Kostenfaktor?",
+        },
+        a: {
+          en: "Payment-processing margin. A small percentage on every transaction dwarfs the monthly software fee over a year, so compare the all-in rate, not just the subscription.",
+          de: "Die Zahlungsabwicklungs-Marge. Ein kleiner Prozentsatz auf jede Transaktion übersteigt die monatliche Softwaregebühr übers Jahr bei Weitem — vergleichen Sie also den Gesamtsatz, nicht nur das Abo.",
+        },
+      },
+      {
+        q: {
+          en: "How long should a POS contract be?",
+          de: "Wie lang sollte ein Kassenvertrag sein?",
+        },
+        a: {
+          en: "Prefer monthly or short terms. A vendor confident in their product doesn't need to lock you into multi-year hardware leases — GastroPos, for example, is cancellable monthly.",
+          de: "Bevorzugen Sie monatliche oder kurze Laufzeiten. Ein Anbieter, der von seinem Produkt überzeugt ist, muss Sie nicht in mehrjährige Hardware-Leasings binden — GastroPos etwa ist monatlich kündbar.",
+        },
+      },
+      {
+        q: { en: "Will I lose data when I switch?", de: "Verliere ich Daten beim Wechsel?" },
+        a: {
+          en: "Not with a proper migration. Your menu, customer database and historical sales import from most major systems, with a clean audit trail kept across the cutover.",
+          de: "Nicht bei einer ordentlichen Migration. Karte, Kundendatenbank und historische Umsätze werden aus den meisten gängigen Systemen importiert, mit sauberem Prüfpfad über den Wechsel hinweg.",
+        },
+      },
     ],
   },
   "tse-guide": {
     slug: "tse-guide",
     eyebrow: { en: "Compliance", de: "Konformität" },
-    title: { en: "The TSE guide for German cash registers.", de: "Der TSE-Leitfaden für deutsche Kassensysteme." },
-    lede: { en: "What KassenSichV, TSE and DSFinV-K mean for your business, the deadlines, the fines, the registration duty — and how to become compliant in one click.", de: "Was KassenSichV, TSE und DSFinV-K für Ihr Geschäft bedeuten, die Fristen, die Bußgelder, die Meldepflicht — und wie Sie mit einem Klick konform werden." },
-    metaTitle: { en: "TSE Guide for German POS Systems | GastroPos", de: "TSE-Leitfaden für deutsche Kassensysteme | GastroPos" },
-    metaDescription: { en: "Everything operators need to know about TSE, KassenSichV, DSFinV-K and GoBD — deadlines, fines and how to activate cloud TSE.", de: "Alles, was Betreiber zu TSE, KassenSichV, DSFinV-K und GoBD wissen müssen — Fristen, Bußgelder und Cloud-TSE-Aktivierung." },
+    title: {
+      en: "The TSE guide for German cash registers.",
+      de: "Der TSE-Leitfaden für deutsche Kassensysteme.",
+    },
+    lede: {
+      en: "What KassenSichV, TSE and DSFinV-K mean for your business, the deadlines, the fines, the registration duty — and how to become compliant in one click.",
+      de: "Was KassenSichV, TSE und DSFinV-K für Ihr Geschäft bedeuten, die Fristen, die Bußgelder, die Meldepflicht — und wie Sie mit einem Klick konform werden.",
+    },
+    metaTitle: {
+      en: "TSE Guide for German POS Systems | GastroPos",
+      de: "TSE-Leitfaden für deutsche Kassensysteme | GastroPos",
+    },
+    metaDescription: {
+      en: "Everything operators need to know about TSE, KassenSichV, DSFinV-K and GoBD — deadlines, fines and how to activate cloud TSE.",
+      de: "Alles, was Betreiber zu TSE, KassenSichV, DSFinV-K und GoBD wissen müssen — Fristen, Bußgelder und Cloud-TSE-Aktivierung.",
+    },
     sections: [
-      { heading: { en: "What is the TSE?", de: "Was ist die TSE?" }, body: { en: "The Technische Sicherheitseinrichtung is a certified security module that digitally signs every transaction your cash register processes, making the record tamper-proof. Required under the KassenSichV for electronic cash registers in Germany, it's the mechanism that lets the tax office trust that what you sold today can't be quietly edited tomorrow.", de: "Die Technische Sicherheitseinrichtung ist ein zertifiziertes Sicherheitsmodul, das jede Transaktion Ihrer Kasse digital signiert und den Datensatz manipulationssicher macht. Nach der KassenSichV für elektronische Kassen in Deutschland vorgeschrieben, ist sie der Mechanismus, der dem Finanzamt vertrauen lässt, dass das, was Sie heute verkauft haben, morgen nicht stillschweigend geändert werden kann." } },
-      { heading: { en: "Hardware TSE vs cloud TSE", de: "Hardware-TSE vs Cloud-TSE" }, body: { en: "A hardware TSE is a physical USB stick or SD card plugged into the register — it can wear out, fill up or be lost. A cloud TSE signs transactions over the internet with nothing to break at the counter, scales effortlessly across multiple tills and locations, and is the recommended choice for any cloud POS. GastroPos uses a Fiskaly-certified cloud TSE you activate in one click.", de: "Eine Hardware-TSE ist ein physischer USB-Stick oder eine SD-Karte in der Kasse — sie kann verschleißen, volllaufen oder verloren gehen. Eine Cloud-TSE signiert Transaktionen über das Internet, ohne dass an der Theke etwas kaputtgehen kann, skaliert mühelos über mehrere Kassen und Standorte und ist die empfohlene Wahl für jede Cloud-Kasse. GastroPos nutzt eine Fiskaly-zertifizierte Cloud-TSE, die Sie mit einem Klick aktivieren." } },
-      { heading: { en: "DSFinV-K explained", de: "DSFinV-K erklärt" }, body: { en: "DSFinV-K is the standardized data format the tax office reads during an audit or Kassen-Nachschau. Every TSE-signed transaction must be exportable in this exact structure, so the auditor can verify completeness and sequence. GastroPos generates the DSFinV-K export automatically — what's a stressful scramble for some businesses is one screen and one minute for you.", de: "DSFinV-K ist das standardisierte Datenformat, das das Finanzamt bei einer Prüfung oder Kassen-Nachschau liest. Jede TSE-signierte Transaktion muss in genau dieser Struktur exportierbar sein, damit der Prüfer Vollständigkeit und Reihenfolge verifizieren kann. GastroPos erzeugt den DSFinV-K-Export automatisch — was für manche Betriebe ein stressiges Gewühl ist, ist für Sie ein Bildschirm und eine Minute." } },
-      { heading: { en: "The Belegausgabepflicht (receipt duty)", de: "Die Belegausgabepflicht" }, body: { en: "Since 2020, you must offer a receipt for every transaction — paper or digital. It doesn't mean a mountain of printed paper: GastroPos issues digital receipts by QR or email just as validly, which guests increasingly prefer and which keeps your printer costs down.", de: "Seit 2020 müssen Sie für jede Transaktion einen Beleg anbieten — auf Papier oder digital. Das bedeutet keinen Berg bedruckten Papiers: GastroPos stellt ebenso gültig digitale Belege per QR oder E-Mail aus, die Gäste zunehmend bevorzugen und die Ihre Druckkosten senken." } },
-      { heading: { en: "Registration, deadlines and fines", de: "Meldung, Fristen und Bußgelder" }, body: { en: "Electronic cash registers must be reported to your Finanzamt, and running a till without a working TSE can trigger fines of up to €25,000 regardless of whether tax was actually evaded. The safe path is simple: use a certified system, activate the TSE, register the till and keep your exports ready. GastroPos covers the technical side so you only have to handle the paperwork.", de: "Elektronische Kassen müssen beim Finanzamt gemeldet werden, und der Betrieb einer Kasse ohne funktionierende TSE kann Bußgelder von bis zu 25.000 € auslösen — unabhängig davon, ob tatsächlich Steuern hinterzogen wurden. Der sichere Weg ist einfach: ein zertifiziertes System nutzen, die TSE aktivieren, die Kasse anmelden und die Exporte bereithalten. GastroPos übernimmt die technische Seite, sodass Sie nur den Papierkram erledigen müssen." } },
+      {
+        heading: { en: "What is the TSE?", de: "Was ist die TSE?" },
+        body: {
+          en: "The Technische Sicherheitseinrichtung is a certified security module that digitally signs every transaction your cash register processes, making the record tamper-proof. Required under the KassenSichV for electronic cash registers in Germany, it's the mechanism that lets the tax office trust that what you sold today can't be quietly edited tomorrow.",
+          de: "Die Technische Sicherheitseinrichtung ist ein zertifiziertes Sicherheitsmodul, das jede Transaktion Ihrer Kasse digital signiert und den Datensatz manipulationssicher macht. Nach der KassenSichV für elektronische Kassen in Deutschland vorgeschrieben, ist sie der Mechanismus, der dem Finanzamt vertrauen lässt, dass das, was Sie heute verkauft haben, morgen nicht stillschweigend geändert werden kann.",
+        },
+      },
+      {
+        heading: { en: "Hardware TSE vs cloud TSE", de: "Hardware-TSE vs Cloud-TSE" },
+        body: {
+          en: "A hardware TSE is a physical USB stick or SD card plugged into the register — it can wear out, fill up or be lost. A cloud TSE signs transactions over the internet with nothing to break at the counter, scales effortlessly across multiple tills and locations, and is the recommended choice for any cloud POS. GastroPos uses a Fiskaly-certified cloud TSE you activate in one click.",
+          de: "Eine Hardware-TSE ist ein physischer USB-Stick oder eine SD-Karte in der Kasse — sie kann verschleißen, volllaufen oder verloren gehen. Eine Cloud-TSE signiert Transaktionen über das Internet, ohne dass an der Theke etwas kaputtgehen kann, skaliert mühelos über mehrere Kassen und Standorte und ist die empfohlene Wahl für jede Cloud-Kasse. GastroPos nutzt eine Fiskaly-zertifizierte Cloud-TSE, die Sie mit einem Klick aktivieren.",
+        },
+      },
+      {
+        heading: { en: "DSFinV-K explained", de: "DSFinV-K erklärt" },
+        body: {
+          en: "DSFinV-K is the standardized data format the tax office reads during an audit or Kassen-Nachschau. Every TSE-signed transaction must be exportable in this exact structure, so the auditor can verify completeness and sequence. GastroPos generates the DSFinV-K export automatically — what's a stressful scramble for some businesses is one screen and one minute for you.",
+          de: "DSFinV-K ist das standardisierte Datenformat, das das Finanzamt bei einer Prüfung oder Kassen-Nachschau liest. Jede TSE-signierte Transaktion muss in genau dieser Struktur exportierbar sein, damit der Prüfer Vollständigkeit und Reihenfolge verifizieren kann. GastroPos erzeugt den DSFinV-K-Export automatisch — was für manche Betriebe ein stressiges Gewühl ist, ist für Sie ein Bildschirm und eine Minute.",
+        },
+      },
+      {
+        heading: { en: "The Belegausgabepflicht (receipt duty)", de: "Die Belegausgabepflicht" },
+        body: {
+          en: "Since 2020, you must offer a receipt for every transaction — paper or digital. It doesn't mean a mountain of printed paper: GastroPos issues digital receipts by QR or email just as validly, which guests increasingly prefer and which keeps your printer costs down.",
+          de: "Seit 2020 müssen Sie für jede Transaktion einen Beleg anbieten — auf Papier oder digital. Das bedeutet keinen Berg bedruckten Papiers: GastroPos stellt ebenso gültig digitale Belege per QR oder E-Mail aus, die Gäste zunehmend bevorzugen und die Ihre Druckkosten senken.",
+        },
+      },
+      {
+        heading: { en: "Registration, deadlines and fines", de: "Meldung, Fristen und Bußgelder" },
+        body: {
+          en: "Electronic cash registers must be reported to your Finanzamt, and running a till without a working TSE can trigger fines of up to €25,000 regardless of whether tax was actually evaded. The safe path is simple: use a certified system, activate the TSE, register the till and keep your exports ready. GastroPos covers the technical side so you only have to handle the paperwork.",
+          de: "Elektronische Kassen müssen beim Finanzamt gemeldet werden, und der Betrieb einer Kasse ohne funktionierende TSE kann Bußgelder von bis zu 25.000 € auslösen — unabhängig davon, ob tatsächlich Steuern hinterzogen wurden. Der sichere Weg ist einfach: ein zertifiziertes System nutzen, die TSE aktivieren, die Kasse anmelden und die Exporte bereithalten. GastroPos übernimmt die technische Seite, sodass Sie nur den Papierkram erledigen müssen.",
+        },
+      },
     ],
     faq: [
-      { q: { en: "Do I legally need a TSE?", de: "Brauche ich gesetzlich eine TSE?" }, a: { en: "If you use an electronic cash register in Germany, yes — the KassenSichV requires a certified TSE on every electronic till, with very limited exceptions.", de: "Wenn Sie in Deutschland eine elektronische Kasse nutzen, ja — die KassenSichV verlangt eine zertifizierte TSE auf jeder elektronischen Kasse, mit sehr begrenzten Ausnahmen." } },
-      { q: { en: "Is cloud TSE accepted by the Finanzamt?", de: "Wird die Cloud-TSE vom Finanzamt akzeptiert?" }, a: { en: "Yes. A certified cloud TSE (such as the Fiskaly TSE GastroPos uses) is fully accepted and signs every transaction exactly like a hardware module.", de: "Ja. Eine zertifizierte Cloud-TSE (wie die von GastroPos genutzte Fiskaly-TSE) ist vollständig anerkannt und signiert jede Transaktion genau wie ein Hardware-Modul." } },
-      { q: { en: "What can a missing TSE cost me?", de: "Was kann eine fehlende TSE mich kosten?" }, a: { en: "Fines can reach €25,000, and they can be levied even where no tax was evaded — non-compliance itself is the offence, so it isn't worth the risk.", de: "Bußgelder können 25.000 € erreichen und auch dann verhängt werden, wenn keine Steuer hinterzogen wurde — die Nichtkonformität selbst ist der Verstoß, das Risiko lohnt sich also nicht." } },
-      { q: { en: "How long do I keep the records?", de: "Wie lange muss ich die Aufzeichnungen aufbewahren?" }, a: { en: "Ten years, under §147 AO. GastroPos retains your signed records and exports for the full period at no extra archival fee.", de: "Zehn Jahre, gemäß §147 AO. GastroPos bewahrt Ihre signierten Aufzeichnungen und Exporte den gesamten Zeitraum ohne zusätzliche Archivgebühr auf." } },
+      {
+        q: { en: "Do I legally need a TSE?", de: "Brauche ich gesetzlich eine TSE?" },
+        a: {
+          en: "If you use an electronic cash register in Germany, yes — the KassenSichV requires a certified TSE on every electronic till, with very limited exceptions.",
+          de: "Wenn Sie in Deutschland eine elektronische Kasse nutzen, ja — die KassenSichV verlangt eine zertifizierte TSE auf jeder elektronischen Kasse, mit sehr begrenzten Ausnahmen.",
+        },
+      },
+      {
+        q: {
+          en: "Is cloud TSE accepted by the Finanzamt?",
+          de: "Wird die Cloud-TSE vom Finanzamt akzeptiert?",
+        },
+        a: {
+          en: "Yes. A certified cloud TSE (such as the Fiskaly TSE GastroPos uses) is fully accepted and signs every transaction exactly like a hardware module.",
+          de: "Ja. Eine zertifizierte Cloud-TSE (wie die von GastroPos genutzte Fiskaly-TSE) ist vollständig anerkannt und signiert jede Transaktion genau wie ein Hardware-Modul.",
+        },
+      },
+      {
+        q: { en: "What can a missing TSE cost me?", de: "Was kann eine fehlende TSE mich kosten?" },
+        a: {
+          en: "Fines can reach €25,000, and they can be levied even where no tax was evaded — non-compliance itself is the offence, so it isn't worth the risk.",
+          de: "Bußgelder können 25.000 € erreichen und auch dann verhängt werden, wenn keine Steuer hinterzogen wurde — die Nichtkonformität selbst ist der Verstoß, das Risiko lohnt sich also nicht.",
+        },
+      },
+      {
+        q: {
+          en: "How long do I keep the records?",
+          de: "Wie lange muss ich die Aufzeichnungen aufbewahren?",
+        },
+        a: {
+          en: "Ten years, under §147 AO. GastroPos retains your signed records and exports for the full period at no extra archival fee.",
+          de: "Zehn Jahre, gemäß §147 AO. GastroPos bewahrt Ihre signierten Aufzeichnungen und Exporte den gesamten Zeitraum ohne zusätzliche Archivgebühr auf.",
+        },
+      },
     ],
   },
   "datev-guide": {
     slug: "datev-guide",
     eyebrow: { en: "Accounting", de: "Buchhaltung" },
-    title: { en: "DATEV integration for hospitality and retail.", de: "DATEV-Integration für Gastronomie und Handel." },
-    lede: { en: "How to connect your POS to DATEV, choose the right chart of accounts (SKR03 / SKR04), get VAT splits right, and hand your tax advisor exactly what they need — automatically.", de: "So verbinden Sie Ihre Kasse mit DATEV, wählen den richtigen Kontenrahmen (SKR03 / SKR04), machen MwSt-Splits richtig und geben Ihrem Steuerberater genau das, was er braucht — automatisch." },
-    metaTitle: { en: "DATEV Integration Guide for POS | GastroPos", de: "DATEV-Integration-Leitfaden für Kassen | GastroPos" },
-    metaDescription: { en: "How to connect your POS to DATEV: SKR03/SKR04, VAT splits, daily/monthly booking, and what your tax advisor needs.", de: "Kasse mit DATEV verbinden: SKR03/SKR04, MwSt-Splits, Tages-/Monatsbuchung und was der Steuerberater braucht." },
+    title: {
+      en: "DATEV integration for hospitality and retail.",
+      de: "DATEV-Integration für Gastronomie und Handel.",
+    },
+    lede: {
+      en: "How to connect your POS to DATEV, choose the right chart of accounts (SKR03 / SKR04), get VAT splits right, and hand your tax advisor exactly what they need — automatically.",
+      de: "So verbinden Sie Ihre Kasse mit DATEV, wählen den richtigen Kontenrahmen (SKR03 / SKR04), machen MwSt-Splits richtig und geben Ihrem Steuerberater genau das, was er braucht — automatisch.",
+    },
+    metaTitle: {
+      en: "DATEV Integration Guide for POS | GastroPos",
+      de: "DATEV-Integration-Leitfaden für Kassen | GastroPos",
+    },
+    metaDescription: {
+      en: "How to connect your POS to DATEV: SKR03/SKR04, VAT splits, daily/monthly booking, and what your tax advisor needs.",
+      de: "Kasse mit DATEV verbinden: SKR03/SKR04, MwSt-Splits, Tages-/Monatsbuchung und was der Steuerberater braucht.",
+    },
     sections: [
-      { heading: { en: "SKR03 or SKR04?", de: "SKR03 oder SKR04?" }, body: { en: "Most hospitality businesses book on SKR03, while many retailers prefer SKR04. The right answer is whichever your tax advisor already uses for your business — and GastroPos supports both natively, with individual account mappings you can override to match their setup exactly.", de: "Die meisten Gastronomiebetriebe buchen auf SKR03, viele Händler bevorzugen SKR04. Die richtige Antwort ist der, den Ihr Steuerberater bereits für Ihr Geschäft nutzt — und GastroPos unterstützt beide nativ, mit einzelnen Konten-Zuordnungen, die Sie an sein Setup anpassen können." } },
-      { heading: { en: "VAT splits done right", de: "MwSt-Splits richtig gemacht" }, body: { en: "Eat-in 19% vs takeaway 7%, mixed receipts where items carry different rates, deposits and vouchers — all split automatically at the point of sale and booked to the correct revenue and tax accounts. The split has to be right at the till, because fixing it in the books later is exactly the manual work you're trying to escape.", de: "Im Haus 19 % vs Außer Haus 7 %, gemischte Belege mit unterschiedlichen Sätzen, Pfand und Gutscheine — alles automatisch an der Kasse gesplittet und auf die richtigen Erlös- und Steuerkonten gebucht. Der Split muss schon an der Kasse stimmen, denn ihn später in den Büchern zu korrigieren ist genau die manuelle Arbeit, die Sie vermeiden wollen." } },
-      { heading: { en: "Daily, weekly or monthly booking", de: "Tägliche, wöchentliche oder monatliche Buchung" }, body: { en: "Choose how often bookings flow to DATEV. Daily keeps your advisor's view current and the month-end light; monthly suits smaller operations. Either way GastroPos exports on schedule, so nobody has to remember to do it on the 3rd of every month.", de: "Wählen Sie, wie oft Buchungen nach DATEV fließen. Täglich hält die Sicht Ihres Beraters aktuell und das Monatsende leicht; monatlich passt für kleinere Betriebe. So oder so exportiert GastroPos nach Plan, sodass niemand daran denken muss, es am 3. jedes Monats zu tun." } },
-      { heading: { en: "Separating cash, card, vouchers and tips", de: "Bar, Karte, Gutscheine und Trinkgeld trennen" }, body: { en: "Clean books separate the payment types so the bank reconciliation downstream is painless. GastroPos posts cash, card, vouchers and tips to their own accounts automatically, which means your advisor isn't untangling a single lumped figure at month-end and your bank statement actually ties out.", de: "Saubere Bücher trennen die Zahlungsarten, sodass die spätere Bankabstimmung mühelos ist. GastroPos bucht Bar, Karte, Gutscheine und Trinkgeld automatisch auf eigene Konten, sodass Ihr Berater zum Monatsende keine einzelne Sammelsumme entwirren muss und Ihr Kontoauszug tatsächlich aufgeht." } },
-      { heading: { en: "What your tax advisor actually needs", de: "Was Ihr Steuerberater wirklich braucht" }, body: { en: "Not a PDF and not a screenshot — a clean DATEV-format file (or a direct DATEV Unternehmen online connection) mapped to the right accounts, with the DSFinV-K export alongside for the till side. Give them a read-only login or schedule the export to their inbox and the monthly back-and-forth simply stops.", de: "Kein PDF und kein Screenshot — eine saubere DATEV-Format-Datei (oder eine direkte DATEV-Unternehmen-online-Verbindung), korrekt auf die Konten gemappt, mit dem DSFinV-K-Export daneben für die Kassenseite. Geben Sie ihm einen Nur-Lese-Zugang oder planen Sie den Export in sein Postfach, und das monatliche Hin und Her hört einfach auf." } },
+      {
+        heading: { en: "SKR03 or SKR04?", de: "SKR03 oder SKR04?" },
+        body: {
+          en: "Most hospitality businesses book on SKR03, while many retailers prefer SKR04. The right answer is whichever your tax advisor already uses for your business — and GastroPos supports both natively, with individual account mappings you can override to match their setup exactly.",
+          de: "Die meisten Gastronomiebetriebe buchen auf SKR03, viele Händler bevorzugen SKR04. Die richtige Antwort ist der, den Ihr Steuerberater bereits für Ihr Geschäft nutzt — und GastroPos unterstützt beide nativ, mit einzelnen Konten-Zuordnungen, die Sie an sein Setup anpassen können.",
+        },
+      },
+      {
+        heading: { en: "VAT splits done right", de: "MwSt-Splits richtig gemacht" },
+        body: {
+          en: "Eat-in 19% vs takeaway 7%, mixed receipts where items carry different rates, deposits and vouchers — all split automatically at the point of sale and booked to the correct revenue and tax accounts. The split has to be right at the till, because fixing it in the books later is exactly the manual work you're trying to escape.",
+          de: "Im Haus 19 % vs Außer Haus 7 %, gemischte Belege mit unterschiedlichen Sätzen, Pfand und Gutscheine — alles automatisch an der Kasse gesplittet und auf die richtigen Erlös- und Steuerkonten gebucht. Der Split muss schon an der Kasse stimmen, denn ihn später in den Büchern zu korrigieren ist genau die manuelle Arbeit, die Sie vermeiden wollen.",
+        },
+      },
+      {
+        heading: {
+          en: "Daily, weekly or monthly booking",
+          de: "Tägliche, wöchentliche oder monatliche Buchung",
+        },
+        body: {
+          en: "Choose how often bookings flow to DATEV. Daily keeps your advisor's view current and the month-end light; monthly suits smaller operations. Either way GastroPos exports on schedule, so nobody has to remember to do it on the 3rd of every month.",
+          de: "Wählen Sie, wie oft Buchungen nach DATEV fließen. Täglich hält die Sicht Ihres Beraters aktuell und das Monatsende leicht; monatlich passt für kleinere Betriebe. So oder so exportiert GastroPos nach Plan, sodass niemand daran denken muss, es am 3. jedes Monats zu tun.",
+        },
+      },
+      {
+        heading: {
+          en: "Separating cash, card, vouchers and tips",
+          de: "Bar, Karte, Gutscheine und Trinkgeld trennen",
+        },
+        body: {
+          en: "Clean books separate the payment types so the bank reconciliation downstream is painless. GastroPos posts cash, card, vouchers and tips to their own accounts automatically, which means your advisor isn't untangling a single lumped figure at month-end and your bank statement actually ties out.",
+          de: "Saubere Bücher trennen die Zahlungsarten, sodass die spätere Bankabstimmung mühelos ist. GastroPos bucht Bar, Karte, Gutscheine und Trinkgeld automatisch auf eigene Konten, sodass Ihr Berater zum Monatsende keine einzelne Sammelsumme entwirren muss und Ihr Kontoauszug tatsächlich aufgeht.",
+        },
+      },
+      {
+        heading: {
+          en: "What your tax advisor actually needs",
+          de: "Was Ihr Steuerberater wirklich braucht",
+        },
+        body: {
+          en: "Not a PDF and not a screenshot — a clean DATEV-format file (or a direct DATEV Unternehmen online connection) mapped to the right accounts, with the DSFinV-K export alongside for the till side. Give them a read-only login or schedule the export to their inbox and the monthly back-and-forth simply stops.",
+          de: "Kein PDF und kein Screenshot — eine saubere DATEV-Format-Datei (oder eine direkte DATEV-Unternehmen-online-Verbindung), korrekt auf die Konten gemappt, mit dem DSFinV-K-Export daneben für die Kassenseite. Geben Sie ihm einen Nur-Lese-Zugang oder planen Sie den Export in sein Postfach, und das monatliche Hin und Her hört einfach auf.",
+        },
+      },
     ],
     faq: [
-      { q: { en: "Which chart of accounts should I use?", de: "Welchen Kontenrahmen soll ich verwenden?" }, a: { en: "Use whichever your tax advisor already books your business on — typically SKR03 for hospitality and SKR04 for retail. GastroPos supports both out of the box.", de: "Verwenden Sie den, auf dem Ihr Steuerberater Ihr Geschäft bereits bucht — meist SKR03 für Gastronomie und SKR04 für Handel. GastroPos unterstützt beide sofort." } },
-      { q: { en: "How are the 19% and 7% rates split?", de: "Wie werden die Sätze 19 % und 7 % gesplittet?" }, a: { en: "Automatically at the point of sale: eat-in is taxed at 19%, takeaway at 7%, mixed receipts are split per item, and each part is booked to the correct account.", de: "Automatisch an der Kasse: Im Haus wird mit 19 % besteuert, außer Haus mit 7 %, gemischte Belege werden pro Artikel gesplittet, und jeder Teil wird auf das richtige Konto gebucht." } },
-      { q: { en: "Can it connect directly to DATEV Unternehmen online?", de: "Kann es sich direkt mit DATEV Unternehmen online verbinden?" }, a: { en: "Yes. Push bookings straight into DATEV Unternehmen online, or download a DATEV-format file to import — whichever your advisor prefers.", de: "Ja. Übertragen Sie Buchungen direkt nach DATEV Unternehmen online oder laden Sie eine DATEV-Format-Datei zum Import herunter — ganz wie Ihr Berater es bevorzugt." } },
-      { q: { en: "Does my advisor need their own login?", de: "Braucht mein Berater einen eigenen Zugang?" }, a: { en: "It helps. A read-only advisor login lets them pull exports on demand, or you can schedule an automatic monthly export straight to their inbox.", de: "Es hilft. Ein Nur-Lese-Zugang lässt ihn Exporte auf Abruf ziehen, oder Sie planen einen automatischen Monatsexport direkt in sein Postfach." } },
+      {
+        q: {
+          en: "Which chart of accounts should I use?",
+          de: "Welchen Kontenrahmen soll ich verwenden?",
+        },
+        a: {
+          en: "Use whichever your tax advisor already books your business on — typically SKR03 for hospitality and SKR04 for retail. GastroPos supports both out of the box.",
+          de: "Verwenden Sie den, auf dem Ihr Steuerberater Ihr Geschäft bereits bucht — meist SKR03 für Gastronomie und SKR04 für Handel. GastroPos unterstützt beide sofort.",
+        },
+      },
+      {
+        q: {
+          en: "How are the 19% and 7% rates split?",
+          de: "Wie werden die Sätze 19 % und 7 % gesplittet?",
+        },
+        a: {
+          en: "Automatically at the point of sale: eat-in is taxed at 19%, takeaway at 7%, mixed receipts are split per item, and each part is booked to the correct account.",
+          de: "Automatisch an der Kasse: Im Haus wird mit 19 % besteuert, außer Haus mit 7 %, gemischte Belege werden pro Artikel gesplittet, und jeder Teil wird auf das richtige Konto gebucht.",
+        },
+      },
+      {
+        q: {
+          en: "Can it connect directly to DATEV Unternehmen online?",
+          de: "Kann es sich direkt mit DATEV Unternehmen online verbinden?",
+        },
+        a: {
+          en: "Yes. Push bookings straight into DATEV Unternehmen online, or download a DATEV-format file to import — whichever your advisor prefers.",
+          de: "Ja. Übertragen Sie Buchungen direkt nach DATEV Unternehmen online oder laden Sie eine DATEV-Format-Datei zum Import herunter — ganz wie Ihr Berater es bevorzugt.",
+        },
+      },
+      {
+        q: {
+          en: "Does my advisor need their own login?",
+          de: "Braucht mein Berater einen eigenen Zugang?",
+        },
+        a: {
+          en: "It helps. A read-only advisor login lets them pull exports on demand, or you can schedule an automatic monthly export straight to their inbox.",
+          de: "Es hilft. Ein Nur-Lese-Zugang lässt ihn Exporte auf Abruf ziehen, oder Sie planen einen automatischen Monatsexport direkt in sein Postfach.",
+        },
+      },
     ],
   },
 };

@@ -27,7 +27,8 @@ export const dictionaries: Record<Lang, DictShape> = {
       builtFor: "Built for the operators.",
     },
     footer: {
-      tagline: "Precision commerce infrastructure for European hospitality, retail, and service businesses.",
+      tagline:
+        "Precision commerce infrastructure for European hospitality, retail, and service businesses.",
       product: "Product",
       industries: "Industries",
       company: "Company",
@@ -56,7 +57,8 @@ export const dictionaries: Record<Lang, DictShape> = {
       builtFor: "Gebaut für Profis.",
     },
     footer: {
-      tagline: "Präzise Commerce-Infrastruktur für Gastronomie, Handel und Dienstleister in Europa.",
+      tagline:
+        "Präzise Commerce-Infrastruktur für Gastronomie, Handel und Dienstleister in Europa.",
       product: "Produkt",
       industries: "Branchen",
       company: "Unternehmen",

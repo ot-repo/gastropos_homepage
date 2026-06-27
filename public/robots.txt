@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /signin
+
+Sitemap: https://www.gastropos.com/sitemap.xml

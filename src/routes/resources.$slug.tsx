@@ -1,4 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { absoluteUrl } from "@/lib/seo";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SubPageHero, ContentSections, FaqList, CtaFooter } from "@/components/layout/SubPage";
 import { resources, type ResourceSlug } from "@/content/resources";
@@ -19,23 +20,25 @@ export const Route = createFileRoute("/resources/$slug")({
         { name: "description", content: r.metaDescription.en },
         { property: "og:title", content: r.metaTitle.en },
         { property: "og:description", content: r.metaDescription.en },
-        { property: "og:url", content: `/resources/${params.slug}` },
+        { property: "og:url", content: absoluteUrl(`/resources/${params.slug}`) },
         { property: "og:type", content: "article" },
       ],
-      links: [{ rel: "canonical", href: `/resources/${params.slug}` }],
+      links: [{ rel: "canonical", href: absoluteUrl(`/resources/${params.slug}`) }],
       scripts: r.faq.length
-        ? [{
-            type: "application/ld+json",
-            children: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: r.faq.map((f) => ({
-                "@type": "Question",
-                name: f.q.en,
-                acceptedAnswer: { "@type": "Answer", text: f.a.en },
-              })),
-            }),
-          }]
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: r.faq.map((f) => ({
+                  "@type": "Question",
+                  name: f.q.en,
+                  acceptedAnswer: { "@type": "Answer", text: f.a.en },
+                })),
+              }),
+            },
+          ]
         : undefined,
     };
   },
@@ -46,12 +49,22 @@ export const Route = createFileRoute("/resources/$slug")({
 function ResourcePage() {
   const { resource } = Route.useLoaderData();
   const { lang } = useI18n();
-  const pick = (o: { en: any; de: any }): any => (lang === "de" ? o.de : o.en);
+  type Bilingual<T> = { en: T; de: T };
+  const pick = <T,>(o: Bilingual<T>): T => (lang === "de" ? o.de : o.en);
   return (
     <SiteShell>
-      <SubPageHero eyebrow={pick(resource.eyebrow)} title={pick(resource.title)} lede={pick(resource.lede)} />
-      <ContentSections sections={resource.sections.map((s: any) => ({ heading: pick(s.heading), body: pick(s.body) }))} />
-      <FaqList items={resource.faq.map((f: any) => ({ q: pick(f.q), a: pick(f.a) }))} />
+      <SubPageHero
+        eyebrow={pick(resource.eyebrow)}
+        title={pick(resource.title)}
+        lede={pick(resource.lede)}
+      />
+      <ContentSections
+        sections={resource.sections.map((s) => ({
+          heading: pick(s.heading),
+          body: pick(s.body),
+        }))}
+      />
+      <FaqList items={resource.faq.map((f) => ({ q: pick(f.q), a: pick(f.a) }))} />
       <CtaFooter />
     </SiteShell>
   );
