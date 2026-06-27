@@ -2,32 +2,23 @@ import { createFileRoute } from "@tanstack/react-router";
 import { absoluteUrl } from "@/lib/seo";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { Hero } from "@/components/home/Hero";
-import {
-  SocialProof,
-  KeyBenefits,
-  ProductShowcase,
-  IndustriesGrid,
-  FeatureBento,
-  Testimonials,
-  PricingPreview,
-  Faq,
-  FinalCta,
-} from "@/components/home/Sections";
+import { AiCapabilities, StatsStrip, BuiltFor, FinalCta } from "@/components/home/Sections";
+import { Testimonials } from "@/components/home/Testimonials";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "GastroPos — Cloud POS for restaurants, retail & service businesses" },
+      { title: "GastroPos — AI-Powered Kitchen Display System" },
       {
         name: "description",
         content:
-          "TSE & DATEV compliant cloud POS for European hospitality and retail. KDS, QR ordering, inventory, analytics, multi-store. Live in under 2 hours.",
+          "The AI brain behind every kitchen. GastroPos KDS predicts demand, prioritizes orders, and optimizes throughput in real time.",
       },
-      { property: "og:title", content: "GastroPos — The infrastructure of modern commerce" },
+      { property: "og:title", content: "GastroPos — AI-Powered Kitchen Display System" },
       {
         property: "og:description",
         content:
-          "Precision-engineered cloud POS for restaurants, cafés, bars, retail and service businesses.",
+          "Predict. Prioritize. Perform. The AI-powered kitchen display system for modern restaurants.",
       },
       { property: "og:url", content: absoluteUrl("/") },
     ],
@@ -40,14 +31,10 @@ function Index() {
   return (
     <SiteShell>
       <Hero />
-      <SocialProof />
-      <KeyBenefits />
-      <ProductShowcase />
-      <IndustriesGrid />
-      <FeatureBento />
+      <AiCapabilities />
+      <StatsStrip />
+      <BuiltFor />
       <Testimonials />
-      <PricingPreview />
-      <Faq />
       <FinalCta />
     </SiteShell>
   );

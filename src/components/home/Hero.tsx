@@ -1,266 +1,320 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n/context";
+import { useState, useEffect } from "react";
+import { CanvasCarousel } from "./CanvasCarousel";
 import {
   ArrowRight,
-  Utensils,
-  ShoppingBag,
-  Scissors,
-  Sparkles,
   Brain,
-  TrendingUp,
+  Sparkles,
+  Timer,
+  Flame,
+  CheckCircle2,
+  Zap,
 } from "lucide-react";
+
+/* ────────────────────────────── Types ────────────────────────────── */
+
+type OrderStatus = "new" | "cooking" | "ready";
+
+interface KdsOrder {
+  id: string;
+  table: string;
+  items: string[];
+  status: OrderStatus;
+  elapsed: number;
+  priority?: boolean;
+}
+
+/* ────────────────────────────── Data ────────────────────────────── */
+
+const SEED_ORDERS: KdsOrder[] = [
+  {
+    id: "a",
+    table: "#14",
+    items: ["2× Wagyu Burger", "1× Truffle Fries"],
+    status: "cooking",
+    elapsed: 342,
+  },
+  {
+    id: "b",
+    table: "#08",
+    items: ["1× Lobster Risotto", "2× Caesar"],
+    status: "cooking",
+    elapsed: 187,
+    priority: true,
+  },
+  {
+    id: "c",
+    table: "#22",
+    items: ["3× Margherita", "1× Tiramisu"],
+    status: "new",
+    elapsed: 24,
+  },
+  {
+    id: "d",
+    table: "Bar",
+    items: ["4× Espresso Martini"],
+    status: "new",
+    elapsed: 8,
+  },
+];
+
+const STATUS_META: Record<
+  OrderStatus,
+  { color: string; bg: string; border: string; label: string }
+> = {
+  new: {
+    color: "text-blue-400",
+    bg: "bg-blue-500/20",
+    border: "border-l-blue-500",
+    label: "NEW",
+  },
+  cooking: {
+    color: "text-amber-400",
+    bg: "bg-amber-500/20",
+    border: "border-l-amber-500",
+    label: "COOKING",
+  },
+  ready: {
+    color: "text-emerald-400",
+    bg: "bg-emerald-500/20",
+    border: "border-l-emerald-500",
+    label: "READY",
+  },
+};
+
+function fmtTime(s: number) {
+  return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+}
+
+/* ────────────────────────────── Component ────────────────────────── */
 
 export function Hero() {
   const { lang, t } = useI18n();
-  const copy =
+  const [orders, setOrders] = useState(SEED_ORDERS);
+
+  /* tick timers every second */
+  useEffect(() => {
+    const id = setInterval(
+      () => setOrders((p) => p.map((o) => ({ ...o, elapsed: o.elapsed + 1 }))),
+      1000,
+    );
+    return () => clearInterval(id);
+  }, []);
+
+  /* cycle order statuses every 4 s */
+  useEffect(() => {
+    const id = setInterval(() => {
+      setOrders((prev) => {
+        const ni = prev.findIndex((o) => o.status === "new");
+        if (ni !== -1)
+          return prev.map((o, i) => (i === ni ? { ...o, status: "cooking" as const } : o));
+        const ci = prev.findIndex((o) => o.status === "cooking");
+        if (ci !== -1)
+          return prev.map((o, i) => (i === ci ? { ...o, status: "ready" as const } : o));
+        return SEED_ORDERS;
+      });
+    }, 4000);
+    return () => clearInterval(id);
+  }, []);
+
+  const c =
     lang === "de"
       ? {
-          badge: "KI-gestütztes Cloud POS · TSE-zertifiziert",
-          headlineA: "Das erste",
-          headlineHighlight: "KI-gestützte",
-          headlineB: "Kassensystem für Gastronomie & Retail.",
-          sub: "GastroPos lernt Ihr Geschäft: prognostiziert Nachfrage, optimiert Preise, automatisiert Bestellungen und erkennt Anomalien in Echtzeit. Cloud, TSE & DATEV inklusive — live in unter 2 Stunden.",
+          badge: "KI-gestützter Küchenmonitor",
+          h1a: "Das KI-Gehirn",
+          h1b: "hinter jeder Küche.",
+          sub: "Vorhersagen. Priorisieren. Performen.",
           cta1: t.common.startTrial,
           cta2: t.common.bookDemo,
-          builtFor: "Gebaut für",
         }
       : {
-          badge: "AI-powered Cloud POS · TSE-certified",
-          headlineA: "The first",
-          headlineHighlight: "AI-powered",
-          headlineB: "POS for hospitality & retail.",
-          sub: "GastroPos learns your business: forecasts demand, optimizes pricing, automates reordering and flags anomalies in real time. Cloud, TSE & DATEV built in — live in under 2 hours.",
+          badge: "AI-Powered Kitchen Intelligence",
+          h1a: "The AI brain behind",
+          h1b: "every kitchen.",
+          sub: "Predict. Prioritize. Perform.",
           cta1: t.common.startTrial,
           cta2: t.common.bookDemo,
-          builtFor: "Built for",
         };
 
   return (
-    <section className="relative -mt-20 overflow-hidden pt-36 pb-32 bg-hero-blue">
+    <section className="relative -mt-20 min-h-screen overflow-hidden pt-32 pb-20">
+      {/* ── Canvas carousel background ── */}
+      <div aria-hidden className="absolute inset-0 z-0">
+        <CanvasCarousel />
+      </div>
+      {/* semi-transparent overlay — warm tint for brand harmony */}
       <div
-        aria-hidden
-        className="absolute inset-0 bg-hero-grid [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent)]"
+        className="absolute inset-0 z-[1]"
+        style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(254,247,243,0.68) 100%)" }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 text-center text-white">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 text-center">
+        {/* ── text block ── */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/15 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur">
-            <Sparkles className="size-3.5" /> {copy.badge}
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#ea5929]/20 bg-[#ea5929]/5 px-4 py-2 text-xs font-semibold text-[#ea5929]">
+            <Brain className="size-3.5" /> {c.badge}
           </span>
-          <h1 className="mt-7 text-balance font-display text-5xl font-extrabold tracking-tight md:text-7xl">
-            {copy.headlineA}{" "}
-            <span className="relative inline-block bg-gradient-to-r from-secondary-brand via-orange-400 to-amber-300 bg-clip-text text-transparent">
-              {copy.headlineHighlight}
-            </span>
-            <br />
-            {copy.headlineB}
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/85">{copy.sub}</p>
 
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <h1 className="mt-8 font-display text-5xl font-extrabold tracking-tight text-foreground md:text-7xl lg:text-8xl">
+            {c.h1a}
+            <br />
+            <span className="text-gradient-ai">{c.h1b}</span>
+          </h1>
+
+          <p className="mx-auto mt-6 max-w-md text-lg font-mono tracking-wide text-muted-foreground">
+            {c.sub}
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               to="/demo"
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-semibold text-accent shadow-[0_10px_30px_-10px_rgba(15,23,42,0.4)] transition-transform hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 rounded-full bg-[#ea5929] px-8 py-4 font-semibold text-white shadow-[0_0_30px_rgba(234,89,41,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(234,89,41,0.6)]"
             >
-              {copy.cta1}{" "}
+              {c.cta1}{" "}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
               to="/demo"
-              className="inline-flex rounded-full border border-white/30 bg-white/10 px-7 py-3.5 font-semibold text-white backdrop-blur transition-all hover:bg-white/20"
+              className="inline-flex items-center rounded-full border border-border px-8 py-4 font-semibold text-foreground transition-all hover:bg-accent-soft hover:border-accent"
             >
-              {copy.cta2}
+              {c.cta2}
             </Link>
-          </div>
-
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
-            <AiPill
-              icon={<Brain className="size-3.5" />}
-              label={lang === "de" ? "Nachfrageprognose" : "Demand forecasting"}
-            />
-            <AiPill
-              icon={<Sparkles className="size-3.5" />}
-              label={lang === "de" ? "Menü-Insights" : "Menu insights"}
-            />
-            <AiPill
-              icon={<TrendingUp className="size-3.5" />}
-              label={lang === "de" ? "Dynamische Preise" : "Dynamic pricing"}
-            />
-          </div>
-
-          <div className="mt-8 flex flex-col items-center gap-4">
-            <p className="font-mono text-[11px] uppercase tracking-widest text-white/70">
-              {copy.builtFor}
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <PlatformPill
-                icon={<Utensils className="size-4" />}
-                label={lang === "de" ? "Gastronomie" : "Hospitality"}
-              />
-              <PlatformPill icon={<ShoppingBag className="size-4" />} label="Retail" />
-              <PlatformPill
-                icon={<Scissors className="size-4" />}
-                label={lang === "de" ? "Dienstleister" : "Services"}
-              />
-            </div>
           </div>
         </motion.div>
 
+        {/* ── KDS mockup ── */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="relative mx-auto mt-20 max-w-5xl"
         >
-          <div className="relative rounded-2xl border border-black/5 bg-surface p-3 shadow-2xl">
-            <div className="flex h-[480px] w-full gap-3 overflow-hidden rounded-lg bg-background">
-              <div className="w-16 shrink-0 border-r border-border bg-surface p-3 flex flex-col gap-4">
-                <div className="size-10 rounded-lg bg-accent" />
-                <div className="size-10 rounded-lg bg-secondary" />
-                <div className="size-10 rounded-lg bg-secondary" />
-                <div className="size-10 rounded-lg bg-secondary" />
-                <div className="mt-auto size-10 rounded-lg bg-secondary" />
+          {/* glow behind mockup */}
+          <div
+            aria-hidden
+            className="absolute -inset-6 rounded-3xl opacity-60"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(234,89,41,0.10) 0%, transparent 70%)",
+            }}
+          />
+
+          <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#0a0f1a] shadow-2xl shadow-slate-900/40">
+            {/* title bar */}
+            <div className="flex items-center justify-between border-b border-white/5 px-5 py-3">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5">
+                  <span className="size-2.5 rounded-full bg-red-500/70" />
+                  <span className="size-2.5 rounded-full bg-amber-500/70" />
+                  <span className="size-2.5 rounded-full bg-emerald-500/70" />
+                </div>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-white/30">
+                  GastroPos KDS
+                </span>
               </div>
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-center justify-between border-b border-border pb-4">
-                  <div className="text-left">
-                    <span className="block font-mono text-[10px] uppercase tracking-tighter text-muted-foreground">
-                      Active Table
-                    </span>
-                    <h3 className="font-display font-bold">Terrace · #14</h3>
-                  </div>
-                  <div className="flex gap-2">
-                    <div className="h-9 w-28 rounded-md bg-secondary" />
-                    <div className="h-9 w-9 rounded-md bg-accent" />
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-3 py-6">
-                  {["Espresso", "Riesling", "Seabass", "Tiramisu", "Cappuccino", "Pasta"].map(
-                    (item, i) => (
-                      <motion.div
-                        key={item}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 + i * 0.06 }}
-                        className="rounded-xl bg-surface shadow-sm ring-1 ring-black/5 p-3 text-left"
-                      >
-                        <div className="mb-2 h-2 w-10 rounded bg-accent/30" />
-                        <p className="text-xs font-semibold">{item}</p>
-                        <p className="mt-1 font-mono text-[10px] text-muted-foreground">
-                          €{(i + 3) * 3.5}.00
-                        </p>
-                      </motion.div>
-                    ),
-                  )}
-                </div>
-                <div className="mt-auto flex items-center justify-between rounded-xl bg-foreground p-4 text-primary-foreground">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-widest opacity-60">
-                      Total
+              <div className="flex items-center gap-4">
+                <span className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-400">
+                  <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" /> LIVE
+                </span>
+                <span className="hidden items-center gap-1.5 font-mono text-[10px] text-[#ea5929] sm:flex">
+                  <Zap className="size-3" /> AI ROUTING
+                </span>
+              </div>
+            </div>
+
+            {/* order card grid */}
+            <div className="grid grid-cols-2 gap-3 p-4 md:grid-cols-4">
+              {orders.map((order) => {
+                const m = STATUS_META[order.status];
+                return (
+                  <motion.div
+                    key={order.id}
+                    layout
+                    className={`rounded-xl border-l-2 bg-white/[0.03] p-4 ${m.border} transition-colors duration-500`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-display text-sm font-bold">{order.table}</span>
+                      {order.priority && (
+                        <span className="rounded bg-red-500/20 px-1.5 py-0.5 text-[9px] font-bold uppercase text-red-400">
+                          Rush
+                        </span>
+                      )}
+                    </div>
+                    <p className={`mt-1 font-mono text-xs ${m.color}`}>
+                      {fmtTime(order.elapsed)}
                     </p>
-                    <p className="font-display text-xl font-bold">€84.50</p>
-                  </div>
-                  <button className="rounded-md bg-accent px-4 py-2 text-xs font-semibold">
-                    Tap to Pay
-                  </button>
-                </div>
-              </div>
-              <div className="hidden md:flex w-64 flex-col border-l border-border bg-surface p-5">
-                <div className="flex justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-4">
-                  <span>DATEV Export</span>
-                  <span>#0842-X</span>
-                </div>
-                <div className="space-y-3 text-xs">
-                  <RowLine label="Espresso" value="€3.50" />
-                  <RowLine label="Riesling 0.2l" value="€9.50" />
-                  <RowLine label="Seabass" value="€34.00" />
-                  <RowLine label="Tiramisu" value="€8.00" />
-                </div>
-                <div className="mt-auto border-t border-border pt-4">
-                  <RowLine label="MwSt 19%" value="€13.50" muted />
-                  <RowLine label="Total" value="€84.50" bold />
-                  <div className="mt-3 flex items-center gap-1.5 font-mono text-[9px] uppercase text-success">
-                    <span className="size-1.5 rounded-full bg-success" /> TSE signed
-                  </div>
-                </div>
-              </div>
+                    <ul className="mt-3 space-y-1">
+                      {order.items.map((item) => (
+                        <li key={item} className="text-[11px] text-white/40">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-3">
+                      <span
+                        className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${m.bg} ${m.color}`}
+                      >
+                        {order.status === "new" && <Sparkles className="size-2.5" />}
+                        {order.status === "cooking" && <Flame className="size-2.5" />}
+                        {order.status === "ready" && <CheckCircle2 className="size-2.5" />}
+                        {m.label}
+                      </span>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
 
+          {/* floating stat pills */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.2 }}
-            className="absolute -left-6 top-20 hidden lg:flex animate-float rounded-xl border border-border bg-surface p-4 shadow-xl"
+            className="absolute -left-4 top-16 hidden animate-float rounded-xl border border-border bg-white/80 px-4 py-3 shadow-lg backdrop-blur-sm lg:flex"
           >
             <div className="flex items-center gap-3">
-              <div className="size-10 rounded-full bg-accent-soft grid place-items-center text-accent font-bold">
-                ↑
+              <div className="grid size-8 place-items-center rounded-full bg-emerald-500/20">
+                <Timer className="size-4 text-emerald-400" />
               </div>
               <div className="text-left">
-                <p className="font-mono text-[10px] uppercase text-muted-foreground">Today</p>
-                <p className="font-display font-bold text-sm">+24% revenue</p>
+                <p className="font-mono text-[10px] uppercase text-muted-foreground">Avg. Ticket</p>
+                <p className="text-sm font-bold text-foreground">-34% faster</p>
               </div>
             </div>
           </motion.div>
+
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.4 }}
-            className="absolute -right-6 bottom-16 hidden lg:flex animate-float rounded-xl border border-border bg-surface p-4 shadow-xl"
+            transition={{ delay: 1.5 }}
+            className="absolute -right-4 bottom-12 hidden animate-float rounded-xl border border-border bg-white/80 px-4 py-3 shadow-lg backdrop-blur-sm lg:flex"
+            style={{ animationDelay: "3s" }}
           >
             <div className="flex items-center gap-3">
-              <div className="size-2.5 rounded-full bg-success animate-pulse" />
+              <div className="grid size-8 place-items-center rounded-full bg-[#ea5929]/20">
+                <Zap className="size-4 text-[#ea5929]" />
+              </div>
               <div className="text-left">
-                <p className="font-mono text-[10px] uppercase text-muted-foreground">Status</p>
-                <p className="font-display font-bold text-sm">All 7 stores online</p>
+                <p className="font-mono text-[10px] uppercase text-muted-foreground">Throughput</p>
+                <p className="text-sm font-bold text-foreground">2,400 orders/hr</p>
               </div>
             </div>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* ── Wave decoration ── */}
+      <div className="ocean" aria-hidden>
+        <div className="wave wave-1" />
+        <div className="wave wave-2" />
+      </div>
     </section>
-  );
-}
-
-function RowLine({
-  label,
-  value,
-  bold,
-  muted,
-}: {
-  label: string;
-  value: string;
-  bold?: boolean;
-  muted?: boolean;
-}) {
-  return (
-    <div
-      className={`flex justify-between ${bold ? "font-bold text-foreground" : muted ? "text-muted-foreground" : "text-foreground"}`}
-    >
-      <span>{label}</span>
-      <span className="font-mono">{value}</span>
-    </div>
-  );
-}
-
-function PlatformPill({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-4 py-2 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-white/25">
-      {icon} {label}
-    </span>
-  );
-}
-
-function AiPill({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary-brand/40 bg-gradient-to-r from-secondary-brand/25 via-orange-500/15 to-amber-400/20 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
-      {icon} {label}
-    </span>
   );
 }
