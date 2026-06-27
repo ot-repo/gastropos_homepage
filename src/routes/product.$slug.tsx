@@ -120,16 +120,32 @@ export const Route = createFileRoute("/product/$slug")({
         { property: "og:type", content: "product" },
       ],
       links: [{ rel: "canonical", href: `/product/${params.slug}` }],
-      scripts: [{
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name: p.metaTitle.en,
-          description: p.metaDescription.en,
-          brand: { "@type": "Brand", name: "GastroPos" },
-        }),
-      }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: p.metaTitle.en,
+            description: p.metaDescription.en,
+            brand: { "@type": "Brand", name: "GastroPos" },
+          }),
+        },
+        ...(p.faq.length
+          ? [{
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: p.faq.map((f) => ({
+                  "@type": "Question",
+                  name: f.q.en,
+                  acceptedAnswer: { "@type": "Answer", text: f.a.en },
+                })),
+              }),
+            }]
+          : []),
+      ],
     };
   },
   component: ProductPage,

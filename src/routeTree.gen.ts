@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SigninRouteImport } from './routes/signin'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PartnersRouteImport } from './routes/partners'
-import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -37,11 +36,6 @@ const PricingRoute = PricingRouteImport.update({
 const PartnersRoute = PartnersRouteImport.update({
   id: '/partners',
   path: '/partners',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IntegrationsRoute = IntegrationsRouteImport.update({
-  id: '/integrations',
-  path: '/integrations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoRoute = DemoRouteImport.update({
@@ -102,7 +96,6 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
-  '/integrations': typeof IntegrationsRoute
   '/partners': typeof PartnersRoute
   '/pricing': typeof PricingRoute
   '/signin': typeof SigninRoute
@@ -118,7 +111,6 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
-  '/integrations': typeof IntegrationsRoute
   '/partners': typeof PartnersRoute
   '/pricing': typeof PricingRoute
   '/signin': typeof SigninRoute
@@ -135,7 +127,6 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/demo': typeof DemoRoute
-  '/integrations': typeof IntegrationsRoute
   '/partners': typeof PartnersRoute
   '/pricing': typeof PricingRoute
   '/signin': typeof SigninRoute
@@ -153,7 +144,6 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/demo'
-    | '/integrations'
     | '/partners'
     | '/pricing'
     | '/signin'
@@ -169,7 +159,6 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/demo'
-    | '/integrations'
     | '/partners'
     | '/pricing'
     | '/signin'
@@ -185,7 +174,6 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/demo'
-    | '/integrations'
     | '/partners'
     | '/pricing'
     | '/signin'
@@ -202,7 +190,6 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   DemoRoute: typeof DemoRoute
-  IntegrationsRoute: typeof IntegrationsRoute
   PartnersRoute: typeof PartnersRoute
   PricingRoute: typeof PricingRoute
   SigninRoute: typeof SigninRoute
@@ -233,13 +220,6 @@ declare module '@tanstack/react-router' {
       path: '/partners'
       fullPath: '/partners'
       preLoaderRoute: typeof PartnersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/integrations': {
-      id: '/integrations'
-      path: '/integrations'
-      fullPath: '/integrations'
-      preLoaderRoute: typeof IntegrationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo': {
@@ -322,7 +302,6 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   DemoRoute: DemoRoute,
-  IntegrationsRoute: IntegrationsRoute,
   PartnersRoute: PartnersRoute,
   PricingRoute: PricingRoute,
   SigninRoute: SigninRoute,
@@ -334,3 +313,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

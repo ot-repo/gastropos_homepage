@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { SubPageHero, ContentSections, CtaFooter } from "@/components/layout/SubPage";
+import { SubPageHero, ContentSections, FaqList, CtaFooter } from "@/components/layout/SubPage";
 import { resources, type ResourceSlug } from "@/content/resources";
 import { useI18n } from "@/lib/i18n/context";
 
@@ -23,6 +23,20 @@ export const Route = createFileRoute("/resources/$slug")({
         { property: "og:type", content: "article" },
       ],
       links: [{ rel: "canonical", href: `/resources/${params.slug}` }],
+      scripts: r.faq.length
+        ? [{
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: r.faq.map((f) => ({
+                "@type": "Question",
+                name: f.q.en,
+                acceptedAnswer: { "@type": "Answer", text: f.a.en },
+              })),
+            }),
+          }]
+        : undefined,
     };
   },
   component: ResourcePage,
@@ -37,6 +51,7 @@ function ResourcePage() {
     <SiteShell>
       <SubPageHero eyebrow={pick(resource.eyebrow)} title={pick(resource.title)} lede={pick(resource.lede)} />
       <ContentSections sections={resource.sections.map((s: any) => ({ heading: pick(s.heading), body: pick(s.body) }))} />
+      <FaqList items={resource.faq.map((f: any) => ({ q: pick(f.q), a: pick(f.a) }))} />
       <CtaFooter />
     </SiteShell>
   );

@@ -46,7 +46,6 @@ export function Footer() {
             <Link to="/legal/terms" className="hover:text-accent">{lang === "de" ? "AGB" : "Terms"}</Link>
             <Link to="/legal/impressum" className="hover:text-accent">Impressum</Link>
             <Link to="/legal/cookies" className="hover:text-accent">{lang === "de" ? "Cookies" : "Cookies"}</Link>
-            <Link to="/integrations" className="hover:text-accent">Integrations</Link>
             <Link to="/resources/help" className="hover:text-accent">Help</Link>
             <Link to="/resources/blog" className="hover:text-accent">Blog</Link>
           </FooterCol>

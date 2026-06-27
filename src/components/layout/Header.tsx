@@ -7,7 +7,7 @@ import {
   Monitor, Hand, QrCode, ChefHat, Globe, Package, BookOpen, FileSpreadsheet,
   BarChart3,
   UtensilsCrossed, Coffee, Wine, Croissant, Truck, Store, ShoppingBag, Scissors, Sparkles, Briefcase,
-  Rss, LifeBuoy, BookMarked, ShieldCheck, Receipt, Plug, Scale,
+  Rss, LifeBuoy, BookMarked, ShieldCheck, Receipt, Scale,
 } from "lucide-react";
 import logoAsset from "@/assets/gastropos-logo.svg.asset.json";
 
@@ -51,7 +51,6 @@ const resourceLinks: LinkItem[] = [
   { to: "/resources/pos-guide", en: "POS Guide", de: "Kassen-Guide", desc_en: "Choose the right POS", desc_de: "Die richtige Kasse wählen", icon: BookMarked },
   { to: "/resources/tse-guide", en: "TSE Guide", de: "TSE-Guide", desc_en: "Stay KassenSichV compliant", desc_de: "KassenSichV-konform", icon: ShieldCheck },
   { to: "/resources/datev-guide", en: "DATEV Guide", de: "DATEV-Guide", desc_en: "Export to your tax advisor", desc_de: "Export zum Steuerberater", icon: Receipt },
-  { to: "/integrations", en: "Integrations", de: "Integrationen", desc_en: "Connect your stack", desc_de: "Stack verbinden", icon: Plug },
   { to: "/compare", en: "Compare", de: "Vergleich", desc_en: "vs. other POS systems", desc_de: "vs. andere Kassen", icon: Scale },
 ];
 

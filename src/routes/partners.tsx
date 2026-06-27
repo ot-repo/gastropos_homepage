@@ -6,8 +6,8 @@ import { useI18n } from "@/lib/i18n/context";
 export const Route = createFileRoute("/partners")({
   head: () => ({
     meta: [
-      { title: "Partner Program — GastroPos", de: undefined },
-      { name: "description", content: "Become an GastroPos partner. Resellers, system integrators, hardware vendors and tax advisors welcome." },
+      { title: "Partner Program — GastroPos" },
+      { name: "description", content: "Become a GastroPos partner. Resellers, system integrators, hardware vendors and tax advisors welcome." },
       { property: "og:url", content: "/partners" },
     ],
     links: [{ rel: "canonical", href: "/partners" }],
@@ -21,7 +21,7 @@ function Partners() {
     <SiteShell>
       <SubPageHero
         eyebrow={lang === "de" ? "Partner" : "Partners"}
-        title={lang === "de" ? "Werden Sie GastroPos-Partner." : "Become an GastroPos partner."}
+        title={lang === "de" ? "Werden Sie GastroPos-Partner." : "Become a GastroPos partner."}
         lede={lang === "de" ? "Wiederverkäufer, Systemintegratoren, Hardware-Anbieter und Steuerberater — verdienen Sie wiederkehrende Provisionen, indem Sie eine Plattform empfehlen, die Ihre Kunden lieben." : "Resellers, system integrators, hardware vendors and tax advisors — earn recurring commissions by recommending a platform your clients love."}
       />
       <ContentSections sections={[

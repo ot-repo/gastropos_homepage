@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/SiteShell";
-import { SubPageHero, FeatureList, ContentSections, CtaFooter } from "@/components/layout/SubPage";
+import { SubPageHero, ContentSections, FaqList, CtaFooter } from "@/components/layout/SubPage";
 import { industries, type IndustrySlug } from "@/content/industries";
 import { useI18n } from "@/lib/i18n/context";
 
@@ -22,6 +22,20 @@ export const Route = createFileRoute("/industries/$slug")({
         { property: "og:url", content: `/industries/${params.slug}` },
       ],
       links: [{ rel: "canonical", href: `/industries/${params.slug}` }],
+      scripts: i.faq.length
+        ? [{
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: i.faq.map((f) => ({
+                "@type": "Question",
+                name: f.q.en,
+                acceptedAnswer: { "@type": "Answer", text: f.a.en },
+              })),
+            }),
+          }]
+        : undefined,
     };
   },
   component: IndustryPage,
@@ -51,7 +65,16 @@ function IndustryPage() {
           </div>
         </div>
       </section>
-      <ContentSections sections={[{ heading: lang === "de" ? "Was Kunden sagen" : "What customers say", body: pick(industry.proof) }]} />
+      <ContentSections sections={industry.sections.map((s: any) => ({ heading: pick(s.heading), body: pick(s.body) }))} />
+      <section className="border-t border-border bg-surface/40 py-20">
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <p className="font-mono text-[11px] uppercase tracking-widest text-accent">{lang === "de" ? "Was Kunden sagen" : "What customers say"}</p>
+          <blockquote className="mt-5 font-display text-xl font-semibold leading-relaxed tracking-tight md:text-2xl text-balance">
+            {pick(industry.proof)}
+          </blockquote>
+        </div>
+      </section>
+      <FaqList items={industry.faq.map((f: any) => ({ q: pick(f.q), a: pick(f.a) }))} />
       <CtaFooter />
     </SiteShell>
   );
