@@ -3,6 +3,7 @@ import { absoluteUrl } from "@/lib/seo";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { Hero } from "@/components/home/Hero";
 import { AiCapabilities, StatsStrip, BuiltFor, FinalCta } from "@/components/home/Sections";
+import { DashboardDemo } from "@/components/home/DashboardDemo";
 import { Testimonials } from "@/components/home/Testimonials";
 
 export const Route = createFileRoute("/")({
@@ -32,6 +33,7 @@ function Index() {
     <SiteShell>
       <Hero />
       <AiCapabilities />
+      <DashboardDemo />
       <StatsStrip />
       <BuiltFor />
       <Testimonials />
