@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import Clarity from "@microsoft/clarity";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -177,11 +178,22 @@ function HtmlLangSync() {
   return null;
 }
 
+const CLARITY_PROJECT_ID = "xe2bznzbcr";
+
+/** Initializes Microsoft Clarity session recording on the client after hydration. */
+function ClarityInit() {
+  useEffect(() => {
+    Clarity.init(CLARITY_PROJECT_ID);
+  }, []);
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
+        <ClarityInit />
         <HtmlLangSync />
         <Outlet />
       </I18nProvider>

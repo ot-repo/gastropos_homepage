@@ -910,6 +910,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@microsoft/clarity@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@microsoft/clarity@npm:1.0.2"
+  checksum: 10c0/43986711a39115097348b38f8203f02e86ebc251d79a1673f05b0e1b562513e21045892e889551d271d6c2186cd6bd84f69a968fd46c3e563ebed5153c262a4e
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^1.1.4, @napi-rs/wasm-runtime@npm:^1.1.5":
   version: 1.1.5
   resolution: "@napi-rs/wasm-runtime@npm:1.1.5"
@@ -6073,6 +6080,7 @@ __metadata:
     "@eslint/js": "npm:^9.32.0"
     "@hookform/resolvers": "npm:^5.2.2"
     "@lovable.dev/vite-tanstack-config": "npm:^2.1.1"
+    "@microsoft/clarity": "npm:^1.0.2"
     "@radix-ui/react-accordion": "npm:^1.2.12"
     "@radix-ui/react-alert-dialog": "npm:^1.1.15"
     "@radix-ui/react-aspect-ratio": "npm:^1.1.8"
