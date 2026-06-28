@@ -449,15 +449,25 @@ function PosPreview() {
           ))}
         </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {["Burger", "Steak", "Salad", "Pasta", "Pizza", "Fries", "Soup", "Wrap", "Bowl"].map(
-            (m, i) => (
-              <div key={m} className="rounded-xl bg-white p-4 ring-1 ring-border">
-                <div className="aspect-video rounded-md bg-gradient-to-br from-[#e8edf5] to-[#d9e2f3]" />
-                <p className="mt-2 text-sm font-semibold">{m}</p>
-                <p className="font-mono text-[10px] text-muted-foreground">€{(i + 1) * 4.5}.00</p>
+          {[
+            { name: "Burger", image: "/food/burger.jpg" },
+            { name: "Steak", image: "/food/steak.jpg" },
+            { name: "Salad", image: "/food/salad.jpg" },
+            { name: "Pasta", image: "/food/pasta.jpg" },
+            { name: "Pizza", image: "/food/pizza.jpg" },
+            { name: "Fries", image: "/food/fries.jpg" },
+            { name: "Soup", image: "/food/soup.jpg" },
+            { name: "Wrap", image: "/food/wrap.jpg" },
+            { name: "Bowl", image: "/food/bowl.jpg" },
+          ].map((m, i) => (
+            <div key={m.name} className="rounded-xl bg-white p-4 ring-1 ring-border">
+              <div className="aspect-video w-full overflow-hidden rounded-md bg-gradient-to-br from-[#e8edf5] to-[#d9e2f3]">
+                <img src={m.image} alt={m.name} className="h-full w-full object-cover" loading="lazy" />
               </div>
-            ),
-          )}
+              <p className="mt-2 text-sm font-semibold">{m.name}</p>
+              <p className="font-mono text-[10px] text-muted-foreground">€{(i + 1) * 4.5}.00</p>
+            </div>
+          ))}
         </div>
       </div>
       <div className="rounded-xl bg-white p-5 ring-1 ring-border lg:col-span-5">

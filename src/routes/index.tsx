@@ -9,17 +9,17 @@ import { Testimonials } from "@/components/home/Testimonials";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "GastroPos — AI-Powered Kitchen Display System" },
+      { title: "GastroPos — AI-Powered Gastronomy Platform & POS" },
       {
         name: "description",
         content:
-          "The AI brain behind every kitchen. GastroPos KDS predicts demand, prioritizes orders, and optimizes throughput in real time.",
+          "The AI-powered cloud platform for gastronomy. POS, KDS, QR ordering, reservations, and AI routing in one unified system.",
       },
-      { property: "og:title", content: "GastroPos — AI-Powered Kitchen Display System" },
+      { property: "og:title", content: "GastroPos — AI-Powered Gastronomy Platform & POS" },
       {
         property: "og:description",
         content:
-          "Predict. Prioritize. Perform. The AI-powered kitchen display system for modern restaurants.",
+          "POS, KDS, QR ordering, and reservations connected by a smart voice assistant. Scalable for restaurants, cafés, and service businesses.",
       },
       { property: "og:url", content: absoluteUrl("/") },
     ],
@@ -33,7 +33,6 @@ function Index() {
     <SiteShell>
       <Hero />
       <SocialProof />
-      <AiCapabilities />
       <ProductShowcase />
       <DashboardDemo />
       <StatsStrip />

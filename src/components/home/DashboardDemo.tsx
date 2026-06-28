@@ -160,13 +160,13 @@ export function DashboardDemo() {
           </p>
           <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl">
             {lang === "de"
-              ? "Sprechen Sie mit Ihrer Küche."
-              : "Talk to your kitchen."}
+              ? "Sprechen Sie mit Ihrem System."
+              : "Talk to your system."}
           </h2>
           <p className="mt-4 text-white/50">
             {lang === "de"
-              ? "Erstellen Sie Tische, ändern Sie Bestellungen und steuern Sie Ihre Küche — nur mit Ihrer Stimme."
-              : "Create tables, modify orders, and control your kitchen — just with your voice."}
+              ? "Erstellen Sie Tische, ändern Sie Bestellungen und steuern Sie Ihr Geschäft — nur mit Ihrer Stimme."
+              : "Create tables, modify orders, and control your business — just with your voice."}
           </p>
         </div>
 
@@ -195,18 +195,20 @@ export function DashboardDemo() {
               {/* product grid */}
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { name: "Burger", price: "€10.50" },
-                  { name: "Steak", price: "€14.00" },
-                  { name: "Salad", price: "€17.50" },
-                  { name: "Pasta", price: "€21.00" },
-                  { name: "Pizza", price: "€24.50" },
-                  { name: "Fries", price: "€28.00" },
+                  { name: "Burger", price: "€10.50", image: "/food/burger.jpg" },
+                  { name: "Steak", price: "€14.00", image: "/food/steak.jpg" },
+                  { name: "Salad", price: "€17.50", image: "/food/salad.jpg" },
+                  { name: "Pasta", price: "€21.00", image: "/food/pasta.jpg" },
+                  { name: "Pizza", price: "€24.50", image: "/food/pizza.jpg" },
+                  { name: "Fries", price: "€28.00", image: "/food/fries.jpg" },
                 ].map((m) => (
                   <div
                     key={m.name}
                     className="rounded-xl bg-[#f8fafc] p-4 ring-1 ring-border transition-shadow hover:shadow-md"
                   >
-                    <div className="aspect-video rounded-md bg-gradient-to-br from-[#e8edf5] to-[#d9e2f3]" />
+                    <div className="aspect-video w-full overflow-hidden rounded-md bg-gradient-to-br from-[#e8edf5] to-[#d9e2f3]">
+                      <img src={m.image} alt={m.name} className="h-full w-full object-cover" loading="lazy" />
+                    </div>
                     <p className="mt-2 text-sm font-semibold text-foreground">
                       {m.name}
                     </p>

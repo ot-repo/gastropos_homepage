@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n/context";
 import { useState, useEffect } from "react";
@@ -65,20 +65,20 @@ const STATUS_META: Record<
   { color: string; bg: string; border: string; label: string }
 > = {
   new: {
-    color: "text-blue-400",
-    bg: "bg-blue-500/20",
+    color: "text-blue-600",
+    bg: "bg-blue-50",
     border: "border-l-blue-500",
     label: "NEW",
   },
   cooking: {
-    color: "text-amber-400",
-    bg: "bg-amber-500/20",
+    color: "text-amber-600",
+    bg: "bg-amber-50",
     border: "border-l-amber-500",
     label: "COOKING",
   },
   ready: {
-    color: "text-emerald-400",
-    bg: "bg-emerald-500/20",
+    color: "text-emerald-600",
+    bg: "bg-emerald-50",
     border: "border-l-emerald-500",
     label: "READY",
   },
@@ -93,6 +93,11 @@ function fmtTime(s: number) {
 export function Hero() {
   const { lang, t } = useI18n();
   const [orders, setOrders] = useState(SEED_ORDERS);
+  const [wordIdx, setWordIdx] = useState(0);
+
+  const words = lang === "de"
+    ? ["jede Küche.", "jedes Restaurant.", "jedes Café.", "jede Kasse.", "jeden Kiosk."]
+    : ["every kitchen.", "every restaurant.", "every café.", "every POS.", "every kiosk."];
 
   /* tick timers every second */
   useEffect(() => {
@@ -119,21 +124,27 @@ export function Hero() {
     return () => clearInterval(id);
   }, []);
 
+  /* cycle rotating words every 2.5s */
+  useEffect(() => {
+    const id = setInterval(() => {
+      setWordIdx((p) => (p + 1) % words.length);
+    }, 2500);
+    return () => clearInterval(id);
+  }, [words.length]);
+
   const c =
     lang === "de"
       ? {
-          badge: "KI-gestützter Küchenmonitor",
+          badge: "KI-gestützte Gastronomie-Plattform",
           h1a: "Das KI-Gehirn",
-          h1b: "hinter jeder Küche.",
-          sub: "Vorhersagen. Priorisieren. Performen.",
+          sub: "Kassensystem, Küchenmonitor, QR-Bestellung & Reservierung in einer App.",
           cta1: t.common.startTrial,
           cta2: t.common.bookDemo,
         }
       : {
-          badge: "AI-Powered Kitchen Intelligence",
+          badge: "AI-Powered Gastronomy Platform",
           h1a: "The AI brain behind",
-          h1b: "every kitchen.",
-          sub: "Predict. Prioritize. Perform.",
+          sub: "POS, KDS, QR ordering & reservations in one unified system.",
           cta1: t.common.startTrial,
           cta2: t.common.bookDemo,
         };
@@ -164,10 +175,27 @@ export function Hero() {
           <h1 className="mt-8 font-display text-5xl font-extrabold tracking-tight text-foreground md:text-7xl lg:text-8xl">
             {c.h1a}
             <br />
-            <span className="text-gradient-ai">{c.h1b}</span>
+            <span className="inline-grid grid-cols-1 overflow-hidden h-[1.25em] pb-[0.1em] align-bottom text-gradient-ai relative">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={wordIdx}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: "0%", opacity: 1 }}
+                  exit={{ y: "-100%", opacity: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 240,
+                    damping: 22,
+                  }}
+                  className="col-start-1 row-start-1 inline-block"
+                >
+                  {words[wordIdx]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-md text-lg font-mono tracking-wide text-muted-foreground">
+          <p className="mx-auto mt-6 max-w-xl text-lg font-mono tracking-wide text-muted-foreground">
             {c.sub}
           </p>
 
@@ -205,22 +233,22 @@ export function Hero() {
             }}
           />
 
-          <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#0a0f1a] shadow-2xl shadow-slate-900/40">
+          <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-white shadow-2xl shadow-slate-200/60">
             {/* title bar */}
-            <div className="flex items-center justify-between border-b border-white/5 px-5 py-3">
+            <div className="flex items-center justify-between border-b border-border/40 bg-[#f8fafc] px-5 py-3">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1.5">
-                  <span className="size-2.5 rounded-full bg-red-500/70" />
-                  <span className="size-2.5 rounded-full bg-amber-500/70" />
-                  <span className="size-2.5 rounded-full bg-emerald-500/70" />
+                  <span className="size-2.5 rounded-full bg-red-400" />
+                  <span className="size-2.5 rounded-full bg-amber-400" />
+                  <span className="size-2.5 rounded-full bg-emerald-400" />
                 </div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-white/30">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-slate-400">
                   GastroPos KDS
                 </span>
               </div>
               <div className="flex items-center gap-4">
-                <span className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-400">
-                  <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" /> LIVE
+                <span className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-600">
+                  <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" /> LIVE
                 </span>
                 <span className="hidden items-center gap-1.5 font-mono text-[10px] text-[#ea5929] sm:flex">
                   <Zap className="size-3" /> AI ROUTING
@@ -236,12 +264,12 @@ export function Hero() {
                   <motion.div
                     key={order.id}
                     layout
-                    className={`rounded-xl border-l-2 bg-white/[0.03] p-4 ${m.border} transition-colors duration-500`}
+                    className={`rounded-xl border-l-2 bg-[#f8fafc] ring-1 ring-border/30 p-4 ${m.border} transition-colors duration-500`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-display text-sm font-bold">{order.table}</span>
+                      <span className="font-display text-sm font-bold text-foreground">{order.table}</span>
                       {order.priority && (
-                        <span className="rounded bg-red-500/20 px-1.5 py-0.5 text-[9px] font-bold uppercase text-red-400">
+                        <span className="rounded bg-red-100 px-1.5 py-0.5 text-[9px] font-bold uppercase text-red-600">
                           Rush
                         </span>
                       )}
@@ -251,7 +279,7 @@ export function Hero() {
                     </p>
                     <ul className="mt-3 space-y-1">
                       {order.items.map((item) => (
-                        <li key={item} className="text-[11px] text-white/40">
+                        <li key={item} className="text-[11px] text-muted-foreground">
                           {item}
                         </li>
                       ))}

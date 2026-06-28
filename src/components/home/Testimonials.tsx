@@ -24,7 +24,7 @@ const TESTIMONIALS: Testimonial[] = [
       de: "GastroPos hat unsere Ticketzeiten um 40% reduziert. Das KI-Routing ist wie ein Extra-Souschef, der nie schläft.",
     },
     stars: 5,
-    avatar: "MB",
+    avatar: "/avatars/marco.jpg",
     color: "#ea5929",
   },
   {
@@ -36,7 +36,7 @@ const TESTIMONIALS: Testimonial[] = [
       de: "In zwei Wochen von ständigem Küchenchaos zu reibungslosem Service. Die prädiktive Analytik funktioniert wirklich.",
     },
     stars: 5,
-    avatar: "SL",
+    avatar: "/avatars/sarah.jpg",
     color: "#5b7cf7",
   },
   {
@@ -48,7 +48,7 @@ const TESTIMONIALS: Testimonial[] = [
       de: "3 Restaurants und Zimmerservice über ein KDS verwalten? Ein Gamechanger. Unsere Gäste bemerken den Unterschied.",
     },
     stars: 5,
-    avatar: "TW",
+    avatar: "/avatars/thomas.jpg",
     color: "#10b981",
   },
   {
@@ -60,7 +60,7 @@ const TESTIMONIALS: Testimonial[] = [
       de: "Als Ghost Kitchen mit über 300 Bestellungen/Stunde brauchen wir Zuverlässigkeit. GastroPos liefert 99,99% Verfügbarkeit.",
     },
     stars: 5,
-    avatar: "EK",
+    avatar: "/avatars/elena.jpg",
     color: "#f59e0b",
   },
   {
@@ -72,7 +72,7 @@ const TESTIMONIALS: Testimonial[] = [
       de: "Die Einrichtung dauerte unter 2 Stunden. Die Oberfläche ist so intuitiv, dass mein Team null Schulung brauchte.",
     },
     stars: 5,
-    avatar: "LH",
+    avatar: "/avatars/lukas.jpg",
     color: "#8b5cf6",
   },
   {
@@ -84,7 +84,7 @@ const TESTIMONIALS: Testimonial[] = [
       de: "Die Echtzeit-Analytik hat einen Engpass entdeckt, den ich nicht mal kannte. Unser Durchsatz stieg über Nacht um 28%.",
     },
     stars: 5,
-    avatar: "AR",
+    avatar: "/avatars/anna.jpg",
     color: "#ec4899",
   },
 ];
@@ -184,47 +184,52 @@ export function Testimonials() {
                   }}
                 >
                   {/* ── Modern card ── */}
-                  <div className="relative overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-6 shadow-xl shadow-slate-900/[0.04] backdrop-blur-sm">
+                  <div className="relative flex overflow-hidden rounded-2xl border border-white/60 bg-white/70 shadow-xl shadow-slate-900/[0.04] backdrop-blur-sm">
                     {/* gradient left accent — navy→orange from logo */}
                     <div
-                      className="absolute left-0 top-0 h-full w-[3px]"
+                      className="absolute left-0 top-0 z-10 h-full w-[3px]"
                       style={{ background: "linear-gradient(180deg, #1a2d6d 0%, #ea5929 100%)" }}
                     />
 
-                    {/* decorative quote mark */}
-                    <div className="mb-3 ml-3">
-                      <Quote className="size-6 text-[#ea5929]/20" />
+                    {/* Left side: Full height avatar image */}
+                    <div className="relative w-[120px] shrink-0 sm:w-[150px]">
+                      <img
+                        src={t.avatar}
+                        alt={t.name}
+                        className="h-full w-full object-cover"
+                      />
+                      {/* subtle color overlay accent from the author's brand */}
+                      <div 
+                        className="absolute bottom-0 left-0 h-1 w-full"
+                        style={{ background: t.color }}
+                      />
                     </div>
 
-                    {/* quote text */}
-                    <p className="ml-3 text-[15px] leading-relaxed text-foreground/80">
-                      {lang === "de" ? t.quote.de : t.quote.en}
-                    </p>
-
-                    {/* divider */}
-                    <div className="mx-3 mt-5 h-px bg-gradient-to-r from-border via-border/50 to-transparent" />
-
-                    {/* author row */}
-                    <div className="ml-3 mt-4 flex items-center gap-3">
-                      {/* avatar with gradient ring */}
-                      <div
-                        className="flex size-10 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white shadow-sm"
-                        style={{
-                          background: `linear-gradient(135deg, ${t.color}, ${t.color}cc)`,
-                        }}
-                      >
-                        {t.avatar}
+                    {/* Right side: Content */}
+                    <div className="flex flex-1 flex-col p-5 sm:p-6">
+                      <div className="mb-2">
+                        <Quote className="size-5 text-[#ea5929]/30" />
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <h4 className="text-sm font-semibold text-foreground">{t.name}</h4>
-                        <p className="text-[11px] text-muted-foreground">
-                          {lang === "de" ? t.role.de : t.role.en} · {t.location}
-                        </p>
-                      </div>
-                      <div className="flex gap-0.5">
-                        {Array.from({ length: t.stars }).map((_, s) => (
-                          <Star key={s} className="size-3 fill-amber-400 text-amber-400" />
-                        ))}
+                      
+                      <p className="text-[14px] leading-relaxed text-foreground/80 sm:text-[15px]">
+                        {lang === "de" ? t.quote.de : t.quote.en}
+                      </p>
+                      
+                      <div className="mt-auto pt-4">
+                        <div className="mb-3 h-px w-full bg-gradient-to-r from-border via-border/50 to-transparent" />
+                        <div className="flex items-end justify-between gap-2">
+                          <div className="min-w-0">
+                            <h4 className="text-sm font-semibold text-foreground">{t.name}</h4>
+                            <p className="line-clamp-1 text-[11px] text-muted-foreground">
+                              {lang === "de" ? t.role.de : t.role.en} · {t.location}
+                            </p>
+                          </div>
+                          <div className="flex shrink-0 gap-0.5 pb-0.5">
+                            {Array.from({ length: t.stars }).map((_, s) => (
+                              <Star key={s} className="size-3 fill-amber-400 text-amber-400" />
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

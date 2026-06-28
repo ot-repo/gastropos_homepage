@@ -258,9 +258,10 @@ html, body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 0;
-    overflow: hidden;
+    height: 120px;
     z-index: 5;
+    pointer-events: none;
+    overflow: hidden;
   }
   .wave {
     background: url("/wave.svg") repeat-x;
@@ -272,12 +273,12 @@ html, body {
   }
   .wave-1 {
     bottom: -10px;
-    opacity: 0.08;
+    opacity: 0.15;
     animation: wave-scroll 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
   }
   .wave-2 {
     bottom: 8px;
-    opacity: 0.05;
+    opacity: 0.10;
     animation:
       wave-scroll 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite,
       wave-swell 7s ease -1.25s infinite;
