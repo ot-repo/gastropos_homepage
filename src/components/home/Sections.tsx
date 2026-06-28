@@ -211,8 +211,8 @@ export function FinalCta() {
         <Reveal>
           <h2 className="text-balance font-display text-4xl font-extrabold tracking-tight text-white md:text-6xl">
             {lang === "de"
-              ? "Bereit, Ihre Küche zu transformieren?"
-              : "Ready to transform your kitchen?"}
+              ? "Bereit, Ihr Geschäft zu transformieren?"
+              : "Ready to transform your business?"}
           </h2>
           <p className="mt-5 text-white/60">
             {lang === "de"
