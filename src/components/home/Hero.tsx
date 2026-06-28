@@ -96,8 +96,8 @@ export function Hero() {
   const [wordIdx, setWordIdx] = useState(0);
 
   const words = lang === "de"
-    ? ["jede Küche.", "jedes Restaurant.", "jedes Café.", "jede Kasse.", "jeden Kiosk."]
-    : ["every kitchen.", "every restaurant.", "every café.", "every POS.", "every kiosk."];
+    ? ["Küchendisplay-System", "Selbstbestellsystem", "Liefersystem", "Kassenbuch"]
+    : ["Kitchen Display System", "Self ordering system", "Delivery system", "Cash book"];
 
   /* tick timers every second */
   useEffect(() => {
@@ -136,14 +136,14 @@ export function Hero() {
     lang === "de"
       ? {
           badge: "KI-gestützte Gastronomie-Plattform",
-          h1a: "Das KI-Gehirn",
+          h1a: "Erstes KI-basiertes POS-System mit",
           sub: "Kassensystem, Küchenmonitor, QR-Bestellung & Reservierung in einer App.",
           cta1: t.common.startTrial,
           cta2: t.common.bookDemo,
         }
       : {
           badge: "AI-Powered Gastronomy Platform",
-          h1a: "The AI brain behind",
+          h1a: "First AI Based POS System with",
           sub: "POS, KDS, QR ordering & reservations in one unified system.",
           cta1: t.common.startTrial,
           cta2: t.common.bookDemo,
@@ -172,7 +172,7 @@ export function Hero() {
             <Brain className="size-3.5" /> {c.badge}
           </span>
 
-          <h1 className="mt-8 font-display text-5xl font-extrabold tracking-tight text-foreground md:text-7xl lg:text-8xl">
+          <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
             {c.h1a}
             <br />
             <span className="inline-grid grid-cols-1 overflow-hidden h-[1.25em] pb-[0.1em] align-bottom text-gradient-ai relative">
