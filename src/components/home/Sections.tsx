@@ -242,12 +242,14 @@ export function FinalCta() {
             >
               {t.common.bookDemo}
             </Link>
-            <Link
-              to="/demo"
+            <a
+              href="https://app.gastropos.ai"
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-full border border-white/20 px-8 py-4 font-semibold text-white transition-all hover:bg-white/10"
             >
               {t.common.startTrial}
-            </Link>
+            </a>
           </div>
         </Reveal>
       </div>
@@ -369,10 +371,38 @@ export function KeyBenefits() {
 /* ═══════════════════════════════════════════════════════════════════ */
 
 const showcaseTabs = [
-  { id: "pos", icon: Receipt, en: "POS System", de: "Kasse" },
-  { id: "kds", icon: ChefHat, en: "Kitchen Display", de: "Küchenmonitor" },
-  { id: "qr", icon: ScanLine, en: "QR Ordering", de: "QR-Bestellung" },
-  { id: "analytics", icon: BarChart3, en: "Analytics", de: "Analytics" },
+  {
+    id: "pos",
+    icon: Receipt,
+    en: "POS System",
+    de: "Kasse",
+    desc_en: "Tablet-based ordering at every table. Waitstaff capture orders that flow instantly to the kitchen — no paper, no delays.",
+    desc_de: "Tablet-basierte Bestellaufnahme an jedem Tisch. Bestellungen fließen sofort in die Küche — kein Papier, keine Verzögerungen.",
+  },
+  {
+    id: "kds",
+    icon: ChefHat,
+    en: "Kitchen Display",
+    de: "Küchenmonitor",
+    desc_en: "Real-time order display for every kitchen station. Acoustic alerts, category filters, and status tracking from New to Served.",
+    desc_de: "Echtzeit-Auftragsanzeige für jede Küchenstation. Akustische Signale, Kategoriefilter und Statusverfolgung von Neu bis Serviert.",
+  },
+  {
+    id: "qr",
+    icon: ScanLine,
+    en: "QR Ordering",
+    de: "QR-Bestellung",
+    desc_en: "Guests scan a QR code at the table and place orders directly — no app download needed. Orders appear instantly in the KDS.",
+    desc_de: "Gäste scannen einen QR-Code am Tisch und bestellen direkt — kein App-Download nötig. Bestellungen erscheinen sofort im KDS.",
+  },
+  {
+    id: "analytics",
+    icon: BarChart3,
+    en: "Analytics",
+    de: "Analytics",
+    desc_en: "Revenue breakdowns, best-selling items, peak hours, and employee performance — all in one clear dashboard.",
+    desc_de: "Umsatzauswertungen, Bestseller, Stoßzeiten und Mitarbeiterleistung — übersichtlich in einem Dashboard.",
+  },
 ] as const;
 
 export function ProductShowcase() {
@@ -424,8 +454,27 @@ export function ProductShowcase() {
           </div>
         </Reveal>
 
+        <AnimatePresence mode="wait">
+          {showcaseTabs.map((tab) =>
+            active === tab.id ? (
+              <motion.div
+                key={tab.id}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.3 }}
+                className="mt-4 text-center"
+              >
+                <p className="mx-auto max-w-xl text-sm text-muted-foreground">
+                  {lang === "de" ? tab.desc_de : tab.desc_en}
+                </p>
+              </motion.div>
+            ) : null,
+          )}
+        </AnimatePresence>
+
         <Reveal delay={0.2}>
-          <div className="mt-10 overflow-hidden rounded-3xl border border-border bg-white p-3 shadow-xl">
+          <div className="mt-6 overflow-hidden rounded-3xl border border-border bg-white p-3 shadow-xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}

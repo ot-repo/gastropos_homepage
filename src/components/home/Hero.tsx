@@ -169,18 +169,20 @@ export function Hero() {
             <Typewriter words={words} />
           </h1>
 
-          <p className="mx-auto mt-6 max-w-xl text-lg font-mono tracking-wide text-muted-foreground">
+          <p className="mx-auto mt-6 max-w-xl rounded-[12px] bg-[#0c1b3d]/70 backdrop-blur-md px-6 py-3 text-lg font-mono tracking-wide text-white shadow-lg border border-white/10">
             {c.sub}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/demo"
+            <a
+              href="https://app.gastropos.ai"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group btn-shimmer inline-flex items-center gap-2 rounded-full bg-[#ea5929] px-8 py-4 font-semibold text-white shadow-[0_0_30px_rgba(234,89,41,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(234,89,41,0.6)]"
             >
               {c.cta1}{" "}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
+            </a>
             <Link
               to="/demo"
               className="inline-flex items-center rounded-full border border-border px-8 py-4 font-semibold text-foreground transition-all hover:bg-accent-soft hover:border-accent"

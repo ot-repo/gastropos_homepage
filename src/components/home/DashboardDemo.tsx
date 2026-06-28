@@ -1,40 +1,76 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Mic, Check } from "lucide-react";
+import { Sparkles, Mic, Check, Plus, ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
 
-/* ─── Demo phases ─────────────────────────────────────────────────── */
+/* ─── Types ─────────────────────────────────────────────────── */
 
-type Phase = "idle" | "listening" | "typing" | "creating" | "done";
+type Phase = "idle" | "listening" | "typing" | "adding" | "done";
+type TableStatus = "free" | "occupied" | "ready";
 
-const VOICE_COMMAND = "Create a new table — Table 15, Terrace";
-const VOICE_COMMAND_DE = "Neue Tisch erstellen — Tisch 15, Terrasse";
+interface OrderItem {
+  name: string;
+  qty: number;
+  price: number;
+}
 
-/* ─── Siri Waveform Bars ──────────────────────────────────────────── */
+/* ─── Constants ─────────────────────────────────────────────── */
+
+const VOICE_COMMAND_EN = "Add 2 Wagyu Burgers and a Riesling for table A3";
+const VOICE_COMMAND_DE = "2 Wagyu Burger und einen Riesling für Tisch A3";
+
+const ZONES = ["Balkon", "Garten", "Terrasse"];
+
+type Table = { id: string; status: TableStatus; amount?: string; time?: string };
+
+const TABLES: Table[] = [
+  { id: "A1", status: "occupied", amount: "1× 19,55€", time: "14:36" },
+  { id: "A2", status: "occupied", amount: "1× 7,50€", time: "14:44" },
+  { id: "A3", status: "occupied", amount: "4× 14,00€", time: "22:04" },
+  { id: "A4", status: "occupied", amount: "1× 16,95€", time: "23:20" },
+  { id: "A5", status: "ready", amount: "1× 20,00€", time: "14:45" },
+  { id: "A6", status: "free" },
+  { id: "A7", status: "occupied", amount: "2× 11,00€", time: "14:47" },
+  { id: "A8", status: "free" },
+  { id: "A9", status: "free" },
+  { id: "A10", status: "free" },
+];
+
+const STATUS_COLORS: Record<TableStatus, string> = {
+  free: "bg-[#e8e8e8] text-[#666]",
+  occupied: "bg-[#7B3F72] text-white",
+  ready: "bg-[#5a9c56] text-white",
+};
+
+const BASE_ORDER: OrderItem[] = [
+  { name: "Espresso", qty: 1, price: 3.5 },
+  { name: "Seabass", qty: 2, price: 34.0 },
+  { name: "Tiramisu", qty: 1, price: 8.0 },
+];
+
+const AI_ADDED_ITEMS: OrderItem[] = [
+  { name: "Wagyu Burger", qty: 2, price: 24.9 },
+  { name: "Riesling 0.2l", qty: 1, price: 9.5 },
+];
+
+/* ─── Waveform Bars ─────────────────────────────────────────── */
 
 function WaveformBars() {
   return (
     <div className="flex items-center justify-center gap-1">
-      {[0, 1, 2, 3, 4].map((i) => (
+      {[0, 1, 2, 3, 4, 3, 2].map((i, idx) => (
         <motion.div
-          key={i}
-          className="w-1 rounded-full bg-white"
-          animate={{
-            height: [8, 24 + Math.random() * 16, 8, 20 + Math.random() * 12, 8],
-          }}
-          transition={{
-            duration: 0.8 + i * 0.1,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: i * 0.08,
-          }}
+          key={idx}
+          className="w-1 rounded-full bg-[#ea5929]"
+          animate={{ height: [6, 18 + i * 4, 6, 22 + i * 3, 6] }}
+          transition={{ duration: 0.7 + i * 0.08, repeat: Infinity, ease: "easeInOut", delay: idx * 0.07 }}
         />
       ))}
     </div>
   );
 }
 
-/* ─── Typewriter Text ─────────────────────────────────────────────── */
+/* ─── Typewriter ────────────────────────────────────────────── */
 
 function TypewriterText({ text, onComplete }: { text: string; onComplete: () => void }) {
   const [displayed, setDisplayed] = useState("");
@@ -47,63 +83,60 @@ function TypewriterText({ text, onComplete }: { text: string; onComplete: () => 
       indexRef.current++;
       if (indexRef.current > text.length) {
         clearInterval(id);
-        setTimeout(onComplete, 800);
+        setTimeout(onComplete, 600);
         return;
       }
       setDisplayed(text.slice(0, indexRef.current));
-    }, 45);
+    }, 38);
     return () => clearInterval(id);
   }, [text, onComplete]);
 
   return (
     <span className="font-mono text-sm text-white/90">
-      "{displayed}
-      <motion.span
-        animate={{ opacity: [1, 0] }}
-        transition={{ duration: 0.5, repeat: Infinity }}
-      >
+      &ldquo;{displayed}
+      <motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.5, repeat: Infinity }}>
         |
       </motion.span>
-      "
+      &rdquo;
     </span>
   );
 }
 
-/* ─── Main Component ──────────────────────────────────────────────── */
+/* ─── Main Component ────────────────────────────────────────── */
 
 export function DashboardDemo() {
   const { lang } = useI18n();
   const [phase, setPhase] = useState<Phase>("idle");
+  const [zone, setZone] = useState(0);
+  const [activeTable, setActiveTable] = useState("A3");
+  const [orderItems, setOrderItems] = useState<OrderItem[]>(BASE_ORDER);
   const sectionRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
-  const voiceText = lang === "de" ? VOICE_COMMAND_DE : VOICE_COMMAND;
+  const voiceText = lang === "de" ? VOICE_COMMAND_DE : VOICE_COMMAND_EN;
 
-  /* ── Auto-loop via IntersectionObserver ── */
   const runSequence = useCallback(() => {
     setPhase("listening");
-
-    timeoutRef.current = setTimeout(() => {
-      setPhase("typing");
-    }, 2000);
+    timeoutRef.current = setTimeout(() => setPhase("typing"), 2000);
   }, []);
 
   const handleTypingComplete = useCallback(() => {
-    setPhase("creating");
+    setPhase("adding");
+    setActiveTable("A3");
     timeoutRef.current = setTimeout(() => {
+      setOrderItems([...BASE_ORDER, ...AI_ADDED_ITEMS]);
       setPhase("done");
       timeoutRef.current = setTimeout(() => {
         setPhase("idle");
-      }, 4000);
-    }, 1200);
+        setOrderItems(BASE_ORDER);
+      }, 5000);
+    }, 800);
   }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-
     let loopId: ReturnType<typeof setTimeout>;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -112,11 +145,11 @@ export function DashboardDemo() {
           clearTimeout(loopId);
           clearTimeout(timeoutRef.current);
           setPhase("idle");
+          setOrderItems(BASE_ORDER);
         }
       },
-      { threshold: 0.4 },
+      { threshold: 0.35 },
     );
-
     observer.observe(el);
     return () => {
       observer.disconnect();
@@ -125,31 +158,21 @@ export function DashboardDemo() {
     };
   }, [runSequence]);
 
-  /* re-trigger loop when done resets to idle */
   useEffect(() => {
     if (phase !== "idle") return;
-    const id = setTimeout(runSequence, 8000);
+    const id = setTimeout(runSequence, 9000);
     return () => clearTimeout(id);
   }, [phase, runSequence]);
 
-  const handleAiClick = () => {
-    if (phase !== "idle") return;
-    runSequence();
-  };
-
-  /* ── Order state ── */
-  const isNewTable = phase === "creating" || phase === "done";
+  const total = orderItems.reduce((s, i) => s + i.qty * i.price, 0);
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-navy-pattern py-28">
-      {/* background glow effect */}
+      {/* background glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/4 h-[500px] w-[700px] -translate-x-1/2 rounded-full"
-        style={{
-          background:
-            "radial-gradient(ellipse, rgba(26,45,109,0.4) 0%, transparent 70%)",
-        }}
+        style={{ background: "radial-gradient(ellipse, rgba(234,89,41,0.06) 0%, transparent 70%)" }}
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
@@ -159,194 +182,204 @@ export function DashboardDemo() {
             {lang === "de" ? "KI-Sprachassistent" : "AI Voice Assistant"}
           </p>
           <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl">
-            {lang === "de"
-              ? "Sprechen Sie mit Ihrem System."
-              : "Talk to your system."}
+            {lang === "de" ? "Sprechen Sie mit Ihrem System." : "Talk to your system."}
           </h2>
           <p className="mt-4 text-white/50">
             {lang === "de"
-              ? "Erstellen Sie Tische, ändern Sie Bestellungen und steuern Sie Ihr Geschäft — nur mit Ihrer Stimme."
-              : "Create tables, modify orders, and control your business — just with your voice."}
+              ? "Bestellungen aufnehmen, Tische verwalten — nur mit Ihrer Stimme."
+              : "Take orders, manage tables, and control your business — just with your voice."}
           </p>
         </div>
 
-        {/* dashboard card */}
-        <div className="relative mt-12 overflow-hidden rounded-3xl border border-white/10 bg-white shadow-2xl">
-          {/* POS Dashboard Mockup */}
-          <div className="grid min-h-[440px] grid-cols-1 gap-0 lg:grid-cols-12">
-            {/* Left: Menu Grid */}
-            <div className="space-y-3 border-r border-border p-6 lg:col-span-7">
-              {/* category tabs */}
-              <div className="grid grid-cols-4 gap-2">
-                {["Mains", "Drinks", "Sides", "Desserts"].map((c, i) => (
-                  <div
-                    key={c}
-                    className={`rounded-lg px-3 py-2 text-center text-xs font-semibold ${
-                      i === 0
-                        ? "bg-[#0c1b3d] text-white"
-                        : "bg-[#f8fafc] text-foreground ring-1 ring-border"
+        {/* POS card */}
+        <div className="relative mt-12 overflow-hidden rounded-3xl border border-white/10 bg-[#f4f5f7] shadow-2xl">
+          <div className="grid min-h-[520px] grid-cols-1 gap-0 lg:grid-cols-12">
+
+            {/* ── LEFT: Table Grid ── */}
+            <div className="border-r border-[#e0e0e0] bg-[#f4f5f7] p-5 lg:col-span-7">
+
+              {/* Status legend */}
+              <div className="mb-3 flex flex-wrap items-center gap-2">
+                <span className="text-xs text-[#999]">Status</span>
+                <div className="ml-auto flex flex-wrap gap-1.5">
+                  {[
+                    { label: lang === "de" ? "Frei" : "Free", color: "bg-[#e0e0e0]" },
+                    { label: lang === "de" ? "Bestellt" : "Occupied", color: "bg-[#7B3F72]" },
+                    { label: lang === "de" ? "Bereit" : "Ready", color: "bg-[#5a9c56]" },
+                    { label: lang === "de" ? "Serviert" : "Served", color: "bg-[#aaa]" },
+                  ].map(({ label, color }) => (
+                    <span key={label} className="flex items-center gap-1 rounded-full bg-white px-2.5 py-0.5 text-[10px] font-semibold shadow-sm">
+                      <span className={`size-2 rounded-full ${color}`} />
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Zone tabs */}
+              <div className="mb-3 grid grid-cols-3 rounded-xl bg-white p-1 shadow-sm">
+                {ZONES.map((z, i) => (
+                  <button
+                    key={z}
+                    onClick={() => setZone(i)}
+                    className={`rounded-lg py-1.5 text-sm font-semibold transition-colors ${
+                      zone === i ? "bg-[#0c1b3d] text-white" : "text-[#666] hover:text-[#333]"
                     }`}
                   >
-                    {c}
-                  </div>
+                    {z}
+                  </button>
                 ))}
               </div>
 
-              {/* product grid */}
-              <div className="grid grid-cols-3 gap-3">
-                {[
-                  { name: "Burger", price: "€10.50", image: "/food/burger.jpg" },
-                  { name: "Steak", price: "€14.00", image: "/food/steak.jpg" },
-                  { name: "Salad", price: "€17.50", image: "/food/salad.jpg" },
-                  { name: "Pasta", price: "€21.00", image: "/food/pasta.jpg" },
-                  { name: "Pizza", price: "€24.50", image: "/food/pizza.jpg" },
-                  { name: "Fries", price: "€28.00", image: "/food/fries.jpg" },
-                ].map((m) => (
-                  <div
-                    key={m.name}
-                    className="rounded-xl bg-[#f8fafc] p-4 ring-1 ring-border transition-shadow hover:shadow-md"
+              {/* Table grid */}
+              <div className="grid grid-cols-3 gap-2">
+                {TABLES.map((t) => (
+                  <motion.button
+                    key={t.id}
+                    onClick={() => setActiveTable(t.id)}
+                    whileTap={{ scale: 0.97 }}
+                    className={`relative rounded-xl p-3 text-left transition-all ${STATUS_COLORS[t.status]} ${
+                      activeTable === t.id ? "ring-2 ring-[#0c1b3d] ring-offset-1" : ""
+                    }`}
                   >
-                    <div className="aspect-video w-full overflow-hidden rounded-md bg-gradient-to-br from-[#e8edf5] to-[#d9e2f3]">
-                      <img src={m.image} alt={m.name} className="h-full w-full object-cover" loading="lazy" />
-                    </div>
-                    <p className="mt-2 text-sm font-semibold text-foreground">
-                      {m.name}
-                    </p>
-                    <p className="font-mono text-[10px] text-muted-foreground">
-                      {m.price}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: Order Panel */}
-            <div className="flex flex-col p-6 lg:col-span-5">
-              <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                {lang === "de" ? "DATEV EXPORT" : "DATEV EXPORT"} #0842-X
-              </p>
-
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={isNewTable ? "new" : "old"}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <h4 className="mt-1 font-display text-lg font-bold text-foreground">
-                    {isNewTable ? "Table 15 · Terrace" : "Table 14 · Terrace"}
-                  </h4>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* order items */}
-              <AnimatePresence mode="wait">
-                {isNewTable ? (
-                  <motion.div
-                    key="new-order"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="mt-6 flex flex-1 flex-col items-center justify-center rounded-xl border-2 border-dashed border-[#ea5929]/20 bg-[#ea5929]/5 p-8"
-                  >
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", damping: 12, delay: 0.2 }}
-                      className="flex size-12 items-center justify-center rounded-full bg-green-500"
-                    >
-                      <Check className="size-6 text-white" />
-                    </motion.div>
-                    <motion.p
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="mt-3 font-display font-bold text-foreground"
-                    >
-                      {lang === "de" ? "Tisch erstellt!" : "Table created!"}
-                    </motion.p>
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.6 }}
-                      className="mt-1 text-sm text-muted-foreground"
-                    >
-                      Table 15 · Terrace · 0 items
-                    </motion.p>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="existing-order"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="mt-4 flex-1"
-                  >
-                    <div className="space-y-3 text-sm">
-                      {[
-                        ["Espresso", "€3.50"],
-                        ["Riesling 0.2l", "€9.50"],
-                        ["Seabass", "€34.00"],
-                        ["Tiramisu", "€8.00"],
-                      ].map(([k, v]) => (
-                        <div key={k} className="flex justify-between">
-                          <span className="text-foreground">{k}</span>
-                          <span className="font-mono text-muted-foreground">
-                            {v}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-4 border-t border-border pt-4">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">MwSt 19%</span>
-                      </div>
-                      <div className="mt-1 flex justify-between font-display text-lg font-bold">
-                        <span>Total</span>
-                        <span>€84.50</span>
-                      </div>
-                      <p className="mt-1 flex items-center gap-1 text-[10px] text-green-600">
-                        <span className="inline-block size-1.5 rounded-full bg-green-500" />
-                        TSE SIGNED
+                    <p className="text-sm font-bold">{t.id}</p>
+                    {t.amount && <p className="mt-0.5 text-[10px] opacity-80">{t.amount}</p>}
+                    {t.time && (
+                      <p className="mt-0.5 flex items-center gap-0.5 text-[9px] opacity-60">
+                        ⏱ {t.time}
                       </p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    )}
+                    {t.status === "free" && (
+                      <p className="mt-0.5 text-[10px] opacity-40">⇄ {lang === "de" ? "Teilen" : "Split"}</p>
+                    )}
+                    {phase === "done" && t.id === "A3" && (
+                      <motion.div
+                        className="absolute inset-0 rounded-xl ring-2 ring-[#ea5929]"
+                        animate={{ opacity: [1, 0.3, 1] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                      />
+                    )}
+                  </motion.button>
+                ))}
+              </div>
 
-              {/* bottom bar */}
-              <div className="mt-4 flex items-center justify-between rounded-xl bg-[#0c1b3d] p-4">
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-white/40">
-                    TOTAL
-                  </p>
-                  <p className="font-display text-xl font-bold text-white">
-                    {isNewTable ? "€0.00" : "€84.50"}
-                  </p>
-                </div>
-                <button className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-[#0c1b3d] transition-transform hover:scale-105">
-                  Tap to Pay
+              {/* AI order button */}
+              <div className="mt-3 flex justify-end">
+                <button
+                  onClick={() => phase === "idle" && runSequence()}
+                  className="flex items-center gap-2 rounded-full bg-gradient-to-br from-[#ea5929] to-[#d44a1e] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-[#ea5929]/30 transition-all hover:scale-105"
+                >
+                  {phase === "idle" ? (
+                    <>
+                      <Sparkles className="size-4" />
+                      {lang === "de" ? "Mit KI bestellen" : "Order with AI"}
+                    </>
+                  ) : (
+                    <>
+                      <Mic className="size-4 animate-pulse" />
+                      {lang === "de" ? "Ich höre zu..." : "Listening..."}
+                    </>
+                  )}
                 </button>
               </div>
             </div>
-          </div>
 
-          {/* ── AI Button (floating) ── */}
-          <button
-            onClick={handleAiClick}
-            className="absolute bottom-6 right-6 z-20 flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-[#ea5929] to-[#d44a1e] text-white shadow-lg shadow-[#ea5929]/30 transition-all hover:scale-110 hover:shadow-xl hover:shadow-[#ea5929]/40"
-          >
-            {/* pulsing ring */}
-            {phase === "idle" && (
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-[#ea5929]"
-                animate={{ scale: [1, 1.4, 1.4], opacity: [0.6, 0, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-            )}
-            <Sparkles className="size-6" />
-          </button>
+            {/* ── RIGHT: Order Panel ── */}
+            <div className="flex flex-col bg-white p-5 lg:col-span-5">
+
+              {/* table header */}
+              <div className="flex items-center justify-between">
+                <span className="text-base font-bold text-[#0c1b3d]">🔔 {activeTable}</span>
+                <div className="flex gap-1.5">
+                  <button className="flex size-7 items-center justify-center rounded-full bg-[#f4f5f7] hover:bg-[#e8e8e8]">
+                    <ChevronLeft className="size-3.5 text-[#555]" />
+                  </button>
+                  <button className="flex size-7 items-center justify-center rounded-full bg-[#f4f5f7] hover:bg-[#e8e8e8]">
+                    <ChevronRight className="size-3.5 text-[#555]" />
+                  </button>
+                </div>
+              </div>
+
+              {/* add buttons */}
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <button className="flex items-center justify-center gap-1.5 rounded-lg border border-[#0c1b3d]/20 py-2 text-xs font-semibold text-[#0c1b3d] hover:bg-[#f4f5f7]">
+                  <Plus className="size-3.5" />
+                  {lang === "de" ? "Hinzufügen" : "Add Item"}
+                </button>
+                <button className="flex items-center justify-center gap-1.5 rounded-lg border-2 border-[#0c1b3d] py-2 text-xs font-semibold text-[#0c1b3d] hover:bg-[#0c1b3d]/5">
+                  <Sparkles className="size-3.5" />
+                  {lang === "de" ? "Mit KI hinzufügen" : "Add with AI"}
+                </button>
+              </div>
+
+              {/* course nav */}
+              <div className="mt-3 flex items-center justify-between text-xs text-[#aaa]">
+                <ChevronLeft className="size-3" />
+                <span>{lang === "de" ? "Gang #1" : "Course #1"}</span>
+                <ChevronRight className="size-3" />
+              </div>
+
+              {/* order items */}
+              <div className="mt-2 flex-1 space-y-1.5 overflow-auto">
+                <AnimatePresence>
+                  {orderItems.length === 0 ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="flex flex-col items-center justify-center py-8 text-center text-[#ccc]"
+                    >
+                      <ShoppingBag className="size-8 mb-2" />
+                      <p className="text-sm">{lang === "de" ? "Noch keine Produkte bestellt" : "No items yet"}</p>
+                    </motion.div>
+                  ) : (
+                    orderItems.map((item, idx) => {
+                      const isNew = idx >= BASE_ORDER.length;
+                      return (
+                        <motion.div
+                          key={item.name}
+                          initial={isNew ? { opacity: 0, x: 20 } : false}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: isNew ? (idx - BASE_ORDER.length) * 0.18 : 0 }}
+                          className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm ${
+                            isNew ? "bg-[#ea5929]/10 ring-1 ring-[#ea5929]/30" : "bg-[#f8f8f8]"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            {isNew && (
+                              <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-[#ea5929]">
+                                <Sparkles className="size-2.5 text-white" />
+                              </span>
+                            )}
+                            <span className="font-medium text-[#222]">
+                              {item.qty}× {item.name}
+                            </span>
+                          </div>
+                          <span className="font-mono text-xs text-[#666]">
+                            €{(item.qty * item.price).toFixed(2)}
+                          </span>
+                        </motion.div>
+                      );
+                    })
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* total bar */}
+              <div className="mt-3 rounded-xl bg-[#0c1b3d] px-4 py-3">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-white/40">
+                  {lang === "de" ? "Gesamt" : "Total"}
+                </p>
+                <motion.p
+                  key={total}
+                  initial={{ scale: 1.04 }}
+                  animate={{ scale: 1 }}
+                  className="font-display text-xl font-bold text-white"
+                >
+                  {orderItems.length}× / €{total.toFixed(2)}
+                </motion.p>
+              </div>
+            </div>
+          </div>
 
           {/* ── Voice Overlay ── */}
           <AnimatePresence>
@@ -358,11 +391,9 @@ export function DashboardDemo() {
                 transition={{ duration: 0.3 }}
                 className="absolute inset-0 z-30 flex flex-col items-center justify-center"
                 style={{
-                  background:
-                    "radial-gradient(ellipse at center, rgba(12,27,61,0.97) 0%, rgba(12,27,61,0.92) 100%)",
+                  background: "radial-gradient(ellipse at center, rgba(12,27,61,0.97) 0%, rgba(12,27,61,0.93) 100%)",
                 }}
               >
-                {/* mic icon */}
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -370,10 +401,8 @@ export function DashboardDemo() {
                   className="relative flex size-20 items-center justify-center rounded-full bg-white/10 ring-2 ring-white/20"
                 >
                   <Mic className="size-8 text-white" />
-                  {/* glow ring */}
                   <motion.div
                     className="absolute inset-0 rounded-full"
-                    style={{ boxShadow: "0 0 40px rgba(234,89,41,0.4)" }}
                     animate={{
                       boxShadow: [
                         "0 0 20px rgba(234,89,41,0.2)",
@@ -385,27 +414,18 @@ export function DashboardDemo() {
                   />
                 </motion.div>
 
-                {/* waveform */}
                 <div className="mt-6 h-8">
                   {phase === "listening" && <WaveformBars />}
                 </div>
 
-                {/* status text */}
-                <div className="mt-4 h-8 text-center">
+                <div className="mt-4 h-10 text-center">
                   {phase === "listening" && (
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-sm text-white/50"
-                    >
+                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm text-white/50">
                       {lang === "de" ? "Ich höre zu..." : "Listening..."}
                     </motion.p>
                   )}
                   {phase === "typing" && (
-                    <TypewriterText
-                      text={voiceText}
-                      onComplete={handleTypingComplete}
-                    />
+                    <TypewriterText text={voiceText} onComplete={handleTypingComplete} />
                   )}
                 </div>
               </motion.div>
@@ -419,18 +439,18 @@ export function DashboardDemo() {
                 initial={{ opacity: 0, y: 20, x: "-50%" }}
                 animate={{ opacity: 1, y: 0, x: "-50%" }}
                 exit={{ opacity: 0, y: -10, x: "-50%" }}
-                className="absolute bottom-6 left-1/2 z-20 flex items-center gap-2 rounded-full bg-green-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg"
+                className="absolute bottom-6 left-1/2 z-20 flex items-center gap-2 rounded-full bg-[#ea5929] px-5 py-2.5 text-sm font-semibold text-white shadow-lg"
               >
                 <Check className="size-4" />
                 {lang === "de"
-                  ? "Tisch 15 erfolgreich erstellt"
-                  : "Table 15 successfully created"}
+                  ? "2 Wagyu Burger & Riesling zu A3 hinzugefügt"
+                  : "2 Wagyu Burgers & Riesling added to A3"}
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        {/* STATUS badge */}
+        {/* status badge */}
         <AnimatePresence>
           {phase === "done" && (
             <motion.div
