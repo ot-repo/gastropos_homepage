@@ -60,10 +60,7 @@ export function AiCapabilities() {
         ];
 
   return (
-    <section
-      className="relative overflow-hidden py-28"
-      style={{ background: "linear-gradient(180deg, #ffffff 0%, #fef7f3 100%)" }}
-    >
+    <section className="relative overflow-hidden bg-[#f8fafc] py-28">
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <Reveal>
           <p className="text-center font-mono text-[11px] uppercase tracking-widest text-[#ea5929]">
@@ -133,19 +130,16 @@ export function StatsStrip() {
         ];
 
   return (
-    <section
-      className="relative border-y border-border py-20"
-      style={{ background: "linear-gradient(180deg, #f1f5f9 0%, #e8edf5 100%)" }}
-    >
+    <section className="relative py-20 bg-[#0c1b3d]">
       <div className="relative z-10 mx-auto max-w-5xl px-6">
         <div className="grid grid-cols-1 gap-10 text-center sm:grid-cols-3">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.1}>
-              <p className="font-display text-5xl font-extrabold text-foreground md:text-6xl">
+              <p className="font-display text-5xl font-extrabold text-white md:text-6xl">
                 <Counter to={s.value} />
                 {s.suffix}
               </p>
-              <p className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+              <p className="mt-2 font-mono text-[11px] uppercase tracking-widest text-white/40">
                 {s.label}
               </p>
             </Reveal>
@@ -169,10 +163,7 @@ export function BuiltFor() {
   ];
 
   return (
-    <section
-      className="relative overflow-hidden py-24"
-      style={{ background: "linear-gradient(180deg, #eef2fb 0%, #e5ecf8 100%)" }}
-    >
+    <section className="relative overflow-hidden bg-[#f8fafc] py-24">
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
@@ -200,25 +191,22 @@ export function BuiltFor() {
 export function FinalCta() {
   const { lang, t } = useI18n();
   return (
-    <section
-      className="relative overflow-hidden py-28"
-      style={{ background: "linear-gradient(180deg, #fef3ec 0%, #fde8dc 100%)" }}
-    >
+    <section className="relative overflow-hidden bg-[#0c1b3d] py-28">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60"
         style={{
-          background: "radial-gradient(circle, rgba(234,89,41,0.06) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(234,89,41,0.12) 0%, transparent 70%)",
         }}
       />
       <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
         <Reveal>
-          <h2 className="text-balance font-display text-4xl font-extrabold tracking-tight text-foreground md:text-6xl">
+          <h2 className="text-balance font-display text-4xl font-extrabold tracking-tight text-white md:text-6xl">
             {lang === "de"
               ? "Bereit, Ihre Küche zu transformieren?"
               : "Ready to transform your kitchen?"}
           </h2>
-          <p className="mt-5 text-muted-foreground">
+          <p className="mt-5 text-white/60">
             {lang === "de"
               ? "Live in unter zwei Stunden. Keine Kreditkarte nötig."
               : "Live in under two hours. No credit card required."}
@@ -226,13 +214,13 @@ export function FinalCta() {
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
               to="/demo"
-              className="rounded-full bg-[#ea5929] px-8 py-4 font-semibold text-white shadow-[0_0_30px_rgba(234,89,41,0.3)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(234,89,41,0.4)]"
+              className="rounded-full bg-[#ea5929] px-8 py-4 font-semibold text-white shadow-[0_0_30px_rgba(234,89,41,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(234,89,41,0.6)]"
             >
               {t.common.bookDemo}
             </Link>
             <Link
               to="/demo"
-              className="rounded-full border border-border px-8 py-4 font-semibold text-foreground transition-all hover:bg-accent-soft hover:border-accent"
+              className="rounded-full border border-white/20 px-8 py-4 font-semibold text-white transition-all hover:bg-white/10"
             >
               {t.common.startTrial}
             </Link>

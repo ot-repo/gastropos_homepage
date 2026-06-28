@@ -148,10 +148,7 @@ export function Testimonials() {
   };
 
   return (
-    <section
-      className="relative overflow-hidden py-28"
-      style={{ background: "linear-gradient(135deg, #fffbf7 0%, #fff5ed 100%)" }}
-    >
+    <section className="relative overflow-hidden bg-[#f8fafc] py-28">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* ── Left: heading ── */}
