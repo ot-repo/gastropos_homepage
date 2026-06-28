@@ -309,7 +309,7 @@ export function Header() {
           </Link>
           <Link
             to="/demo"
-            className="group inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-[0_6px_20px_-4px_rgba(37,99,235,0.5)] transition-all hover:brightness-110 hover:gap-2"
+            className="group hidden md:inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-[0_6px_20px_-4px_rgba(37,99,235,0.5)] transition-all hover:brightness-110 hover:gap-2"
           >
             {t.nav.demo}
             <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

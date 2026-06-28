@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { absoluteUrl } from "@/lib/seo";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { Hero } from "@/components/home/Hero";
-import { AiCapabilities, StatsStrip, BuiltFor, FinalCta } from "@/components/home/Sections";
+import { AiCapabilities, StatsStrip, BuiltFor, FinalCta, SocialProof, KeyBenefits, ProductShowcase } from "@/components/home/Sections";
 import { DashboardDemo } from "@/components/home/DashboardDemo";
 import { Testimonials } from "@/components/home/Testimonials";
 
@@ -32,7 +32,9 @@ function Index() {
   return (
     <SiteShell>
       <Hero />
+      <SocialProof />
       <AiCapabilities />
+      <ProductShowcase />
       <DashboardDemo />
       <StatsStrip />
       <BuiltFor />

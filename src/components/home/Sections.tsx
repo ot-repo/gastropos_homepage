@@ -1,15 +1,23 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n/context";
-import { Reveal, Counter } from "@/components/ui/motion";
+import { Reveal, SectionLabel, Counter } from "@/components/ui/motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Brain,
   Zap,
   TrendingUp,
+  Sparkles,
   UtensilsCrossed,
   Coffee,
   ChefHat,
   ShoppingBag,
   Building2,
+  Receipt,
+  ScanLine,
+  BarChart3,
+  Globe,
+  Check,
 } from "lucide-react";
 
 /* ─── AI Capabilities ─────────────────────────────────────────────── */
@@ -130,7 +138,7 @@ export function StatsStrip() {
         ];
 
   return (
-    <section className="relative py-20 bg-[#0c1b3d]">
+    <section className="relative overflow-hidden py-20 bg-[#0c1b3d]">
       <div className="relative z-10 mx-auto max-w-5xl px-6">
         <div className="grid grid-cols-1 gap-10 text-center sm:grid-cols-3">
           {stats.map((s, i) => (
@@ -228,5 +236,393 @@ export function FinalCta() {
         </Reveal>
       </div>
     </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* ─── Social Proof (marquee) ──────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+export function SocialProof() {
+  const { lang } = useI18n();
+  const logos = [
+    "GASTROGRUPPE",
+    "KAFFEEHAUS",
+    "LUXEHAIR",
+    "BISTROMATIC",
+    "TAP&PAY",
+    "RETAILHUB",
+    "MÜLLER & CO",
+    "ALMA",
+  ];
+  return (
+    <section className="overflow-hidden border-y border-border bg-white py-14">
+      <div className="mx-auto max-w-7xl px-6">
+        <p className="text-center font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+          {lang === "de"
+            ? "Vertraut von 12.000+ Betreibern in Europa"
+            : "Trusted by 12,000+ operators across Europe"}
+        </p>
+        <div className="mt-8 overflow-hidden">
+          <div className="flex animate-marquee gap-16 whitespace-nowrap">
+            {[...logos, ...logos].map((l, i) => (
+              <span
+                key={i}
+                className="font-display text-lg font-bold tracking-widest text-muted-foreground/50"
+              >
+                {l}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* ─── Key Benefits (AI features) ──────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+export function KeyBenefits() {
+  const { lang } = useI18n();
+  const items =
+    lang === "de"
+      ? [
+          {
+            icon: Brain,
+            t: "KI-Nachfrageprognose",
+            d: "GastroPos lernt aus Wetter, Events und Verlaufsdaten — und sagt voraus, was Sie morgen verkaufen werden, mit über 92 % Genauigkeit.",
+          },
+          {
+            icon: Sparkles,
+            t: "Menü- & Preis-KI",
+            d: "Automatische Empfehlungen für Bestseller, Margen-Optimierung und dynamische Preise zu Stoßzeiten.",
+          },
+          {
+            icon: TrendingUp,
+            t: "Anomalie-Erkennung",
+            d: "Die KI erkennt ungewöhnliche Stornos, Schwund oder Kassenabweichungen in Echtzeit — bevor sie zum Problem werden.",
+          },
+        ]
+      : [
+          {
+            icon: Brain,
+            t: "AI demand forecasting",
+            d: "GastroPos learns from weather, events and historical data — and predicts what you'll sell tomorrow with 92%+ accuracy.",
+          },
+          {
+            icon: Sparkles,
+            t: "Menu & pricing AI",
+            d: "Automatic recommendations for bestsellers, margin optimization and dynamic pricing during peak hours.",
+          },
+          {
+            icon: TrendingUp,
+            t: "Anomaly detection",
+            d: "AI flags unusual voids, shrinkage or cash discrepancies in real time — before they become a problem.",
+          },
+        ];
+  return (
+    <section className="bg-[#f8fafc] py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid gap-8 lg:grid-cols-3">
+          {items.map(({ icon: Icon, t, d }, i) => (
+            <Reveal key={t} delay={i * 0.08}>
+              <div className="group relative overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-8 shadow-xl shadow-slate-900/[0.04] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#ea5929]/[0.06]">
+                {/* gradient top accent */}
+                <div
+                  className="absolute left-0 top-0 h-[3px] w-full"
+                  style={{ background: "linear-gradient(90deg, #1a2d6d 0%, #ea5929 100%)" }}
+                />
+                <div className="mb-6 inline-flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#ea5929]/10 to-[#1a2d6d]/5 text-[#ea5929] ring-1 ring-[#ea5929]/10 transition-transform group-hover:-translate-y-1">
+                  <Icon className="size-5" />
+                </div>
+                <h3 className="font-display text-xl font-bold text-foreground">{t}</h3>
+                <p className="mt-3 leading-relaxed text-muted-foreground">{d}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* ─── Product Showcase (tabbed dashboard) ─────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+const showcaseTabs = [
+  { id: "pos", icon: Receipt, en: "POS System", de: "Kasse" },
+  { id: "kds", icon: ChefHat, en: "Kitchen Display", de: "Küchenmonitor" },
+  { id: "qr", icon: ScanLine, en: "QR Ordering", de: "QR-Bestellung" },
+  { id: "analytics", icon: BarChart3, en: "Analytics", de: "Analytics" },
+] as const;
+
+export function ProductShowcase() {
+  const { lang } = useI18n();
+  const [active, setActive] = useState<(typeof showcaseTabs)[number]["id"]>("pos");
+  return (
+    <section className="overflow-hidden bg-white py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal>
+          <div className="mx-auto max-w-2xl text-center">
+            <SectionLabel>
+              {lang === "de" ? "Eine Suite. Jeder Touchpoint." : "One suite. Every touchpoint."}
+            </SectionLabel>
+            <h2 className="mt-4 text-balance font-display text-4xl font-extrabold tracking-tight text-foreground md:text-5xl">
+              {lang === "de"
+                ? "Die komplette professionelle Suite."
+                : "The complete professional suite."}
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              {lang === "de"
+                ? "Vom Tresen bis zur Küche. Vom Tisch bis zum Online-Shop. Alles synchron, in Echtzeit."
+                : "From counter to kitchen. From table to online shop. Everything synced, in real time."}
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <div className="mt-10 flex justify-center">
+            <div className="flex flex-wrap justify-center gap-1 rounded-2xl border border-border bg-[#f8fafc] p-1 sm:inline-flex sm:rounded-full">
+              {showcaseTabs.map((tab) => {
+                const isActive = active === tab.id;
+                const Icon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActive(tab.id)}
+                    className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all ${
+                      isActive
+                        ? "bg-[#0c1b3d] text-white shadow"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <Icon className="size-3.5" />
+                    {lang === "de" ? tab.de : tab.en}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.2}>
+          <div className="mt-10 overflow-hidden rounded-3xl border border-border bg-white p-3 shadow-xl">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.4 }}
+                className="grid min-h-[420px] grid-cols-1 gap-3 rounded-2xl bg-[#f8fafc] p-6 lg:grid-cols-12"
+              >
+                {active === "pos" && <PosPreview />}
+                {active === "kds" && <KdsPreview />}
+                {active === "qr" && <QrPreview />}
+                {active === "analytics" && <AnalyticsPreview />}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ── Preview sub-components ─────────────────────────────────── */
+
+function PosPreview() {
+  return (
+    <>
+      <div className="space-y-3 lg:col-span-7">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {["Mains", "Drinks", "Sides", "Desserts"].map((c, i) => (
+            <div
+              key={c}
+              className={`rounded-lg px-3 py-2 text-xs font-semibold ${i === 0 ? "bg-[#0c1b3d] text-white" : "bg-white ring-1 ring-border"}`}
+            >
+              {c}
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {["Burger", "Steak", "Salad", "Pasta", "Pizza", "Fries", "Soup", "Wrap", "Bowl"].map(
+            (m, i) => (
+              <div key={m} className="rounded-xl bg-white p-4 ring-1 ring-border">
+                <div className="aspect-video rounded-md bg-gradient-to-br from-[#e8edf5] to-[#d9e2f3]" />
+                <p className="mt-2 text-sm font-semibold">{m}</p>
+                <p className="font-mono text-[10px] text-muted-foreground">€{(i + 1) * 4.5}.00</p>
+              </div>
+            ),
+          )}
+        </div>
+      </div>
+      <div className="rounded-xl bg-white p-5 ring-1 ring-border lg:col-span-5">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+          Order #2047
+        </p>
+        <h4 className="mt-1 font-display font-bold">Table 14 · Terrace</h4>
+        <div className="mt-4 space-y-3 text-sm">
+          {[
+            ["2× Burger", "18.00"],
+            ["1× Salad", "9.00"],
+            ["3× Coke", "9.00"],
+          ].map(([k, v]) => (
+            <div key={k} className="flex justify-between">
+              <span>{k}</span>
+              <span className="font-mono">€{v}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 border-t border-border pt-4">
+          <div className="flex justify-between font-display text-lg font-bold">
+            <span>Total</span>
+            <span>€36.00</span>
+          </div>
+        </div>
+        <button className="mt-4 w-full rounded-lg bg-[#ea5929] py-3 text-sm font-semibold text-white">
+          Tap to Pay
+        </button>
+      </div>
+    </>
+  );
+}
+
+function KdsPreview() {
+  return (
+    <div className="col-span-full grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
+      {[
+        { table: "#14", time: "00:42", items: ["2× Burger", "1× Salad", "3× Coke"], status: "Cooking" },
+        { table: "#08", time: "00:21", items: ["1× Steak", "1× Pasta", "2× Wine"], status: "New" },
+        { table: "#22", time: "01:14", items: ["3× Pizza", "2× Beer"], status: "Cooking" },
+        { table: "Bar", time: "00:05", items: ["4× Espresso"], status: "New" },
+      ].map((t) => (
+        <div key={t.table} className="rounded-xl bg-white p-4 ring-1 ring-border">
+          <div className="flex items-center justify-between">
+            <span className="font-display font-bold">{t.table}</span>
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${t.status === "New" ? "bg-[#ea5929]/10 text-[#ea5929]" : "bg-green-500/10 text-green-600"}`}
+            >
+              {t.status}
+            </span>
+          </div>
+          <p className="mt-1 font-mono text-xs text-muted-foreground">{t.time}</p>
+          <ul className="mt-3 space-y-1.5 text-sm">
+            {t.items.map((i) => (
+              <li key={i} className="flex items-start gap-2">
+                <Check className="mt-0.5 size-3.5 text-muted-foreground" />
+                {i}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function QrPreview() {
+  return (
+    <>
+      <div className="flex items-center justify-center lg:col-span-5">
+        <div className="w-64 rounded-3xl border border-border bg-white p-6 shadow-xl">
+          <div className="mx-auto grid aspect-square w-40 grid-cols-8 gap-0.5 rounded-xl bg-[#0c1b3d] p-2">
+            {Array.from({ length: 64 }).map((_, i) => (
+              <div
+                key={i}
+                className={`rounded-[1px] ${Math.random() > 0.5 ? "bg-white" : "bg-[#0c1b3d]"}`}
+              />
+            ))}
+          </div>
+          <p className="mt-4 text-center font-display font-bold">Scan to order</p>
+          <p className="text-center font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            Table 14
+          </p>
+        </div>
+      </div>
+      <div className="rounded-xl bg-white p-6 ring-1 ring-border lg:col-span-7">
+        <div className="flex items-center gap-2">
+          <Globe className="size-4 text-[#ea5929]" />
+          <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            order.gastropos.ai
+          </span>
+        </div>
+        <h4 className="mt-3 font-display text-2xl font-bold">Welcome to Table 14</h4>
+        <p className="text-sm text-muted-foreground">
+          Browse the menu, customize, pay — without waiting.
+        </p>
+        <div className="mt-5 space-y-3">
+          {["Margherita Pizza", "Truffle Pasta", "Tiramisu"].map((m) => (
+            <div key={m} className="flex items-center justify-between rounded-lg bg-[#f8fafc] p-3">
+              <div>
+                <p className="text-sm font-semibold">{m}</p>
+                <p className="font-mono text-xs text-muted-foreground">€12.00</p>
+              </div>
+              <button className="rounded-md bg-[#ea5929] px-3 py-1.5 text-xs font-semibold text-white">
+                Add
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function AnalyticsPreview() {
+  return (
+    <>
+      <div className="rounded-xl bg-white p-6 ring-1 ring-border lg:col-span-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              Revenue · Last 30 days
+            </p>
+            <p className="mt-1 font-display text-3xl font-extrabold">
+              €<Counter to={184230} />
+            </p>
+          </div>
+          <span className="rounded-full bg-green-500/10 px-2 py-1 text-xs font-bold text-green-600">
+            +24.5%
+          </span>
+        </div>
+        <svg viewBox="0 0 400 140" className="mt-6 w-full">
+          <defs>
+            <linearGradient id="chart-g" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="#1a2d6d" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#1a2d6d" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M0,100 C40,80 80,90 120,60 C160,40 200,70 240,50 C280,30 320,55 360,25 L400,15 L400,140 L0,140 Z"
+            fill="url(#chart-g)"
+          />
+          <path
+            d="M0,100 C40,80 80,90 120,60 C160,40 200,70 240,50 C280,30 320,55 360,25 L400,15"
+            stroke="#1a2d6d"
+            strokeWidth="2"
+            fill="none"
+          />
+        </svg>
+      </div>
+      <div className="grid grid-cols-1 gap-3 lg:col-span-4">
+        {[
+          { k: "Avg. ticket", v: "€42.30" },
+          { k: "Covers today", v: "284" },
+          { k: "Active staff", v: "12" },
+          { k: "Open tables", v: "14/20" },
+        ].map((s) => (
+          <div key={s.k} className="rounded-xl bg-white p-4 ring-1 ring-border">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              {s.k}
+            </p>
+            <p className="mt-1 font-display text-xl font-bold">{s.v}</p>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }

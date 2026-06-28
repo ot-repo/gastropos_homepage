@@ -109,11 +109,11 @@ interface CardPosition {
 }
 
 const POSITIONS: CardPosition[] = [
-  { y: -140, x: 0, opacity: 0, scale: 0.95, zIndex: 0 },      // 0: exiting up
+  { y: -120, x: 0, opacity: 0, scale: 0.95, zIndex: 0 },      // 0: exiting up
   { y: 0, x: 0, opacity: 0.7, scale: 0.98, zIndex: 1 },        // 1: top
-  { y: 140, x: 60, opacity: 1, scale: 1, zIndex: 2 },           // 2: center (hero)
-  { y: 280, x: 0, opacity: 0.7, scale: 0.98, zIndex: 1 },       // 3: bottom
-  { y: 400, x: 0, opacity: 0, scale: 0.95, zIndex: 0 },         // 4: entering
+  { y: 120, x: 0, opacity: 1, scale: 1, zIndex: 2 },            // 2: center (hero)
+  { y: 240, x: 0, opacity: 0.7, scale: 0.98, zIndex: 1 },       // 3: bottom
+  { y: 340, x: 0, opacity: 0, scale: 0.95, zIndex: 0 },         // 4: entering
 ];
 
 /* ─── Testimonials Component ──────────────────────────────────────── */
@@ -169,13 +169,13 @@ export function Testimonials() {
           </div>
 
           {/* ── Right: vertical card slider ── */}
-          <div className="relative h-[460px]">
+          <div className="relative h-[380px] sm:h-[420px]">
             {TESTIMONIALS.map((t, i) => {
               const pos = getPosition(i);
               return (
                 <div
                   key={t.name}
-                  className="absolute left-0 top-0 w-full max-w-[520px]"
+                  className="absolute left-0 right-0 top-0 mx-auto w-full max-w-full sm:max-w-[520px]"
                   style={{
                     transform: `translate(${pos.x}px, ${pos.y}px) scale(${pos.scale})`,
                     opacity: pos.opacity,
