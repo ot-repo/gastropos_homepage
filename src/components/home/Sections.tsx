@@ -216,8 +216,8 @@ export function FinalCta() {
           </h2>
           <p className="mt-5 text-white/60">
             {lang === "de"
-              ? "Live in unter zwei Stunden. Keine Kreditkarte nötig."
-              : "Live in under two hours. No credit card required."}
+              ? "Live in unter 20 Minuten. Keine Kreditkarte nötig."
+              : "Live in under 20 minutes. No credit card required."}
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
