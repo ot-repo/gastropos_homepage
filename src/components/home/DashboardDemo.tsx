@@ -141,8 +141,8 @@ export function DashboardDemo() {
   const isNewTable = phase === "creating" || phase === "done";
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-[#0c1b3d] py-28">
-      {/* decorative bg glow */}
+    <section ref={sectionRef} className="relative overflow-hidden bg-navy-pattern py-28">
+      {/* background glow effect */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/4 h-[500px] w-[700px] -translate-x-1/2 rounded-full"

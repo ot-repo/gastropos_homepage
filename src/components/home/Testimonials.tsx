@@ -109,11 +109,11 @@ interface CardPosition {
 }
 
 const POSITIONS: CardPosition[] = [
-  { y: -120, x: 0, opacity: 0, scale: 0.95, zIndex: 0 },      // 0: exiting up
-  { y: 0, x: 0, opacity: 0.7, scale: 0.98, zIndex: 1 },        // 1: top
-  { y: 120, x: 0, opacity: 1, scale: 1, zIndex: 2 },            // 2: center (hero)
-  { y: 240, x: 0, opacity: 0.7, scale: 0.98, zIndex: 1 },       // 3: bottom
-  { y: 340, x: 0, opacity: 0, scale: 0.95, zIndex: 0 },         // 4: entering
+  { y: -174, x: 0, opacity: 0, scale: 1, zIndex: 0 },      // 0: exiting up
+  { y: 0, x: 0, opacity: 0.6, scale: 1, zIndex: 1 },       // 1: top
+  { y: 174, x: 0, opacity: 1, scale: 1, zIndex: 2 },       // 2: center (hero)
+  { y: 348, x: 0, opacity: 0.6, scale: 1, zIndex: 1 },     // 3: bottom
+  { y: 522, x: 0, opacity: 0, scale: 1, zIndex: 0 },       // 4: entering
 ];
 
 /* ─── Testimonials Component ──────────────────────────────────────── */
@@ -169,7 +169,7 @@ export function Testimonials() {
           </div>
 
           {/* ── Right: vertical card slider ── */}
-          <div className="relative h-[380px] sm:h-[420px]">
+          <div className="relative h-[520px]">
             {TESTIMONIALS.map((t, i) => {
               const pos = getPosition(i);
               return (
@@ -184,7 +184,7 @@ export function Testimonials() {
                   }}
                 >
                   {/* ── Modern card ── */}
-                  <div className="relative flex overflow-hidden rounded-2xl border border-white/60 bg-white/70 shadow-xl shadow-slate-900/[0.04] backdrop-blur-sm">
+                  <div className="relative flex h-[170px] overflow-hidden rounded-2xl border border-white/60 bg-white/70 shadow-xl shadow-slate-900/[0.04] backdrop-blur-sm">
                     {/* gradient left accent — navy→orange from logo */}
                     <div
                       className="absolute left-0 top-0 z-10 h-full w-[3px]"
@@ -206,27 +206,27 @@ export function Testimonials() {
                     </div>
 
                     {/* Right side: Content */}
-                    <div className="flex flex-1 flex-col p-5 sm:p-6">
-                      <div className="mb-2">
-                        <Quote className="size-5 text-[#ea5929]/30" />
+                    <div className="flex flex-1 flex-col p-3 sm:p-4">
+                      <div className="mb-0.5">
+                        <Quote className="size-3.5 text-[#ea5929]/30" />
                       </div>
                       
-                      <p className="text-[14px] leading-relaxed text-foreground/80 sm:text-[15px]">
+                      <p className="line-clamp-3 text-[12px] leading-tight text-foreground/80 sm:text-[13px]">
                         {lang === "de" ? t.quote.de : t.quote.en}
                       </p>
                       
-                      <div className="mt-auto pt-4">
-                        <div className="mb-3 h-px w-full bg-gradient-to-r from-border via-border/50 to-transparent" />
-                        <div className="flex items-end justify-between gap-2">
+                      <div className="mt-auto pt-2">
+                        <div className="mb-1.5 h-px w-full bg-gradient-to-r from-border via-border/50 to-transparent" />
+                        <div className="flex items-end justify-between gap-1.5">
                           <div className="min-w-0">
-                            <h4 className="text-sm font-semibold text-foreground">{t.name}</h4>
-                            <p className="line-clamp-1 text-[11px] text-muted-foreground">
+                            <h4 className="text-[12px] font-semibold text-foreground">{t.name}</h4>
+                            <p className="line-clamp-1 text-[9px] text-muted-foreground">
                               {lang === "de" ? t.role.de : t.role.en} · {t.location}
                             </p>
                           </div>
                           <div className="flex shrink-0 gap-0.5 pb-0.5">
                             {Array.from({ length: t.stars }).map((_, s) => (
-                              <Star key={s} className="size-3 fill-amber-400 text-amber-400" />
+                              <Star key={s} className="size-2.5 fill-amber-400 text-amber-400" />
                             ))}
                           </div>
                         </div>

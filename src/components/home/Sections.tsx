@@ -18,6 +18,12 @@ import {
   BarChart3,
   Globe,
   Check,
+  Wine,
+  Croissant,
+  Truck,
+  Store,
+  Scissors,
+  Tag,
 } from "lucide-react";
 
 /* ─── AI Capabilities ─────────────────────────────────────────────── */
@@ -138,7 +144,7 @@ export function StatsStrip() {
         ];
 
   return (
-    <section className="relative overflow-hidden py-20 bg-[#0c1b3d]">
+    <section className="relative overflow-hidden py-20 bg-navy-pattern">
       <div className="relative z-10 mx-auto max-w-5xl px-6">
         <div className="grid grid-cols-1 gap-10 text-center sm:grid-cols-3">
           {stats.map((s, i) => (
@@ -165,28 +171,38 @@ export function BuiltFor() {
   const industries = [
     { icon: UtensilsCrossed, en: "Restaurants", de: "Restaurants" },
     { icon: Coffee, en: "Cafés", de: "Cafés" },
+    { icon: Wine, en: "Bars", de: "Bars" },
+    { icon: Croissant, en: "Bakeries", de: "Bäckereien" },
     { icon: ChefHat, en: "Hotels", de: "Hotels" },
+    { icon: Truck, en: "Food Trucks", de: "Food Trucks" },
     { icon: ShoppingBag, en: "Ghost Kitchens", de: "Ghost Kitchens" },
+    { icon: Tag, en: "Kiosks", de: "Kioske" },
     { icon: Building2, en: "Catering", de: "Catering" },
+    { icon: Store, en: "Retail", de: "Einzelhandel" },
+    { icon: Scissors, en: "Hair Salons", de: "Friseursalons" },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#f8fafc] py-24">
-      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+    <section className="relative overflow-hidden bg-white py-24">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
             {lang === "de" ? "Gebaut für" : "Built for"}
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            {industries.map(({ icon: Icon, en, de }) => (
-              <span
-                key={en}
-                className="inline-flex items-center gap-2.5 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-medium text-foreground shadow-sm transition-colors hover:border-[#ea5929]/20 hover:shadow-md"
-              >
-                <Icon className="size-4 text-[#ea5929]" />
-                {lang === "de" ? de : en}
-              </span>
-            ))}
+          <div className="mt-8 relative overflow-hidden">
+            <div className="absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent pointer-events-none" />
+            <div className="flex animate-marquee gap-4 whitespace-nowrap w-max py-2 hover:[animation-play-state:paused]">
+              {[...industries, ...industries, ...industries].map(({ icon: Icon, en, de }, i) => (
+                <span
+                  key={`${en}-${i}`}
+                  className="inline-flex shrink-0 items-center gap-2.5 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-medium text-foreground shadow-sm transition-colors hover:border-[#ea5929]/20 hover:shadow-md cursor-default"
+                >
+                  <Icon className="size-4 text-[#ea5929]" />
+                  {lang === "de" ? de : en}
+                </span>
+              ))}
+            </div>
           </div>
         </Reveal>
       </div>
@@ -199,7 +215,7 @@ export function BuiltFor() {
 export function FinalCta() {
   const { lang, t } = useI18n();
   return (
-    <section className="relative overflow-hidden bg-[#0c1b3d] py-28">
+    <section className="relative overflow-hidden bg-navy-pattern py-28">
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60"
@@ -222,7 +238,7 @@ export function FinalCta() {
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
               to="/demo"
-              className="rounded-full bg-[#ea5929] px-8 py-4 font-semibold text-white shadow-[0_0_30px_rgba(234,89,41,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(234,89,41,0.6)]"
+              className="btn-shimmer rounded-full bg-[#ea5929] px-8 py-4 font-semibold text-white shadow-[0_0_30px_rgba(234,89,41,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(234,89,41,0.6)]"
             >
               {t.common.bookDemo}
             </Link>

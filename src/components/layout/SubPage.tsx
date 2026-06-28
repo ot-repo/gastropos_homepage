@@ -112,8 +112,8 @@ export function CtaFooter() {
       <div className="mx-auto max-w-4xl px-6 text-center">
         <h2 className="font-display text-3xl font-extrabold tracking-tight md:text-4xl">
           {lang === "de"
-            ? "Bereit, in unter zwei Stunden zu starten?"
-            : "Ready to be live in under two hours?"}
+            ? "Bereit, in unter 20 Minuten live zu gehen?"
+            : "Ready to be live in under 20 minutes?"}
         </h2>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link

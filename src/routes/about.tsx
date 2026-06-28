@@ -43,8 +43,8 @@ function About() {
             heading: lang === "de" ? "Unsere Mission" : "Our mission",
             body:
               lang === "de"
-                ? "Wir glauben, dass jedes unabhängige Restaurant, Café und Geschäft die gleichen Werkzeuge verdient wie die größten Ketten — ohne sechsstellige IT-Budgets. Deshalb bauen wir eine Plattform, die in zwei Stunden einsatzbereit ist, monatlich kündbar ist und alles enthält, was Sie zum Betreiben Ihres Geschäfts brauchen."
-                : "We believe every independent restaurant, café and shop deserves the same tools as the biggest chains — without six-figure IT budgets. That's why we build a platform that's live in two hours, cancellable monthly, and includes everything you need to run your business.",
+                ? "Wir glauben, dass jedes unabhängige Restaurant, Café und Geschäft die gleichen Werkzeuge verdient wie die größten Ketten — ohne sechsstellige IT-Budgets. Deshalb bauen wir eine Plattform, die in unter 20 Minuten einsatzbereit ist, monatlich kündbar ist und alles enthält, was Sie zum Betreiben Ihres Geschäfts brauchen."
+                : "We believe every independent restaurant, café and shop deserves the same tools as the biggest chains — without six-figure IT budgets. That's why we build a platform that's live in under 20 minutes, cancellable monthly, and includes everything you need to run your business.",
           },
           {
             heading: lang === "de" ? "Wo wir sitzen" : "Where we are",

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n/context";
 import { productLinks, industryLinks } from "./Header";
-import logoAsset from "@/assets/gastropos-logo.svg.asset.json";
+import logoUrl from "@/assets/logo_with_name.svg";
 
 export function Footer() {
   const { t, lang } = useI18n();
@@ -11,7 +11,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-6">
           <div className="col-span-2">
             <Link to="/" className="flex items-center" aria-label="GastroPos">
-              <img src={logoAsset.url} alt="GastroPos" className="h-10 w-auto" />
+              <img src={logoUrl} alt="GastroPos" className="h-8 w-auto" />
             </Link>
             <p className="mt-6 max-w-xs text-sm text-muted-foreground leading-relaxed">
               {t.footer.tagline}

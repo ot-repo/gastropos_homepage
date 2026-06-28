@@ -30,8 +30,8 @@ export const products: Record<ProductSlug, ProductContent> = {
       de: "Das KI-Cloud-Kassensystem für Gastronomie, Handel und Dienstleister.",
     },
     lede: {
-      en: "Run orders, payments, inventory and reporting on one tablet — TSE-compliant, offline-first, AI-assisted and ready in under two hours. GastroPos turns every device in your venue into a sales surface and every transaction into actionable insight.",
-      de: "Bestellungen, Zahlungen, Warenwirtschaft und Reporting auf einem Tablet — TSE-konform, offline-fähig, KI-gestützt und in unter zwei Stunden einsatzbereit. GastroPos verwandelt jedes Gerät in eine Verkaufsfläche und jede Transaktion in nutzbare Erkenntnisse.",
+      en: "Run orders, payments, inventory and reporting on one tablet — TSE-compliant, offline-first, AI-assisted and ready in under 20 minutes. GastroPos turns every device in your venue into a sales surface and every transaction into actionable insight.",
+      de: "Bestellungen, Zahlungen, Warenwirtschaft und Reporting auf einem Tablet — TSE-konform, offline-fähig, KI-gestützt und in unter 20 Minuten einsatzbereit. GastroPos verwandelt jedes Gerät in eine Verkaufsfläche und jede Transaktion in nutzbare Erkenntnisse.",
     },
     metaTitle: {
       en: "AI Cloud POS System for Restaurants & Retail | GastroPos",
@@ -88,8 +88,8 @@ export const products: Record<ProductSlug, ProductContent> = {
           de: "Eine KI, die mit Ihrer Schicht arbeitet",
         },
         body: {
-          en: "GastroPos learns from every ticket. The AI suggests the right upsell at the right moment, flags items running low before they sell out, predicts the next two hours of footfall and recommends when to call in (or send home) a team member. It's not a separate dashboard — it's woven directly into the order screen, so your team sees the next best action without thinking about it.",
-          de: "GastroPos lernt aus jedem Bon. Die KI schlägt den passenden Upsell im richtigen Moment vor, warnt bevor Artikel ausverkauft sind, prognostiziert die nächsten zwei Stunden Gästeaufkommen und empfiehlt, wann ein Teammitglied gerufen oder nach Hause geschickt werden sollte. Kein separates Dashboard — direkt im Bestellbildschirm, sodass Ihr Team die nächste beste Aktion sieht, ohne darüber nachzudenken.",
+          en: "GastroPos learns from every ticket. The AI suggests the right upsell at the right moment, flags items running low before they sell out, predicts the next 2 hours of footfall and recommends when to call in (or send home) a team member. It's not a separate dashboard — it's woven directly into the order screen, so your team sees the next best action without thinking about it.",
+          de: "GastroPos lernt aus jedem Bon. Die KI schlägt den passenden Upsell im richtigen Moment vor, warnt bevor Artikel ausverkauft sind, prognostiziert die nächsten 2 Stunden Gästeaufkommen und empfiehlt, wann ein Teammitglied gerufen oder nach Hause geschickt werden sollte. Kein separates Dashboard — direkt im Bestellbildschirm, sodass Ihr Team die nächste beste Aktion sieht, ohne darüber nachzudenken.",
         },
       },
       {
@@ -127,7 +127,7 @@ export const products: Record<ProductSlug, ProductContent> = {
         },
       },
       {
-        heading: { en: "Live in under two hours", de: "In unter zwei Stunden einsatzbereit" },
+        heading: { en: "Live in under 20 minutes", de: "In unter 20 Minuten einsatzbereit" },
         body: {
           en: "Import your menu from a spreadsheet or your previous system, pair your printer and TSE, train your team in a 30-minute walkthrough. Most venues take their first live order on the same day they sign up — and our 24/7 support is one tap away if you need a hand.",
           de: "Importieren Sie Ihre Karte aus einer Tabelle oder Ihrem Altsystem, koppeln Sie Drucker und TSE, schulen Sie Ihr Team in einem 30-Minuten-Walkthrough. Die meisten Betriebe nehmen die erste Bestellung am gleichen Tag entgegen — und unser 24/7-Support ist nur einen Tipp entfernt, falls Sie Hilfe brauchen.",
@@ -169,8 +169,8 @@ export const products: Record<ProductSlug, ProductContent> = {
       {
         q: { en: "How long does setup take?", de: "Wie lange dauert die Einrichtung?" },
         a: {
-          en: "Most venues are live in under two hours. Menu import, hardware pairing, TSE activation and a team walkthrough all happen on day one.",
-          de: "Die meisten Betriebe sind in unter zwei Stunden live. Karte importieren, Hardware koppeln, TSE aktivieren und Team einweisen — alles am ersten Tag.",
+          en: "Most venues are live in under 20 minutes. Menu import, hardware pairing, TSE activation and a team walkthrough all happen on day one.",
+          de: "Die meisten Betriebe sind in unter 20 Minuten live. Karte importieren, Hardware koppeln, TSE aktivieren und Team einweisen — alles am ersten Tag.",
         },
       },
       {

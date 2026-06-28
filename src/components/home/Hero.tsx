@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n/context";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { CanvasCarousel } from "./CanvasCarousel";
 import {
   ArrowRight,
@@ -93,11 +93,10 @@ function fmtTime(s: number) {
 export function Hero() {
   const { lang, t } = useI18n();
   const [orders, setOrders] = useState(SEED_ORDERS);
-  const [wordIdx, setWordIdx] = useState(0);
 
-  const words = lang === "de"
+  const words = useMemo(() => lang === "de"
     ? ["Küchendisplay-System", "Selbstbestellsystem", "Liefersystem", "Kassenbuch"]
-    : ["Kitchen Display System", "Self ordering system", "Delivery system", "Cash book"];
+    : ["Kitchen Display System", "Self ordering system", "Delivery system", "Cash book"], [lang]);
 
   /* tick timers every second */
   useEffect(() => {
@@ -124,14 +123,6 @@ export function Hero() {
     return () => clearInterval(id);
   }, []);
 
-  /* cycle rotating words every 2.5s */
-  useEffect(() => {
-    const id = setInterval(() => {
-      setWordIdx((p) => (p + 1) % words.length);
-    }, 2500);
-    return () => clearInterval(id);
-  }, [words.length]);
-
   const c =
     lang === "de"
       ? {
@@ -155,10 +146,10 @@ export function Hero() {
       <div aria-hidden className="absolute inset-0 z-0">
         <CanvasCarousel />
       </div>
-      {/* semi-transparent overlay — warm tint for brand harmony */}
+      {/* semi-transparent overlay — navy tint for brand harmony */}
       <div
         className="absolute inset-0 z-[1]"
-        style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.75) 0%, rgba(254,247,243,0.68) 100%)" }}
+        style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(18,47,110,0.15) 100%)" }}
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 text-center">
@@ -175,24 +166,7 @@ export function Hero() {
           <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
             {c.h1a}
             <br />
-            <span className="inline-grid grid-cols-1 overflow-hidden h-[1.25em] pb-[0.1em] align-bottom text-gradient-ai relative">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={wordIdx}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={{ y: "0%", opacity: 1 }}
-                  exit={{ y: "-100%", opacity: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 240,
-                    damping: 22,
-                  }}
-                  className="col-start-1 row-start-1 inline-block"
-                >
-                  {words[wordIdx]}
-                </motion.span>
-              </AnimatePresence>
-            </span>
+            <Typewriter words={words} />
           </h1>
 
           <p className="mx-auto mt-6 max-w-xl text-lg font-mono tracking-wide text-muted-foreground">
@@ -202,7 +176,7 @@ export function Hero() {
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               to="/demo"
-              className="group inline-flex items-center gap-2 rounded-full bg-[#ea5929] px-8 py-4 font-semibold text-white shadow-[0_0_30px_rgba(234,89,41,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(234,89,41,0.6)]"
+              className="group btn-shimmer inline-flex items-center gap-2 rounded-full bg-[#ea5929] px-8 py-4 font-semibold text-white shadow-[0_0_30px_rgba(234,89,41,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(234,89,41,0.6)]"
             >
               {c.cta1}{" "}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -344,5 +318,49 @@ export function Hero() {
         <div className="wave wave-2" />
       </div>
     </section>
+  );
+}
+
+function Typewriter({ words }: { words: string[] }) {
+  const [wordIdx, setWordIdx] = useState(0);
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[wordIdx];
+    let timeout: NodeJS.Timeout;
+    
+    if (isDeleting) {
+      if (text.length === 0) {
+        setIsDeleting(false);
+        setWordIdx((prev) => (prev + 1) % words.length);
+      } else {
+        timeout = setTimeout(() => {
+          setText(currentWord.substring(0, text.length - 1));
+        }, 30);
+      }
+    } else {
+      if (text.length === currentWord.length) {
+        timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, 1500);
+      } else {
+        timeout = setTimeout(() => {
+          setText(currentWord.substring(0, text.length + 1));
+        }, 60);
+      }
+    }
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, wordIdx, words]);
+
+  return (
+    <span className="inline-block relative h-[1.25em] align-bottom pb-[0.1em]">
+      <span className="text-gradient-ai">{text}&#8203;</span>
+      <motion.span
+        animate={{ opacity: [1, 0, 1] }}
+        transition={{ repeat: Infinity, duration: 0.8 }}
+        className="ml-[0.05em] inline-block w-[0.08em] h-[0.9em] bg-[#ea5929] align-baseline -mb-[0.05em]"
+      />
+    </span>
   );
 }
