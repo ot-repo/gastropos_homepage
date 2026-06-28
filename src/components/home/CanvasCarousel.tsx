@@ -206,7 +206,7 @@ export function CanvasCarousel() {
     const id = setInterval(() => {
       const next = (currentRef.current + 1) % SLIDES.length;
       animateTo(next);
-    }, 5000);
+    }, 7500);
     return () => clearInterval(id);
   }, [imagesLoaded, animateTo]);
 

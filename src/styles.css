@@ -239,7 +239,7 @@ html, body {
       transparent
     );
     transform: translateX(-150%) skewX(-20deg);
-    animation: shimmer 3s infinite;
+    animation: shimmer 9s infinite;
   }
 
   .bg-navy-pattern {
@@ -310,14 +310,14 @@ html, body {
   .wave-1 {
     bottom: -10px;
     opacity: 0.15;
-    animation: wave-scroll 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+    animation: wave-scroll 10.5s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
   }
   .wave-2 {
     bottom: 8px;
     opacity: 0.10;
     animation:
-      wave-scroll 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite,
-      wave-swell 7s ease -1.25s infinite;
+      wave-scroll 10.5s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite,
+      wave-swell 10.5s ease -1.25s infinite;
   }
   @keyframes wave-scroll {
     0% { margin-left: 0; }

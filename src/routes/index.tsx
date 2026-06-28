@@ -23,7 +23,13 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:url", content: absoluteUrl("/") },
     ],
-    links: [{ rel: "canonical", href: absoluteUrl("/") }],
+    links: [
+      { rel: "canonical", href: absoluteUrl("/") },
+      { rel: "preload", as: "image", href: "/carousel-kitchen.png" },
+      { rel: "preload", as: "image", href: "/carousel-restaurant.png" },
+      { rel: "preload", as: "image", href: "/carousel-cafe.png" },
+      { rel: "preload", as: "image", href: "/carousel-bar.png" },
+    ],
   }),
   component: Index,
 });
