@@ -33,8 +33,8 @@ function About() {
         }
         lede={
           lang === "de"
-            ? "Gegründet 2018 in München. Heute vertrauen 12.000+ Betreiber in ganz Europa auf GastroPos."
-            : "Founded in 2018 in Munich. Today 12,000+ operators across Europe run on GastroPos."
+            ? "Gegründet 2018 in München. Heute vertrauen 2.000+ Betreiber in ganz Europa auf GastroPos."
+            : "Founded in 2018 in Munich. Today 2,000+ operators across Europe run on GastroPos."
         }
       />
       <ContentSections

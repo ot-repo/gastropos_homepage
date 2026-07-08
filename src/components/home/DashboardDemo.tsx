@@ -111,7 +111,7 @@ export function DashboardDemo() {
   const [activeTable, setActiveTable] = useState("A3");
   const [orderItems, setOrderItems] = useState<OrderItem[]>(BASE_ORDER);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const voiceText = lang === "de" ? VOICE_COMMAND_DE : VOICE_COMMAND_EN;
 

@@ -264,22 +264,22 @@ export function FinalCta() {
 export function SocialProof() {
   const { lang } = useI18n();
   const logos = [
-    "GASTROGRUPPE",
-    "KAFFEEHAUS",
-    "LUXEHAIR",
-    "BISTROMATIC",
-    "TAP&PAY",
-    "RETAILHUB",
-    "MÜLLER & CO",
-    "ALMA",
+    "AKROPOLIS",
+    "ALTER FRITZ",
+    "CAFE AROMA",
+    "RHEINBAR",
+    "RISTORANTE ITALIA",
+    "MILCHHÜSLI",
+    "SOHO BARS",
+    "UPDATE LOUNGE",
   ];
   return (
     <section className="overflow-hidden border-y border-border bg-white py-14">
       <div className="mx-auto max-w-7xl px-6">
         <p className="text-center font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
           {lang === "de"
-            ? "Vertraut von 12.000+ Betreibern in Europa"
-            : "Trusted by 12,000+ operators across Europe"}
+            ? "Vertraut von 2.000+ Betreibern in Europa"
+            : "Trusted by 2,000+ operators across Europe"}
         </p>
         <div className="mt-8 overflow-hidden">
           <div className="flex animate-marquee gap-16 whitespace-nowrap">

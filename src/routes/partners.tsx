@@ -53,8 +53,8 @@ function Partners() {
             heading: lang === "de" ? "Hardware-Anbieter" : "Hardware vendors",
             body:
               lang === "de"
-                ? "Listen Sie Ihre Drucker, Scanner und Terminals in unserem Marktplatz. Direkter Zugang zu 12.000+ Betreibern."
-                : "List your printers, scanners and terminals in our marketplace. Direct access to 12,000+ operators.",
+                ? "Listen Sie Ihre Drucker, Scanner und Terminals in unserem Marktplatz. Direkter Zugang zu 2.000+ Betreibern."
+                : "List your printers, scanners and terminals in our marketplace. Direct access to 2,000+ operators.",
           },
         ]}
       />

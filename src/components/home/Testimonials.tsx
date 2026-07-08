@@ -17,7 +17,7 @@ interface Testimonial {
 const TESTIMONIALS: Testimonial[] = [
   {
     name: "David Rossi",
-    role: { en: "Head Chef, Osteria Moderna", de: "Küchenchef, Osteria Moderna" },
+    role: { en: "Owner, Ristorante Italia", de: "Inhaber, Ristorante Italia" },
     location: "Munich, DE",
     quote: {
       en: "GastroPos cut our ticket times by 40%. The AI routing is like having an extra sous chef who never sleeps.",
@@ -29,7 +29,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: "Elia Lindström",
-    role: { en: "Owner, Nordic Kitchen", de: "Inhaber, Nordic Kitchen" },
+    role: { en: "Owner, Cafe AROMA", de: "Inhaber, Cafe AROMA" },
     location: "Berlin, DE",
     quote: {
       en: "We went from constant kitchen chaos to smooth service in two weeks. The QR self-ordering system completely eliminated waiting times.",
@@ -41,7 +41,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: "Hans Weber",
-    role: { en: "F&B Director, Grand Hotel Europa", de: "F&B Direktor, Grand Hotel Europa" },
+    role: { en: "F&B Director, Hotel Baergsunnu AG", de: "F&B Direktor, Hotel Baergsunnu AG" },
     location: "Vienna, AT",
     quote: {
       en: "Managing 3 restaurants and room service from one KDS? Game changer. Our guests notice the difference.",
@@ -53,7 +53,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: "Jin Lee",
-    role: { en: "Operations Manager, CloudBite", de: "Betriebsleiter, CloudBite" },
+    role: { en: "Operations Manager, Norrii Zushii", de: "Betriebsleiter, Norrii Zushii" },
     location: "Hamburg, DE",
     quote: {
       en: "Managing 300+ delivery orders an hour used to be a nightmare. With the integrated delivery system and caller ID, everything is perfectly organized.",
@@ -65,7 +65,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: "Johny Hoffman",
-    role: { en: "Café Owner, Bohne & Blatt", de: "Café-Inhaber, Bohne & Blatt" },
+    role: { en: "Café Owner, The Coffee Society", de: "Café-Inhaber, The Coffee Society" },
     location: "Zurich, CH",
     quote: {
       en: "The Voice AI Assistant is incredible. Being able to create tables and manage orders just by speaking has completely changed how we work.",
@@ -77,7 +77,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     name: "Osman Yılmaz",
-    role: { en: "Head Chef, Feuer & Flamme", de: "Küchenchef, Feuer & Flamme" },
+    role: { en: "Head Chef, AKROPOLIS", de: "Küchenchef, AKROPOLIS" },
     location: "Frankfurt, DE",
     quote: {
       en: "The real-time analytics caught a bottleneck I didn't even know we had. Our throughput jumped 28% overnight.",
@@ -121,7 +121,7 @@ const POSITIONS: CardPosition[] = [
 export function Testimonials() {
   const { lang } = useI18n();
   const [order, setOrder] = useState(() => TESTIMONIALS.map((_, i) => i));
-  const intervalRef = useRef<ReturnType<typeof setInterval>>();
+  const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
   const advance = useCallback(() => {
     setOrder((prev) => {

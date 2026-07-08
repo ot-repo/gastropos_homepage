@@ -72,22 +72,22 @@ export function Footer() {
             </Link>
           </FooterCol>
           <FooterCol title={t.footer.legal}>
-            <Link to="/legal/privacy" className="hover:text-accent">
+            <Link to="/legal/$slug" params={{ slug: "privacy" }} className="hover:text-accent">
               {lang === "de" ? "Datenschutz" : "Privacy"}
             </Link>
-            <Link to="/legal/terms" className="hover:text-accent">
+            <Link to="/legal/$slug" params={{ slug: "terms" }} className="hover:text-accent">
               {lang === "de" ? "AGB" : "Terms"}
             </Link>
-            <Link to="/legal/impressum" className="hover:text-accent">
+            <Link to="/legal/$slug" params={{ slug: "impressum" }} className="hover:text-accent">
               Impressum
             </Link>
-            <Link to="/legal/cookies" className="hover:text-accent">
+            <Link to="/legal/$slug" params={{ slug: "cookies" }} className="hover:text-accent">
               {lang === "de" ? "Cookies" : "Cookies"}
             </Link>
-            <Link to="/resources/help" className="hover:text-accent">
+            <Link to="/resources/$slug" params={{ slug: "help" }} className="hover:text-accent">
               Help
             </Link>
-            <Link to="/resources/blog" className="hover:text-accent">
+            <Link to="/resources/$slug" params={{ slug: "blog" }} className="hover:text-accent">
               Blog
             </Link>
           </FooterCol>
