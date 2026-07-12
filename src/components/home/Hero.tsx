@@ -95,7 +95,7 @@ export function Hero() {
   const [orders, setOrders] = useState(SEED_ORDERS);
 
   const words = useMemo(() => lang === "de"
-    ? ["Küchendisplay-System", "Selbstbestellsystem", "Liefersystem", "Kassenbuch"]
+    ? ["Küchenanzeige", "Selbstbestellsystem", "Liefersystem", "Kassenbuch"]
     : ["Kitchen Display System", "Self ordering system", "Delivery system", "Cash book"], [lang]);
 
   /* tick timers every second */

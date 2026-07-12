@@ -329,7 +329,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute left-1/2 top-full mt-3 w-[min(960px,calc(100vw-2rem))] -translate-x-1/2"
+            className="absolute left-1/2 top-full w-[min(960px,calc(100vw-2rem))] -translate-x-1/2 pt-3"
             onMouseEnter={() => setOpen(open)}
           >
             <div className="overflow-hidden rounded-3xl border border-white/60 bg-white/95 p-3 shadow-[0_24px_80px_-20px_rgba(15,23,42,0.35)] ring-1 ring-black/5 backdrop-blur-xl">
