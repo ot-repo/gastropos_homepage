@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import Clarity from "@microsoft/clarity";
+import { PageTransition } from "../components/layout/PageTransition";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -195,7 +196,9 @@ function RootComponent() {
       <I18nProvider>
         <ClarityInit />
         <HtmlLangSync />
-        <Outlet />
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
       </I18nProvider>
     </QueryClientProvider>
   );

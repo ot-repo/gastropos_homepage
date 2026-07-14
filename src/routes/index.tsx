@@ -5,6 +5,8 @@ import { Hero } from "@/components/home/Hero";
 import { AiCapabilities, StatsStrip, BuiltFor, FinalCta, SocialProof, KeyBenefits, ProductShowcase } from "@/components/home/Sections";
 import { DashboardDemo } from "@/components/home/DashboardDemo";
 import { Testimonials } from "@/components/home/Testimonials";
+import { FuturisticIntro } from "@/components/home/FuturisticIntro";
+import { useState, useCallback } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,16 +37,33 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [introComplete, setIntroComplete] = useState(false);
+
+  const handleIntroComplete = useCallback(() => {
+    setIntroComplete(true);
+  }, []);
+
   return (
-    <SiteShell>
-      <Hero />
-      <SocialProof />
-      <ProductShowcase />
-      <DashboardDemo />
-      <StatsStrip />
-      <BuiltFor />
-      <Testimonials />
-      <FinalCta />
-    </SiteShell>
+    <>
+      <FuturisticIntro onComplete={handleIntroComplete} />
+      <div
+        style={{
+          opacity: introComplete ? 1 : 0,
+          transition: "opacity 0.6s ease-out",
+          pointerEvents: introComplete ? "auto" : "none",
+        }}
+      >
+        <SiteShell>
+          <Hero />
+          <SocialProof />
+          <ProductShowcase />
+          <DashboardDemo />
+          <StatsStrip />
+          <BuiltFor />
+          <Testimonials />
+          <FinalCta />
+        </SiteShell>
+      </div>
+    </>
   );
 }
