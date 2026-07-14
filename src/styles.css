@@ -327,4 +327,218 @@ html, body {
     0%, 100% { transform: translate3d(0, -8px, 0); }
     50% { transform: translate3d(0, 2px, 0); }
   }
+
+  /* ── Futuristic Intro — Spiral Vortex ──────────────────────── */
+
+  .intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(180deg, #020617 0%, #0a1628 50%, #0c1b3d 100%);
+  }
+
+  .intro-neural-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(91, 124, 247, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(91, 124, 247, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Scan line sweeping top to bottom */
+  .intro-scanline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, rgba(234,89,41,0.4), rgba(91,124,247,0.4), transparent);
+    box-shadow: 0 0 20px 4px rgba(234,89,41,0.1);
+    animation: intro-scanline-sweep 2.4s linear infinite;
+  }
+
+  @keyframes intro-scanline-sweep {
+    from { top: -2%; }
+    to { top: 102%; }
+  }
+
+  /* ── Spiral container ── */
+  .intro-spiral-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    perspective: 500px;
+    -webkit-perspective: 500px;
+  }
+
+  .intro-spiral {
+    position: relative;
+  }
+
+  /* Individual particle */
+  .intro-particle {
+    display: block;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 0px 10px rgba(234, 89, 41, 0.6), 0 0 20px rgba(91, 124, 247, 0.3);
+    animation-name: intro-spiral-spin;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes intro-spiral-spin {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.6;
+      transform: translate3d(-4px, -4px, 570px);
+    }
+  }
+
+  /* ── Logo container ── */
+  .intro-logo-container {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .intro-logo-text {
+    text-shadow:
+      0 0 40px rgba(91, 124, 247, 0.3),
+      0 0 80px rgba(91, 124, 247, 0.15),
+      0 0 120px rgba(234, 89, 41, 0.1);
+  }
+
+  .intro-tagline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    text-shadow: 0 0 20px rgba(234, 89, 41, 0.15);
+  }
+
+  .intro-tagline-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ea5929;
+    animation: intro-dot-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes intro-dot-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .intro-divider {
+    height: 1px;
+    width: 160px;
+    transform-origin: center;
+    background: linear-gradient(90deg, transparent, rgba(234,89,41,0.5), transparent);
+  }
+
+  /* ── Corner brackets ── */
+  .intro-corner {
+    position: absolute;
+    z-index: 10;
+    opacity: 0;
+    animation: intro-corner-fade-in 0.6s ease-out 0.4s forwards;
+  }
+
+  @keyframes intro-corner-fade-in {
+    to { opacity: 0.3; }
+  }
+
+  .intro-corner--tl { top: 24px; left: 24px; }
+  .intro-corner--tr { top: 24px; right: 24px; transform: rotate(90deg); }
+  .intro-corner--bl { bottom: 24px; left: 24px; transform: rotate(-90deg); }
+  .intro-corner--br { bottom: 24px; right: 24px; transform: rotate(180deg); }
+
+  /* ── HUD status ── */
+  .intro-hud {
+    position: absolute;
+    bottom: 32px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.3);
+    opacity: 0;
+    animation: intro-corner-fade-in 0.5s ease-out 0.5s forwards;
+  }
+
+  .intro-hud-dots {
+    display: inline-flex;
+    gap: 3px;
+  }
+
+  .intro-hud-dot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ea5929;
+    animation: intro-hud-dot-blink 1s infinite;
+  }
+
+  @keyframes intro-hud-dot-blink {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+}
+
+/* ── Glitch Page Transition ──────────────────────────────────── */
+
+.page-glitch-wrapper {
+  position: relative;
+}
+
+.page-glitch-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 42%,
+    rgba(234, 89, 41, 0.15) 48%,
+    rgba(91, 124, 247, 0.12) 52%,
+    transparent 58%
+  );
+  mix-blend-mode: screen;
 }

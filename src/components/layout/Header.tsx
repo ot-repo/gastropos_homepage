@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useI18n } from "@/lib/i18n/context";
 import {
@@ -293,14 +293,7 @@ export function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => setLang(lang === "en" ? "de" : "en")}
-            className="hidden md:inline-flex items-center gap-1 rounded-full border border-border/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:border-accent hover:text-accent"
-            aria-label="Switch language"
-          >
-            <Globe className="size-3" />
-            {lang === "en" ? "EN" : "DE"}
-          </button>
+          <LangDropdown lang={lang} setLang={setLang} />
           <Link
             to="/signin"
             className="hidden md:inline-flex text-sm font-semibold text-foreground hover:text-accent"
@@ -309,7 +302,7 @@ export function Header() {
           </Link>
           <Link
             to="/demo"
-            className="group btn-shimmer hidden md:inline-flex items-center gap-1.5 rounded-full bg-[#ea5929] px-5 py-2.5 text-[13px] font-semibold text-white shadow-[0_0_20px_rgba(234,89,41,0.3)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(234,89,41,0.5)]"
+            className="group btn-shimmer hidden md:inline-flex items-center gap-1.5 rounded-full bg-[#1a2d6d] px-5 py-2.5 text-[13px] font-semibold text-white shadow-[0_0_20px_rgba(26,45,109,0.3)] transition-all hover:bg-[#122050] hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(26,45,109,0.5)]"
           >
             {t.nav.demo}
             <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -549,3 +542,94 @@ function MobileGroup({
 }
 
 export { productLinks, industryLinks };
+
+/* ── Language Dropdown ──────────────────────────────────────── */
+
+const LANGUAGES = [
+  { code: "en", label: "English", flag: "🇬🇧" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪" },
+] as const;
+
+function LangDropdown({
+  lang,
+  setLang,
+}: {
+  lang: "en" | "de";
+  setLang: (l: "en" | "de") => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Close on outside click
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
+
+  const current = LANGUAGES.find((l) => l.code === lang)!;
+
+  return (
+    <div ref={ref} className="relative hidden md:block">
+      {/* Trigger */}
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-transparent px-3 py-1.5 text-[12px] font-medium text-muted-foreground transition-all hover:border-accent/40 hover:text-foreground hover:bg-accent/5"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        <span className="text-[14px] leading-none">{current.flag}</span>
+        <span className="font-mono tracking-widest uppercase text-[10px]">{current.code}</span>
+        <motion.span
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="inline-flex"
+        >
+          <ChevronDown className="size-3" />
+        </motion.span>
+      </button>
+
+      {/* Dropdown panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.96 }}
+            transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute right-0 top-full mt-2 min-w-[140px] overflow-hidden rounded-xl border border-border/40 bg-white/90 backdrop-blur-xl shadow-xl shadow-black/10 z-[200]"
+            role="listbox"
+          >
+            {LANGUAGES.map((l) => (
+              <button
+                key={l.code}
+                role="option"
+                aria-selected={lang === l.code}
+                onClick={() => {
+                  setLang(l.code);
+                  setOpen(false);
+                }}
+                className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors text-left
+                  ${lang === l.code
+                    ? "bg-[#1a2d6d]/8 text-[#1a2d6d] font-semibold"
+                    : "text-foreground hover:bg-accent/5 hover:text-[#1a2d6d]"
+                  }`}
+              >
+                <span className="text-[16px] leading-none">{l.flag}</span>
+                <span>{l.label}</span>
+                {lang === l.code && (
+                  <span className="ml-auto size-1.5 rounded-full bg-[#1a2d6d]" />
+                )}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

@@ -163,13 +163,15 @@ export function Hero() {
             <Brain className="size-3.5" /> {c.badge}
           </span>
 
-          <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="relative z-[2] mt-8 font-display text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
             {c.h1a}
             <br />
-            <Typewriter words={words} />
+            <span className="text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl">
+              <Typewriter words={words} />
+            </span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-xl rounded-[12px] bg-[#0c1b3d]/70 backdrop-blur-md px-6 py-3 text-lg font-mono tracking-wide text-white shadow-lg border border-white/10">
+          <p className="relative z-[1] mx-auto mt-8 max-w-xl rounded-[12px] bg-[#1a2d6d] px-6 py-3 text-lg font-mono tracking-wide text-white shadow-lg border border-white/10">
             {c.sub}
           </p>
 
@@ -185,7 +187,7 @@ export function Hero() {
             </a>
             <Link
               to="/demo"
-              className="inline-flex items-center rounded-full border border-border px-8 py-4 font-semibold text-foreground transition-all hover:bg-accent-soft hover:border-accent"
+              className="inline-flex items-center rounded-full bg-[#1a2d6d] px-8 py-4 font-semibold text-white transition-all hover:bg-[#122050] hover:-translate-y-0.5"
             >
               {c.cta2}
             </Link>
