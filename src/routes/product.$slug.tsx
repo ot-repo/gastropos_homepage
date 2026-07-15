@@ -23,6 +23,7 @@ import waiterPayment from "@/assets/waiter-payment.jpg";
 import qrHero from "@/assets/qr-hero.jpg";
 import qrMenu from "@/assets/qr-menu.jpg";
 import qrAdmin from "@/assets/qr-admin.jpg";
+import analyticsHero from "@/assets/statistics.png";
 
 const PRODUCT_IMAGES: Partial<Record<ProductSlug, { src: string; alt: string }>> = {
   "kitchen-display": {
@@ -44,6 +45,10 @@ const PRODUCT_IMAGES: Partial<Record<ProductSlug, { src: string; alt: string }>>
   "qr-ordering": {
     src: qrHero,
     alt: "Restaurant guest scanning a QR code on the table with a smartphone",
+  },
+  analytics: {
+    src: analyticsHero,
+    alt: "GastroPos analytics dashboard showing revenue by hour, best-selling items and payment type distribution",
   },
 };
 
