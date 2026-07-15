@@ -41,6 +41,26 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
     };
   }, [onComplete]);
 
+  /* ── Background Image Preloader ──
+     Fetch heavy hero images in the background while the 3.5s intro runs
+     so they are instantly ready when the intro fades out. */
+  useEffect(() => {
+    if (!mounted) return;
+    const imagesToPreload = [
+      "/carousel-kitchen.png",
+      "/carousel-restaurant.png",
+      "/carousel-cafe.png",
+      "/carousel-bar.png",
+    ];
+
+    imagesToPreload.forEach((src) => {
+      const img = new Image();
+      // @ts-ignore - fetchPriority is standard but sometimes missing in older TS DOM types
+      img.fetchPriority = "high";
+      img.src = src;
+    });
+  }, [mounted]);
+
   if (!show) return null;
   if (typeof document === "undefined") return null;
 
