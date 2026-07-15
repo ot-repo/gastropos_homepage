@@ -183,7 +183,7 @@ export function BuiltFor() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-white py-24">
+    <section className="relative overflow-hidden bg-white py-24 border-t-8 border-l-8 border-t-[#ea5929] border-l-[#ea5929]">
       <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
@@ -274,7 +274,7 @@ export function SocialProof() {
     "UPDATE LOUNGE",
   ];
   return (
-    <section className="overflow-hidden border-y border-border bg-white py-14">
+    <section className="overflow-hidden bg-white py-14 border-t-8 border-l-8 border-t-[#ea5929] border-l-[#ea5929]">
       <div className="mx-auto max-w-7xl px-6">
         <p className="text-center font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
           {lang === "de"
@@ -409,7 +409,7 @@ export function ProductShowcase() {
   const { lang } = useI18n();
   const [active, setActive] = useState<(typeof showcaseTabs)[number]["id"]>("pos");
   return (
-    <section className="overflow-hidden bg-white py-28">
+    <section className="overflow-hidden bg-white py-28 border-l-8 border-l-[#ea5929]">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
