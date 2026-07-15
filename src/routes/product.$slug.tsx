@@ -198,9 +198,25 @@ function ProductPage() {
         lede={pick(product.lede)}
       />
       {image && (
-        <section className="border-b border-border bg-surface/40 pb-20">
-          <div className="mx-auto max-w-5xl px-6 -mt-8">
-            <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-elegant">
+        <section className="border-b border-border bg-surface/40 pb-24">
+          <div className="relative mx-auto max-w-5xl px-6 -mt-10">
+            <div
+              aria-hidden
+              className="absolute -inset-8 -z-10 rounded-[2.5rem] opacity-70"
+              style={{
+                background:
+                  "radial-gradient(ellipse 70% 60% at 50% 40%, rgba(234,89,41,0.10) 0%, transparent 70%)",
+              }}
+            />
+            <div className="overflow-hidden rounded-3xl border border-border bg-background shadow-elegant">
+              <div className="flex items-center gap-1.5 border-b border-border/60 bg-surface px-4 py-2.5">
+                <span className="size-2.5 rounded-full bg-red-400" />
+                <span className="size-2.5 rounded-full bg-amber-400" />
+                <span className="size-2.5 rounded-full bg-emerald-400" />
+                <span className="ml-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  GastroPos
+                </span>
+              </div>
               <img
                 src={image.src}
                 alt={image.alt}
@@ -215,21 +231,24 @@ function ProductPage() {
       )}
       <FeatureList items={pick(product.features)} />
       {gallery && (
-        <section className="border-t border-border bg-surface/40 py-20">
-          <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-2">
+        <section className="border-t border-border bg-surface/40 py-24">
+          <div className="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-2">
             {gallery.map((g) => (
-              <figure key={g.src} className="group">
-                <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-elegant">
+              <figure
+                key={g.src}
+                className="group overflow-hidden rounded-3xl border border-border bg-background shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-elegant"
+              >
+                <div className="overflow-hidden">
                   <img
                     src={g.src}
                     alt={g.alt}
                     width={1536}
                     height={1024}
                     loading="lazy"
-                    className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
-                <figcaption className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                <figcaption className="border-t border-border/60 p-5 text-sm leading-relaxed text-muted-foreground">
                   {pick(g.caption)}
                 </figcaption>
               </figure>

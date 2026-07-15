@@ -38,37 +38,31 @@ export const products: Record<ProductSlug, ProductContent> = {
       de: "KI-Cloud-Kassensystem für Gastronomie & Handel | GastroPos",
     },
     metaDescription: {
-      en: "TSE-ready AI cloud POS for restaurants, cafés, bars and retail. Offline-first tablet POS with smart upsell, KDS, inventory, DATEV export and 24/7 support.",
-      de: "TSE-konformes KI-Cloud-Kassensystem für Restaurants, Cafés, Bars und Handel. Tablet-Kasse mit smartem Upsell, Küchenmonitor, Warenwirtschaft, DATEV-Export und 24/7 Support.",
+      en: "TSE-ready AI cloud POS for restaurants, cafés, bars and retail. Offline-first tablet POS with AI-assisted onboarding, KDS, inventory, DATEV export and 24/7 support.",
+      de: "TSE-konformes KI-Cloud-Kassensystem für Restaurants, Cafés, Bars und Handel. Tablet-Kasse mit KI-gestütztem Onboarding, Küchenmonitor, Warenwirtschaft, DATEV-Export und 24/7 Support.",
     },
     features: {
       en: [
         "Runs on any Android tablet or iPad — bring your own device",
-        "TSE + DSFinV-K certified, Fiskaly cloud-TSE in one click",
+        "TSE + DSFinV-K certified, free Fiskaly cloud-TSE in one click",
         "Offline-first — keep selling when Wi-Fi drops, auto-sync on reconnect",
         "Split bills by item, seat or share with tabs, tips and discounts",
-        "Cash drawer, Bluetooth/LAN receipt printer, barcode scanner and scale support",
+        "Cash drawer, Bluetooth/LAN receipt printer and barcode scanner support",
         "Real-time sync to KDS, waiter app, QR ordering and online ordering",
-        "AI upsell suggestions tailored to each order in real time",
-        "Predictive sales forecasting and smart staff scheduling hints",
-        "Built-in multi-language interface — 12 languages out of the box",
+        "Built-in multi-language interface — 6 languages out of the box",
         "Unlimited products, categories, modifiers, allergens and tax rates",
         "Role-based permissions for owners, managers, waiters and cooks",
-        "Live multi-location dashboard with consolidated reporting",
       ],
       de: [
         "Läuft auf jedem Android-Tablet oder iPad — Bring-your-own-device",
-        "TSE + DSFinV-K zertifiziert, Fiskaly Cloud-TSE mit einem Klick",
+        "TSE + DSFinV-K zertifiziert, kostenlose Fiskaly Cloud-TSE mit einem Klick",
         "Offline-fähig — Verkauf auch ohne WLAN, automatische Synchronisation",
         "Rechnungen pro Artikel, Sitz oder Anteil splitten — Tische, Trinkgeld, Rabatte",
-        "Kassenschublade, Bluetooth-/LAN-Bondrucker, Barcode-Scanner und Waage",
+        "Kassenschublade, Bluetooth-/LAN-Bondrucker, Barcode-Scanner",
         "Echtzeit-Synchronisation mit KDS, Kellner-App, QR- und Online-Bestellung",
-        "KI-Upsell-Vorschläge in Echtzeit für jede Bestellung",
-        "Vorausschauende Umsatzprognosen und Hinweise zur Personalplanung",
-        "Mehrsprachige Oberfläche — 12 Sprachen out of the box",
+        "Mehrsprachige Oberfläche — 6 Sprachen out of the box",
         "Unbegrenzte Produkte, Kategorien, Modifikatoren, Allergene und Steuersätze",
         "Rollenbasierte Rechte für Inhaber, Manager, Service und Küche",
-        "Live-Dashboard für mehrere Standorte mit konsolidiertem Reporting",
       ],
     },
     sections: [
@@ -80,16 +74,6 @@ export const products: Record<ProductSlug, ProductContent> = {
         body: {
           en: "Legacy registers were built for the 1990s. A modern tablet POS turns every device in your venue — phone, tablet, terminal — into a sales surface. Take orders at the table, print receipts at the bar, and reconcile cash without ever leaving the floor. GastroPos uses a single source of truth in the cloud so every device sees the same menu, prices and inventory in real time.",
           de: "Klassische Registrierkassen sind aus den 90ern. Ein modernes Tablet-Kassensystem verwandelt jedes Gerät — Smartphone, Tablet oder Terminal — in eine Verkaufsfläche. Bestellungen am Tisch aufnehmen, Bons an der Bar drucken und Bargeld abrechnen, ohne den Service zu verlassen. GastroPos nutzt eine zentrale Cloud, sodass alle Geräte die gleiche Karte, Preise und Bestände in Echtzeit sehen.",
-        },
-      },
-      {
-        heading: {
-          en: "An AI that works the shift with you",
-          de: "Eine KI, die mit Ihrer Schicht arbeitet",
-        },
-        body: {
-          en: "GastroPos learns from every ticket. The AI suggests the right upsell at the right moment, flags items running low before they sell out, predicts the next 2 hours of footfall and recommends when to call in (or send home) a team member. It's not a separate dashboard — it's woven directly into the order screen, so your team sees the next best action without thinking about it.",
-          de: "GastroPos lernt aus jedem Bon. Die KI schlägt den passenden Upsell im richtigen Moment vor, warnt bevor Artikel ausverkauft sind, prognostiziert die nächsten 2 Stunden Gästeaufkommen und empfiehlt, wann ein Teammitglied gerufen oder nach Hause geschickt werden sollte. Kein separates Dashboard — direkt im Bestellbildschirm, sodass Ihr Team die nächste beste Aktion sieht, ohne darüber nachzudenken.",
         },
       },
       {
@@ -162,8 +146,8 @@ export const products: Record<ProductSlug, ProductContent> = {
       {
         q: { en: "What does the AI actually do?", de: "Was macht die KI konkret?" },
         a: {
-          en: "Three things, mainly: real-time upsell suggestions based on what's in the basket and what guests historically pair with it; sales and footfall forecasting for the next 2–24 hours so you staff and prep accurately; and inventory alerts that flag low stock before it becomes a stockout.",
-          de: "Hauptsächlich drei Dinge: Echtzeit-Upsell-Vorschläge basierend auf dem Warenkorb und historischen Kombinationen; Umsatz- und Gästeprognosen für die nächsten 2–24 Stunden zur präzisen Personal- und Mise-en-Place-Planung; sowie Bestandsalarme, bevor ein Artikel ausverkauft ist.",
+          en: "It makes onboarding faster: it creates your menu and table layout for you, sets up your printers, and answers questions about the system so you find solutions faster.",
+          de: "Sie beschleunigt das Onboarding: Sie erstellt Ihre Speisekarte und Ihren Tischplan, richtet Ihre Drucker ein und beantwortet Fragen zum System, damit Sie schneller Lösungen finden.",
         },
       },
       {
