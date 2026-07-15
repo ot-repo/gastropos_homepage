@@ -189,12 +189,30 @@ function ClarityInit() {
   return null;
 }
 
+const CRISP_WEBSITE_ID = "a87c07a7-3e09-40f2-8fa1-6a875cac50a1";
+
+/** Loads the Crisp chat widget on the client after hydration. */
+function CrispInit() {
+  useEffect(() => {
+    const w = window as typeof window & { $crisp?: unknown[]; CRISP_WEBSITE_ID?: string };
+    if (w.$crisp) return;
+    w.$crisp = [];
+    w.CRISP_WEBSITE_ID = CRISP_WEBSITE_ID;
+    const script = document.createElement("script");
+    script.src = "https://client.crisp.chat/l.js";
+    script.async = true;
+    document.head.appendChild(script);
+  }, []);
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
         <ClarityInit />
+        <CrispInit />
         <HtmlLangSync />
         <PageTransition>
           <Outlet />
