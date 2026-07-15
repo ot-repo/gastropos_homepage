@@ -3,10 +3,10 @@ import { useRef, useEffect, useState, useCallback } from "react";
 /* ─── Slide images ────────────────────────────────────────────────── */
 
 const SLIDES = [
-  "/carousel-kitchen.png",
-  "/carousel-restaurant.png",
-  "/carousel-cafe.png",
-  "/carousel-bar.png",
+  "/carousel-kitchen.jpg",
+  "/carousel-restaurant.jpg",
+  "/carousel-cafe.jpg",
+  "/carousel-bar.jpg",
 ];
 
 /* ─── Easing helper ───────────────────────────────────────────────── */

@@ -47,10 +47,10 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     if (!mounted) return;
     const imagesToPreload = [
-      "/carousel-kitchen.png",
-      "/carousel-restaurant.png",
-      "/carousel-cafe.png",
-      "/carousel-bar.png",
+      "/carousel-kitchen.jpg",
+      "/carousel-restaurant.jpg",
+      "/carousel-cafe.jpg",
+      "/carousel-bar.jpg",
     ];
 
     imagesToPreload.forEach((src) => {
