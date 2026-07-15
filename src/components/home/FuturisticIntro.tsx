@@ -97,8 +97,9 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
         }}
       >
         <h1 className="intro-logo-text font-display text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
-          <span className="text-white">Gastro</span>
-          <span style={{ color: "#ea5929" }}>Pos</span>
+          <span style={{ color: "#ea5929" }}>Gastro</span>
+          <span style={{ color: "#5b8af5" }}>Pos</span>
+          <span style={{ color: "#5b8af5", fontSize: "0.55em", fontWeight: 700, letterSpacing: "0.02em", opacity: 0.85 }}>.ai</span>
         </h1>
 
         <div
