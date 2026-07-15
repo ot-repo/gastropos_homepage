@@ -1,14 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 
 const SESSION_KEY = "gastropos_intro_seen";
 const PARTICLE_COUNT = 62;
-const TOTAL_DURATION = 3500; // ms — spiral plays, then overlay fades out
+const TOTAL_DURATION = 3500;
 
 /**
- * Futuristic intro overlay with Hakim El Hattab's cloudy spiral animation.
- * 62 particles spiral toward the camera in 3D perspective.
- * GastroPos logo reveals at the center during the animation.
- * Plays once per browser session on the homepage.
+ * Futuristic intro overlay — spiral vortex + logo reveal.
+ * Rendered via Portal into <body> to bypass PageTransition opacity.
  */
 export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
   const [mounted, setMounted] = useState(false);
@@ -16,11 +15,9 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
   const [logoVisible, setLogoVisible] = useState(false);
   const [fading, setFading] = useState(false);
 
-  // Only run on client
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Already seen this session — skip immediately
     if (sessionStorage.getItem(SESSION_KEY)) {
       setShow(false);
       onComplete();
@@ -29,13 +26,8 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
 
     setMounted(true);
 
-    // Show logo after 1s
     const logoTimer = setTimeout(() => setLogoVisible(true), 1000);
-
-    // Start fade-out
     const fadeTimer = setTimeout(() => setFading(true), TOTAL_DURATION - 800);
-
-    // Fully done
     const doneTimer = setTimeout(() => {
       sessionStorage.setItem(SESSION_KEY, "1");
       setShow(false);
@@ -50,8 +42,9 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
   }, [onComplete]);
 
   if (!show) return null;
+  if (typeof document === "undefined") return null;
 
-  return (
+  const overlay = (
     <div
       className="intro-overlay"
       style={{
@@ -60,13 +53,9 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
         transition: "opacity 0.8s cubic-bezier(0.76,0,0.24,1), transform 0.8s cubic-bezier(0.76,0,0.24,1)",
       }}
     >
-      {/* Neural grid background */}
       <div className="intro-neural-grid" />
-
-      {/* Scan line */}
       {mounted && <div className="intro-scanline" />}
 
-      {/* Spiral vortex */}
       <div className="intro-spiral-wrapper">
         <div className="intro-spiral">
           {Array.from({ length: PARTICLE_COUNT }, (_, i) => {
@@ -86,7 +75,6 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
         </div>
       </div>
 
-      {/* Logo + tagline */}
       <div
         className="intro-logo-container"
         style={{
@@ -124,7 +112,6 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
         />
       </div>
 
-      {/* Corner brackets */}
       <div className="intro-corner intro-corner--tl">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path d="M2 8V2h6" stroke="rgba(234,89,41,0.6)" strokeWidth="1" />
@@ -146,7 +133,6 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
         </svg>
       </div>
 
-      {/* HUD status text */}
       <div className="intro-hud">
         <span className="intro-hud-dots">
           <span className="intro-hud-dot" style={{ animationDelay: "0s" }} />
@@ -157,4 +143,6 @@ export function FuturisticIntro({ onComplete }: { onComplete: () => void }) {
       </div>
     </div>
   );
+
+  return createPortal(overlay, document.body);
 }

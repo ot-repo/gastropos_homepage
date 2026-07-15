@@ -3,11 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouterState } from "@tanstack/react-router";
 
 /**
- * Flash page transition — inspired by the intro overlay's exit effect.
- *
- * Exit:  current page fades + scales up slightly + blurs (like intro dissolve).
- * Flash: a brief full-screen brand-colored scanline flash fires at the midpoint.
- * Enter: new page fades in clean from slightly below.
+ * Page transition wrapper.
+ * Exit: current page fades out with slight scale + blur.
+ * Enter: new page fades in.
  */
 export function PageTransition({ children }: { children: ReactNode }) {
   const { location } = useRouterState();
